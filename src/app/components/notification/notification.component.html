@@ -1,0 +1,13 @@
+<ng-container *ngIf="notification$ | async as notification">
+  <clr-alert
+    [clrAlertType]="notification.type"
+    [clrAlertSizeSmall]="true"
+    [clrAlertAppLevel]="true"
+  >
+    <clr-alert-item>
+      <span class="alert-text">
+        {{ notification.message }}
+      </span>
+    </clr-alert-item>
+  </clr-alert>
+</ng-container>

@@ -1,0 +1,20 @@
+<section class="nav-group collapsible">
+  <ng-container *ngIf="translations && translations.length > 0; else noTranslation">
+    <input [id]="title" type="checkbox">
+    <label [for]="title">{{ title || 'Translations' }} <span class="badge">{{ translations.length }}</span></label>
+    <ul class="nav-list">
+      <li>
+        <a
+          *ngFor="let translation of translations"
+          href="#{{ translation.$.id }}"
+          class="nav-link"
+        >{{ translation.$.id }}</a>
+      </li>
+    </ul>
+  </ng-container>
+</section>
+
+<ng-template #noTranslation>
+  <label [for]="title">{{ title || 'Translations' }} <span class="badge">0</span></label>
+  No translation
+</ng-template>

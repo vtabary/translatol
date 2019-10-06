@@ -1,0 +1,14 @@
+<form clrForm *ngIf="group && file" [formGroup]="group" clrLayout="vertical" (submit)="submit()">
+  <clr-select-container [formGroup]="group">
+    <label>Target Language</label>
+
+    <select clrSelect formControlName="target">
+      <option value="en">English (en)</option>
+      <option value="fr">French (fr)</option>
+      <option value="">None</option>
+    </select>
+
+    <clr-control-helper>Specified by <button type="button" class="btn btn-sm btn-link" (click)="goToRFC()">RFC4646</button></clr-control-helper>
+  </clr-select-container>
+  <button class="btn btn-primary" type="submit" [disabled]="!group.dirty">Submit</button>
+</form>

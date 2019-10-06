@@ -1,0 +1,13 @@
+<ng-container *ngIf="dragover <= 0; else dragOnDrop">
+  <button class="btn" type="button" (click)="onOpenTranslation()">Open a translation</button>
+</ng-container>
+
+<ng-template #dragOnDrop>
+  <ng-container *ngIf="dragover === 1; else multipleDrag">
+    <h2>Release Here</h2>
+  </ng-container>
+</ng-template>
+
+<ng-template #multipleDrag>
+  <h2>Multiple files is not supported</h2>
+</ng-template>

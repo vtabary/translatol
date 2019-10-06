@@ -1,0 +1,35 @@
+<div class="content-container">
+  <nav class="sidenav">
+    <section class="sidenav-content">
+      <app-translation-navigation
+        [translations]="toTranslate$ | async"
+        title="To translate"
+      ></app-translation-navigation>
+      <app-translation-navigation
+        [translations]="translated$ | async"
+        title="Translated"
+      ></app-translation-navigation>
+    </section>
+  </nav>
+  <div class="content-area">
+    <h2 [title]="filePath">{{ filePath | endOfString:50 }}</h2>
+    <button type="button" class="btn" (click)="refresh()">Refresh</button>
+
+    <ng-container *ngFor="let file of translations.children">
+      <app-translation-language
+        [file]="file"
+        (submitted)="onSave()"
+      ></app-translation-language>
+    </ng-container>
+    <app-translation-list
+      [translations]="toTranslate$ | async"
+      title="To translate"
+      (submitted)="onSave()"
+    ></app-translation-list>
+    <app-translation-list
+      [translations]="translated$ | async"
+      title="Translated"
+      (submitted)="onSave()"
+    ></app-translation-list>
+  </div>
+</div>

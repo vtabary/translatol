@@ -1,0 +1,12 @@
+<ng-container [ngSwitch]="type">
+  <clr-input-container *ngSwitchCase="'string'" [formGroup]="group">
+    <label>{{ source }}</label>
+    <input clrInput type="text" [formControlName]="id" />
+  </clr-input-container>
+  <div *ngSwitchCase="'interpolation'">
+    <p>
+      <ng-container i18n="@@translation-item.interpolation">Interpolation: </ng-container>
+    </p>
+    <pre class="langage-html">{{ source.$['equiv-text'] }}</pre>
+  </div>
+</ng-container>

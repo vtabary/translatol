@@ -51,7 +51,7 @@ export class FileService {
       return throwError(new Error('Can not open file outside an Electron application'));
     }
 
-    const builder = new XliffBuilder({ pretty: false });
+    const builder = new XliffBuilder({ pretty: true });
     const xml = builder.build(data);
     return this.save(filePath, xml);
   }

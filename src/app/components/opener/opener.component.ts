@@ -8,24 +8,24 @@ import { ElectronService } from 'ngx-electron';
   styleUrls: ['./opener.component.scss']
 })
 export class OpenerComponent {
-  public dragover = -1;
+  public dragover = false;
 
   @HostListener('dragover', ['$event']) onDragOver(evt) {
     evt.preventDefault();
     evt.stopPropagation();
-    this.dragover = 1;
+    this.dragover = true;
   }
 
   @HostListener('dragleave', ['$event']) public onDragLeave(evt) {
     evt.preventDefault();
     evt.stopPropagation();
-    this.dragover = -1;
+    this.dragover = false;
   }
 
   @HostListener('drop', ['$event']) public ondrop(evt) {
     evt.preventDefault();
     evt.stopPropagation();
-    this.dragover = -1;
+    this.dragover = false;
 
     const files = evt.dataTransfer.files as File[];
     if (files.length > 1) {

@@ -1,5 +1,5 @@
-import { Observable, merge } from 'rxjs';
-import { map, shareReplay, switchMap } from 'rxjs/operators';
+import { Observable, merge, combineLatest } from 'rxjs';
+import { map, shareReplay, switchMap, startWith, tap } from 'rxjs/operators';
 import { Component, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -20,6 +20,7 @@ export class TranslationsComponent {
   public translated$: Observable<IXliffTransUnit[]>;
   public translations: IXliff;
   public filePath: string;
+  public searched$ = new EventEmitter<string>();
 
   private refreshed = new EventEmitter();
 
@@ -40,17 +41,19 @@ export class TranslationsComponent {
           this.historyService.add(this.filePath);
           return translationsService.getAllTranslations(locale);
         }),
+        this.filterOperator(this.searched$),
         shareReplay(1)
       );
 
     this.toTranslate$ = translations$.pipe(
-      map(translations => translations.filter(translation => !translation.children.some(child => child.name === 'target'))),
-      shareReplay(1)
-    );
+        this.filterByTranslatedOperator(false),
+        shareReplay(1)
+      );
+
     this.translated$ = translations$.pipe(
-      map(translations => translations.filter(translation => translation.children.some(child => child.name === 'target'))),
-      shareReplay(1)
-    );
+        this.filterByTranslatedOperator(true),
+        shareReplay(1)
+      );
   }
 
   public onSave() {
@@ -66,5 +69,41 @@ export class TranslationsComponent {
 
   public refresh() {
     this.refreshed.emit();
+  }
+
+  private filterByTranslatedOperator(translated: boolean): (source: Observable<IXliffTransUnit[]>) => Observable<IXliffTransUnit[]> {
+    return source$ => new Observable(observer => {
+      return source$.subscribe({
+          next: translations => observer.next(
+            translations.filter(translation => translation.children.some(child => child.name === 'target') === translated)
+          ),
+          error: err => observer.error(err),
+          complete: () => observer.complete(),
+        });
+    });
+  }
+
+  private filterOperator(filter$: Observable<string>): (source: Observable<IXliffTransUnit[]>) => Observable<IXliffTransUnit[]> {
+    return source$ => new Observable(observer => {
+      return combineLatest([
+          source$,
+          filter$.pipe(startWith(''))
+        ]).subscribe({
+          next: data => observer.next(this.filterByText(data[0], data[1])),
+          error: err => observer.error(err),
+          complete: () => observer.complete(),
+        });
+    });
+  }
+
+  private filterByText(translations: IXliffTransUnit[], filter: string): IXliffTransUnit[] {
+    if (filter === '') {
+      return translations;
+    }
+
+    return translations.filter(translation => {
+      return translation.name.indexOf(filter) >= 0
+          || translation.$.id.indexOf(filter) >= 0;
+    });
   }
 }

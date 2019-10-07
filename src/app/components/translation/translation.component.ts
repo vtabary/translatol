@@ -62,6 +62,8 @@ export class TranslationComponent implements OnChanges {
       this.target.children[index] = this.group.controls['target-' + index].value;
     });
 
+    this.target.$.state = 'translated';
+
     // Remove the current target in order to replace it by the new one
     this.translation.children = this.translation.children.filter(item => item !== this.target);
     this.translation.children.push(this.target);

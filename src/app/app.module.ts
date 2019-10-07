@@ -20,6 +20,8 @@ import { OpenerComponent } from './components/opener/opener.component';
 import { NotificationComponent } from './components/notification/notification.component';
 import { EndOfStringPipe } from './pipes/end-of-string/end-of-string.pipe';
 import { TranslationItemComponent } from './components/translation/translation-item/translation-item.component';
+import { TranslationSearchComponent } from './components/translation-search/translation-search.component';
+import { AboutComponent } from './pages/about/about.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,8 @@ import { TranslationItemComponent } from './components/translation/translation-i
     NotificationComponent,
     EndOfStringPipe,
     TranslationItemComponent,
+    TranslationSearchComponent,
+    AboutComponent,
   ],
   imports: [
     BrowserModule,

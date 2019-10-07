@@ -1,13 +1,11 @@
-<ng-container *ngIf="dragover <= 0; else dragOnDrop">
-  <button class="btn" type="button" (click)="onOpenTranslation()">Open a translation</button>
-</ng-container>
-
-<ng-template #dragOnDrop>
-  <ng-container *ngIf="dragover === 1; else multipleDrag">
-    <h2>Release Here</h2>
+<h2 i18n="@@opener.open-title">Open a translation</h2>
+<div class="drop-zone">
+  <ng-container *ngIf="!dragover; else dragOnDrop">
+    <ng-container i18n="@@opener.drap-and-drop">Drap and drop *.xlf files or</ng-container>
+    <button class="btn btn-sm" type="button" (click)="onOpenTranslation()" i18n="@@opener.browse">click to browse</button>
   </ng-container>
-</ng-template>
 
-<ng-template #multipleDrag>
-  <h2>Multiple files is not supported</h2>
-</ng-template>
+  <ng-template #dragOnDrop>
+    <ng-container i18n="opener.drop-here">Drop files Here</ng-container>
+  </ng-template>
+</div>

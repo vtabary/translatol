@@ -3,7 +3,7 @@
 <ng-container *ngIf="filePaths.length > 0; else noFile">
   <ul class="list">
     <li *ngFor="let filePath of filePaths">
-      <a routerLink="/translate/{{ filePath | btoa }}">{{ filePath }}</a>
+      <a routerLink="/translate/{{ filePath | btoa }}" [title]="filePath">{{ filePath | endOfString:50 }}</a>
       <button type="button" class="btn btn-link btn-sm" (click)="copy(filePath)"><clr-icon shape="copy-to-clipboard"></clr-icon></button>
     </li>
   </ul>

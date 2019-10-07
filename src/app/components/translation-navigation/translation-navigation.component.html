@@ -1,20 +1,20 @@
-<section class="nav-group collapsible">
-  <ng-container *ngIf="translations && translations.length > 0; else noTranslation">
-    <input [id]="title" type="checkbox">
-    <label [for]="title">{{ title || 'Translations' }} <span class="badge">{{ translations.length }}</span></label>
-    <ul class="nav-list">
-      <li>
-        <a
-          *ngFor="let translation of translations"
-          href="#{{ translation.$.id }}"
-          class="nav-link"
-        >{{ translation.$.id }}</a>
-      </li>
-    </ul>
-  </ng-container>
-</section>
+<clr-vertical-nav-group routerLinkActive="active">
+  <ng-container *ngIf="title; else defaultTitle">{{ title }}</ng-container>
+  <ng-template #defaultTitle>Translations</ng-template>
+  <span class="badge">{{ translations.length }}</span>
 
-<ng-template #noTranslation>
-  <label [for]="title">{{ title || 'Translations' }} <span class="badge">0</span></label>
-  No translation
-</ng-template>
+  <clr-vertical-nav-group-children *ngIf="translations.length > 0; else noTranslation">
+    <a
+      clrVerticalNavLink
+      *ngFor="let translation of translations"
+      href="#{{ translation.$.id }}"
+    >{{ translation.$.id }}</a>
+  </clr-vertical-nav-group-children>
+
+  <ng-template #noTranslation>
+    <label [for]="title">{{ title || 'Translations' }} <span class="badge">0</span></label>
+    <clr-vertical-nav-group-children>
+      <ng-container i18n="@@translation-navigation.no-translation">No translation</ng-container>
+    </clr-vertical-nav-group-children>
+  </ng-template>
+</clr-vertical-nav-group>

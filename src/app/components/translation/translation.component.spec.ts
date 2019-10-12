@@ -1,5 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NgxElectronModule } from 'ngx-electron';
 import { TranslationComponent } from './translation.component';
 
 describe('TranslationComponent', () => {
@@ -8,7 +10,12 @@ describe('TranslationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TranslationComponent ]
+      declarations: [ TranslationComponent ],
+      imports: [
+        ReactiveFormsModule,
+        NgxElectronModule,
+      ],
+      schemas: [ NO_ERRORS_SCHEMA ],
     })
     .compileComponents();
   }));

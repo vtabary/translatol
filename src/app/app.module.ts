@@ -15,13 +15,11 @@ import { TranslationNavigationComponent } from './components/translation-navigat
 import { TranslationListComponent } from './components/translation-list/translation-list.component';
 import { TranslationLanguageComponent } from './components/translation-language/translation-language.component';
 import { HistoryComponent } from './components/history/history.component';
-import { BtoaPipe } from './pipes/btoa/btoa.pipe';
 import { OpenerComponent } from './components/opener/opener.component';
-import { NotificationComponent } from './components/notification/notification.component';
-import { EndOfStringPipe } from './pipes/end-of-string/end-of-string.pipe';
 import { TranslationItemComponent } from './components/translation/translation-item/translation-item.component';
 import { TranslationSearchComponent } from './components/translation-search/translation-search.component';
 import { AboutComponent } from './pages/about/about.component';
+import { SharedModule } from './modules/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -34,10 +32,7 @@ import { AboutComponent } from './pages/about/about.component';
     TranslationListComponent,
     TranslationLanguageComponent,
     HistoryComponent,
-    BtoaPipe,
     OpenerComponent,
-    NotificationComponent,
-    EndOfStringPipe,
     TranslationItemComponent,
     TranslationSearchComponent,
     AboutComponent,
@@ -49,6 +44,7 @@ import { AboutComponent } from './pages/about/about.component';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     NgxElectronModule,
+    SharedModule,
   ],
   providers: [],
   bootstrap: [RootComponent]

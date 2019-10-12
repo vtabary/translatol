@@ -47,6 +47,10 @@ export class TranslationItemComponent implements OnChanges, OnDestroy {
   }
 
   public ngOnDestroy() {
+    if (!this.group) {
+      return;
+    }
+
     this.group.removeControl(this.id);
   }
 }

@@ -8,8 +8,8 @@ import { IXliffTransUnit } from '@vtabary/xliff2js';
 })
 export class TranslationNavigationComponent {
   @Input()
-  public translations: IXliffTransUnit[] = [];
+  public toTranslate: IXliffTransUnit[] = [];
 
   @Input()
-  public title: string;
+  public translated: IXliffTransUnit[] = [];
 }

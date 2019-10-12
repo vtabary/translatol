@@ -13,12 +13,51 @@
     "ng": "ng",
     "start": "ng serve --base-href \"\"",
     "build": "ng build --base-href \"\"",
+    "build:prod": "ng build --base-href \"\" --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "electron": "electron ."
+    "electron": "electron .",
+
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "postinstall": "electron-builder install-app-deps"
   },
   "main": "electron.js",
+  "build": {
+    "appId": "com.vtabary.translatol",
+    "productName": "Translatol",
+    "copyright": "Copyright © 2019 Vincent Tabary",
+    "files": [
+      "dist/translatol",
+      "src/electron",
+      "electron.js"
+    ],
+    "directories": {
+      "buildResources": "./build",
+      "output": "./dist/packages/${os}/${arch}"
+    },
+    "win": {
+      "icon": "./build/icon.png",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ]
+    },
+    "nsis": {}
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~8.2.0",
@@ -50,6 +89,7 @@
     "@types/node": "~8.9.4",
     "codelyzer": "^5.0.0",
     "electron": "^6.0.11",
+    "electron-builder": "^21.2.0",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~4.1.0",

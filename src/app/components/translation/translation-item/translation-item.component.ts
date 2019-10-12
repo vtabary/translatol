@@ -20,8 +20,9 @@ export class TranslationItemComponent implements OnChanges, OnDestroy {
   @Input()
   public group: FormGroup;
 
-  public type: 'interpolation' | 'string';
   public control: FormControl;
+  public text: string;
+  public interpolation: IXliffInterpolation;
 
   constructor(
     private formBuilder: FormBuilder
@@ -32,9 +33,13 @@ export class TranslationItemComponent implements OnChanges, OnDestroy {
       return;
     }
 
-    this.type = typeof this.source === 'string' ? 'string' : 'interpolation';
+    if (typeof this.source === 'string') {
+      this.text = this.source;
+    } else {
+      this.interpolation = this.source;
+    }
 
-    if (this.type !== 'string') {
+    if (!this.text) {
       return;
     }
 

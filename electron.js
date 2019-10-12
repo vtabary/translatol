@@ -12,8 +12,11 @@ function createWindow () {
   win.maximize();
 
   // and load the index.html of the app.
-  win.loadURL('http://localhost:4200')
-  // win.loadFile('index.html')
+  if (app.isPackaged) {
+    win.loadFile('./dist/translatol/index.html')
+  } else {
+    win.loadURL('http://localhost:4200')
+  }
 
   // Emitted when the window is closed.
   win.on('closed', () => {

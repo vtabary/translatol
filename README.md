@@ -2,6 +2,8 @@
 
 A tool in order to translate XLIFF files.
 
+[![Build Status](https://travis-ci.org/vtabary/translatol.svg?branch=master)](https://travis-ci.org/vtabary/translatol)
+
 ## Install
 
 ```

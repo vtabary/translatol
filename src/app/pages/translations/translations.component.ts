@@ -1,12 +1,12 @@
 import { Observable, merge, combineLatest } from 'rxjs';
-import { map, shareReplay, switchMap, startWith, tap } from 'rxjs/operators';
+import { map, shareReplay, switchMap, startWith, tap, filter } from 'rxjs/operators';
 import { Component, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { TranslationsService } from 'src/app/services/translations/translations.service';
 import { FileService } from 'src/app/services/file/file.service';
 import { HistoryService } from 'src/app/services/history/history.service';
-import { NotificationService } from 'src/app/services/notification/notification.service';
+import { NotificationService } from 'src/app/modules/shared/services/notification/notification.service';
 import { IXliffTransUnit, IXliff } from '@vtabary/xliff2js';
 
 @Component({
@@ -18,6 +18,7 @@ export class TranslationsComponent {
   public group: FormGroup;
   public toTranslate$: Observable<IXliffTransUnit[]>;
   public translated$: Observable<IXliffTransUnit[]>;
+  public translations$: Observable<IXliffTransUnit[]>;
   public translations: IXliff;
   public filePath: string;
   public searched$ = new EventEmitter<string>();
@@ -31,8 +32,11 @@ export class TranslationsComponent {
     private historyService: HistoryService,
     private notification: NotificationService
   ) {
-    const translations$ = merge(
-        this.activatedRoute.params.pipe(map(params => this.filePath = atob(params.properties))),
+    this.translations$ = merge(
+        this.activatedRoute.params.pipe(
+          filter(params => !!params.properties),
+          map(params => this.filePath = atob(params.properties))
+        ),
         this.refreshed.pipe(map(() => this.filePath)),
       ).pipe(
         switchMap(filePath => translationsService.load(filePath)),
@@ -45,12 +49,12 @@ export class TranslationsComponent {
         shareReplay(1)
       );
 
-    this.toTranslate$ = translations$.pipe(
+    this.toTranslate$ = this.translations$.pipe(
         this.filterByTranslatedOperator(false),
         shareReplay(1)
       );
 
-    this.translated$ = translations$.pipe(
+    this.translated$ = this.translations$.pipe(
         this.filterByTranslatedOperator(true),
         shareReplay(1)
       );

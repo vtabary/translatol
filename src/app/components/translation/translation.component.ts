@@ -107,6 +107,10 @@ export class TranslationComponent implements OnChanges {
   }
 
   private getChildren(name: 'source' | 'target' | 'note'): (string | IXliffTag)[] {
+    if (!this.translation) {
+      return [];
+    }
+
     const children = this.translation.children.filter(child => child.name === name);
     return children || [];
   }

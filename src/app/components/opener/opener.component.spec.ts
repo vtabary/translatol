@@ -1,4 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { NgxElectronModule } from 'ngx-electron';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { OpenerComponent } from './opener.component';
 
@@ -8,7 +10,11 @@ describe('OpenerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OpenerComponent ]
+      declarations: [ OpenerComponent ],
+      imports: [
+        RouterTestingModule,
+        NgxElectronModule,
+      ],
     })
     .compileComponents();
   }));

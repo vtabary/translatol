@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TranslationSearchComponent } from './translation-search.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ClarityModule } from '@clr/angular';
 
 describe('TranslationSearchComponent', () => {
   let component: TranslationSearchComponent;
@@ -8,7 +10,11 @@ describe('TranslationSearchComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TranslationSearchComponent ]
+      declarations: [ TranslationSearchComponent ],
+      imports: [
+        ReactiveFormsModule,
+        ClarityModule,
+      ],
     })
     .compileComponents();
   }));

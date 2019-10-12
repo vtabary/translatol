@@ -1,4 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ClarityModule } from '@clr/angular';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { TranslationNavigationComponent } from './translation-navigation.component';
 
@@ -8,7 +10,11 @@ describe('TranslationNavigationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TranslationNavigationComponent ]
+      declarations: [ TranslationNavigationComponent ],
+      imports: [
+        BrowserAnimationsModule,
+        ClarityModule,
+      ],
     })
     .compileComponents();
   }));

@@ -1,4 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ClarityModule } from '@clr/angular';
+import { NgxElectronModule } from 'ngx-electron';
 
 import { TranslationLanguageComponent } from './translation-language.component';
 
@@ -8,7 +11,12 @@ describe('TranslationLanguageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TranslationLanguageComponent ]
+      declarations: [ TranslationLanguageComponent ],
+      imports: [
+        ReactiveFormsModule,
+        ClarityModule,
+        NgxElectronModule,
+      ],
     })
     .compileComponents();
   }));

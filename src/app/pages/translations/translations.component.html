@@ -11,7 +11,7 @@
       (changed)="searched$.emit($event)"
     ></app-translation-search>
 
-    <ng-container *ngIf="translation">
+    <ng-container *ngIf="translations$ | async as translations">
       <app-translation-language
         *ngFor="let file of translations.children"
         [file]="file"

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgxElectronModule } from 'ngx-electron';
@@ -10,7 +10,7 @@ describe('TranslationsComponent', () => {
   let component: TranslationsComponent;
   let fixture: ComponentFixture<TranslationsComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ TranslationsComponent ],
       imports: [

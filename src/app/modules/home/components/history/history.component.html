@@ -1,0 +1,19 @@
+<h2 i18n="Recent files title@@history.recent-files">Recent files ({{ filePaths.length }} items)</h2>
+
+<ng-container *ngIf="filePaths.length > 0; else noFile">
+  <ul class="list">
+    <li *ngFor="let filePath of filePaths">
+      <ng-container [ngSwitch]="filePath.type">
+        <ng-container *ngSwitchCase="'file'">
+          <a routerLink="/translate/{{ filePath.path | btoa }}" [title]="filePath.path">{{ filePath.path | endOfString:50 }}</a>
+        </ng-container>
+        <ng-container *ngSwitchCase="'folder'">
+          <a routerLink="/translate/folder/{{ filePath.path | btoa }}" [title]="filePath.path">{{ filePath.path | endOfString:50 }}</a>
+        </ng-container>
+      </ng-container>
+      <button type="button" class="btn btn-link btn-sm" (click)="copy(filePath.path)"><clr-icon shape="copy-to-clipboard"></clr-icon></button>
+    </li>
+  </ul>
+</ng-container>
+
+<ng-template #noFile i18n="Default label when no file is in the history@@history.empty-list">No opened file yet</ng-template>

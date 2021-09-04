@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MainLayoutComponent } from './pages/main-layout/main-layout.component';
-import { HomeComponent } from './pages/home/home.component';
-import { TranslationsComponent } from './pages/translations/translations.component';
 import { AboutComponent } from './pages/about/about.component';
 
 const routes: Routes = [
@@ -12,7 +10,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: HomeComponent,
+        loadChildren: () => import('./modules/home/module').then(m => m.HomeModule),
       },
       {
         path: 'about',
@@ -20,17 +18,7 @@ const routes: Routes = [
       },
       {
         path: 'translate',
-        children: [
-          {
-            path: '',
-            redirectTo: '/',
-            pathMatch: 'full',
-          },
-          {
-            path: ':properties',
-            component: TranslationsComponent,
-          }
-        ]
+        loadChildren: () => import('./modules/translations/module').then(m => m.TranslationsModule),
       },
     ],
   }

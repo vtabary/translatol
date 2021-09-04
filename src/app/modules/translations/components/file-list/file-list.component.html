@@ -1,0 +1,21 @@
+<section class="sidenav-content">
+  <span class="nav-link">
+    <ng-container i18n="@@file-list.files">Files</ng-container>
+    <span class="badge">{{ filePaths.length }}</span>
+  </span>
+
+  <clr-tree *ngIf="folderPath$ | async as folderPath">
+    <clr-tree-node *clrRecursiveFor="let node of treeItems; getChildren: getChildren" [clrExpanded]="true">
+      <ng-container *ngIf="node.children.length > 0; else isFile">
+        <span title="{{ node.currentPath }}"><cds-icon shape="folder"></cds-icon> {{ node.currentId }}</span>
+      </ng-container>
+      <ng-template #isFile>
+        <a
+          routerLink="./{{ folderPath + '/' + node.currentPath | btoa }}"
+          routerLinkActive="active"
+          title="{{ node.currentPath }}"
+        ><cds-icon shape="file"></cds-icon> {{ node.currentId }}</a>
+      </ng-template>
+    </clr-tree-node>
+  </clr-tree>
+</section>

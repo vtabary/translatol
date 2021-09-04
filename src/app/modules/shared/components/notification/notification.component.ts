@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { NotificationService, INotification } from 'src/app/modules/shared/services/notification/notification.service';
 import { Observable } from 'rxjs';
+import { INotification, NotificationService } from '../../services/notification/notification.service';
 
 @Component({
   selector: 'app-notification',

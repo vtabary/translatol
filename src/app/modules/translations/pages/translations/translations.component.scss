@@ -1,0 +1,10 @@
+:host {
+  display: contents;
+}
+
+.content-container .sidenav {
+  border-left: .05rem solid #ccc;
+  border-right: none;
+  order: 1;
+  overflow-y: scroll;
+}

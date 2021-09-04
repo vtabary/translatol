@@ -4,7 +4,7 @@ import { IXliffTransUnit } from '@vtabary/xliff2js';
 @Component({
   selector: 'app-translation-list',
   templateUrl: './translation-list.component.html',
-  styleUrls: ['./translation-list.component.scss']
+  styleUrls: ['./translation-list.component.scss'],
 })
 export class TranslationListComponent {
   @Input()

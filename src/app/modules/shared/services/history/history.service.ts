@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import uniqBy from 'lodash/uniqBy';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class HistoryService {
   public list(): { path: string; type: 'file' | 'folder' }[] {
@@ -15,10 +15,10 @@ export class HistoryService {
           return item;
         }
 
-        return { path: item, type: 'file' }
+        return { path: item, type: 'file' };
       });
 
-      return uniqBy(list, 'path')
+      return uniqBy(list, 'path');
     } catch (e) {
       return [];
     }

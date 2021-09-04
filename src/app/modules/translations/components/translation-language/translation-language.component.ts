@@ -6,7 +6,7 @@ import { ElectronService } from 'src/app/modules/shared/public-api';
 @Component({
   selector: 'app-translation-language',
   templateUrl: './translation-language.component.html',
-  styleUrls: ['./translation-language.component.scss']
+  styleUrls: ['./translation-language.component.scss'],
 })
 export class TranslationLanguageComponent implements OnChanges {
   @Input()
@@ -17,10 +17,7 @@ export class TranslationLanguageComponent implements OnChanges {
 
   public group: FormGroup;
 
-  constructor(
-    formBuilder: FormBuilder,
-    private electron: ElectronService
-  ) {
+  constructor(formBuilder: FormBuilder, private electron: ElectronService) {
     this.group = formBuilder.group({
       target: '',
     });

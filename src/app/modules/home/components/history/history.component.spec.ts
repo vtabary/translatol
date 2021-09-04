@@ -9,17 +9,14 @@ describe('HistoryComponent', () => {
   let component: HistoryComponent;
   let fixture: ComponentFixture<HistoryComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ HistoryComponent ],
-      imports: [
-        SharedModule,
-        RouterTestingModule,
-        ClarityModule,
-      ],
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [HistoryComponent],
+        imports: [SharedModule, RouterTestingModule, ClarityModule],
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(HistoryComponent);

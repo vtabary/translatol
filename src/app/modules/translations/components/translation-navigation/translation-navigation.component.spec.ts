@@ -8,16 +8,14 @@ describe('TranslationNavigationComponent', () => {
   let component: TranslationNavigationComponent;
   let fixture: ComponentFixture<TranslationNavigationComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ TranslationNavigationComponent ],
-      imports: [
-        BrowserAnimationsModule,
-        ClarityModule,
-      ],
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [TranslationNavigationComponent],
+        imports: [BrowserAnimationsModule, ClarityModule],
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TranslationNavigationComponent);

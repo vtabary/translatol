@@ -7,16 +7,15 @@ describe('TranslationComponent', () => {
   let component: TranslationComponent;
   let fixture: ComponentFixture<TranslationComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ TranslationComponent ],
-      imports: [
-        ReactiveFormsModule,
-      ],
-      schemas: [ NO_ERRORS_SCHEMA ],
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [TranslationComponent],
+        imports: [ReactiveFormsModule],
+        schemas: [NO_ERRORS_SCHEMA],
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TranslationComponent);

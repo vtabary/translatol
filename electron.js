@@ -1,7 +1,7 @@
-const { app, BrowserWindow } = require('electron')
-require('@electron/remote/main').initialize()
+const { app, BrowserWindow } = require('electron');
+require('@electron/remote/main').initialize();
 
-function createWindow () {
+function createWindow() {
   // Create the browser window.
   let win = new BrowserWindow({
     width: 800,
@@ -10,15 +10,15 @@ function createWindow () {
       nodeIntegration: true,
       contextIsolation: false,
       enableRemoteModule: true,
-    }
+    },
   });
   win.maximize();
 
   // and load the index.html of the app.
   if (app.isPackaged) {
-    win.loadFile('./dist/translatol/index.html')
+    win.loadFile('./dist/translatol/index.html');
   } else {
-    win.loadURL('http://localhost:4200')
+    win.loadURL('http://localhost:4200');
   }
 
   // Emitted when the window is closed.
@@ -26,8 +26,8 @@ function createWindow () {
     // Dereference the window object, usually you would store windows
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
-    win = null
-  })
+    win = null;
+  });
 }
 
-app.on('ready', createWindow)
+app.on('ready', createWindow);

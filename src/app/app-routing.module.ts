@@ -21,11 +21,11 @@ const routes: Routes = [
         loadChildren: () => import('./modules/translations/module').then(m => m.TranslationsModule),
       },
     ],
-  }
+  },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: true, relativeLinkResolution: 'legacy' } )],
-  exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes, { useHash: true, relativeLinkResolution: 'legacy' })],
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

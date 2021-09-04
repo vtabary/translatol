@@ -10,7 +10,7 @@ describe('ElectronService', () => {
       const service: ElectronService = TestBed.get(ElectronService);
       expect(service).toBeTruthy();
 
-      pending('TODO')
+      pending('TODO');
     });
   });
 });

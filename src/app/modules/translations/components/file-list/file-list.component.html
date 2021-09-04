@@ -10,11 +10,9 @@
         <span title="{{ node.currentPath }}"><cds-icon shape="folder"></cds-icon> {{ node.currentId }}</span>
       </ng-container>
       <ng-template #isFile>
-        <a
-          routerLink="./{{ folderPath + '/' + node.currentPath | btoa }}"
-          routerLinkActive="active"
-          title="{{ node.currentPath }}"
-        ><cds-icon shape="file"></cds-icon> {{ node.currentId }}</a>
+        <a routerLink="./{{ folderPath + '/' + node.currentPath | btoa }}" routerLinkActive="active" title="{{ node.currentPath }}"
+          ><cds-icon shape="file"></cds-icon> {{ node.currentId }}</a
+        >
       </ng-template>
     </clr-tree-node>
   </clr-tree>

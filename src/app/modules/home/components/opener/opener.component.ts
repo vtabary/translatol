@@ -5,7 +5,7 @@ import { ElectronService } from 'src/app/modules/shared/public-api';
 @Component({
   selector: 'app-opener',
   templateUrl: './opener.component.html',
-  styleUrls: ['./opener.component.scss']
+  styleUrls: ['./opener.component.scss'],
 })
 export class OpenerComponent {
   public dragover = false;
@@ -39,30 +39,27 @@ export class OpenerComponent {
     this.openFile(files[0].path);
   }
 
-  constructor(
-    private electron: ElectronService,
-    private router: Router
-  ) {}
+  constructor(private electron: ElectronService, private router: Router) {}
 
   public onOpenTranslation() {
     if (!this.electron.isElectron) {
       return;
     }
 
-    this.electron.remote.dialog.showOpenDialog(
-      {
+    this.electron.remote.dialog
+      .showOpenDialog({
         properties: ['openFile'],
-        filters: [ { name: 'XLIFF', extensions: [ 'xlf' ] } ]
-      }
-    ).then(result => {
-      if (result.canceled) {
-        return;
-      }
-      this.openFile(result.filePaths[0]);
-    });
+        filters: [{ name: 'XLIFF', extensions: ['xlf'] }],
+      })
+      .then(result => {
+        if (result.canceled) {
+          return;
+        }
+        this.openFile(result.filePaths[0]);
+      });
   }
 
   private openFile(filePath: string) {
-    this.router.navigate([ '/translate', btoa(filePath) ]);
+    this.router.navigate(['/translate', btoa(filePath)]);
   }
 }

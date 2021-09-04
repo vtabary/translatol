@@ -10,11 +10,6 @@ import { HomeComponent } from './pages/home/home.component';
 
 @NgModule({
   declarations: [HomeComponent, FolderOpenerComponent, HistoryComponent, OpenerComponent],
-  imports: [
-    CommonModule,
-    SharedModule,
-    ClarityModule,
-    HomeRoutingModule,
-  ]
+  imports: [CommonModule, SharedModule, ClarityModule, HomeRoutingModule],
 })
 export class HomeModule {}

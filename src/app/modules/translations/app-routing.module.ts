@@ -20,9 +20,9 @@ const routes: Routes = [
             path: '',
             component: NoFileComponent,
           },
-        ]
+        ],
       },
-    ]
+    ],
   },
   {
     path: ':properties',
@@ -37,6 +37,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class TranslationsRoutingModule { }
+export class TranslationsRoutingModule {}

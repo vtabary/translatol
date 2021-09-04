@@ -1,9 +1,7 @@
 <div class="clr-row">
   <div class="clr-col-12">
     <div class="card">
-      <div class="card-header" i18n="translation-language.target-language">
-        Target Language
-      </div>
+      <div class="card-header" i18n="translation-language.target-language">Target Language</div>
       <form clrForm *ngIf="group && file" [formGroup]="group" clrLayout="vertical" (submit)="submit()">
         <div class="card-block">
           <div class="card-text">
@@ -14,7 +12,9 @@
                 <option value="">None</option>
               </select>
 
-              <clr-control-helper>Specified by <button type="button" class="btn btn-sm btn-link" (click)="goToRFC()">RFC4646</button></clr-control-helper>
+              <clr-control-helper
+                >Specified by <button type="button" class="btn btn-sm btn-link" (click)="goToRFC()">RFC4646</button></clr-control-helper
+              >
             </clr-select-container>
           </div>
         </div>

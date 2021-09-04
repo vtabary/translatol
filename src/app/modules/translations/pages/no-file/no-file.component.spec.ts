@@ -9,17 +9,15 @@ describe('NoFileComponent', () => {
   let component: NoFileComponent;
   let fixture: ComponentFixture<NoFileComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ NoFileComponent ],
-      imports: [
-        SharedModule,
-        RouterTestingModule,
-      ],
-      schemas: [ NO_ERRORS_SCHEMA ],
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [NoFileComponent],
+        imports: [SharedModule, RouterTestingModule],
+        schemas: [NO_ERRORS_SCHEMA],
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(NoFileComponent);

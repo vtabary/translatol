@@ -9,17 +9,15 @@ describe('TranslationsComponent', () => {
   let component: TranslationsComponent;
   let fixture: ComponentFixture<TranslationsComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ TranslationsComponent ],
-      imports: [
-        SharedModule,
-        RouterTestingModule,
-      ],
-      schemas: [ NO_ERRORS_SCHEMA ],
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [TranslationsComponent],
+        imports: [SharedModule, RouterTestingModule],
+        schemas: [NO_ERRORS_SCHEMA],
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TranslationsComponent);

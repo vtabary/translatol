@@ -9,17 +9,14 @@ describe('FolderOpenerComponent', () => {
   let component: FolderOpenerComponent;
   let fixture: ComponentFixture<FolderOpenerComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ FolderOpenerComponent ],
-      imports: [
-        SharedModule,
-        RouterTestingModule,
-        ClarityModule,
-      ],
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [FolderOpenerComponent],
+        imports: [SharedModule, RouterTestingModule, ClarityModule],
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(FolderOpenerComponent);

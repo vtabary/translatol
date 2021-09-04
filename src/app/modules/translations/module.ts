@@ -28,12 +28,6 @@ import { TranslationsComponent } from './pages/translations/translations.compone
     FolderTranslationsComponent,
     NoFileComponent,
   ],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    ClarityModule,
-    SharedModule,
-    TranslationsRoutingModule,
-  ]
+  imports: [CommonModule, ReactiveFormsModule, ClarityModule, SharedModule, TranslationsRoutingModule],
 })
 export class TranslationsModule {}

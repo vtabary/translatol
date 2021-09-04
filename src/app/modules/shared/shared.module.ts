@@ -6,19 +6,8 @@ import { BtoaPipe } from './pipes/btoa/btoa.pipe';
 import { EndOfStringPipe } from './pipes/end-of-string/end-of-string.pipe';
 
 @NgModule({
-  declarations: [
-    NotificationComponent,
-    BtoaPipe,
-    EndOfStringPipe,
-  ],
-  imports: [
-    CommonModule,
-    ClarityModule,
-  ],
-  exports: [
-    NotificationComponent,
-    BtoaPipe,
-    EndOfStringPipe,
-  ],
+  declarations: [NotificationComponent, BtoaPipe, EndOfStringPipe],
+  imports: [CommonModule, ClarityModule],
+  exports: [NotificationComponent, BtoaPipe, EndOfStringPipe],
 })
-export class SharedModule { }
+export class SharedModule {}

@@ -7,13 +7,14 @@ describe('TranslationListComponent', () => {
   let component: TranslationListComponent;
   let fixture: ComponentFixture<TranslationListComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ TranslationListComponent ],
-      schemas: [ NO_ERRORS_SCHEMA ],
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [TranslationListComponent],
+        schemas: [NO_ERRORS_SCHEMA],
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TranslationListComponent);

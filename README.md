@@ -12,7 +12,7 @@ npm install
 # or with yarn
 
 yarn
-````
+```
 
 ## Launch
 

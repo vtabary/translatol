@@ -5,13 +5,10 @@ import { XliffBuilder, IXliff, XliffParser } from '@vtabary/xliff2js';
 import { ElectronService } from 'src/app/modules/shared/public-api';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FileService {
-
-  constructor(
-    private electron: ElectronService
-  ) { }
+  constructor(private electron: ElectronService) {}
 
   public open(filePath: string): Observable<string> {
     if (!this.electron.isElectron) {
@@ -31,10 +28,12 @@ export class FileService {
       return throwError(new Error('Can not open file outside an Electron application'));
     }
 
-    return this.open(filePath).pipe(switchMap(data => {
-      const parser = new XliffParser();
-      return of(parser.parse(data));
-    }));
+    return this.open(filePath).pipe(
+      switchMap(data => {
+        const parser = new XliffParser();
+        return of(parser.parse(data));
+      })
+    );
   }
 
   public save(filePath: string, data: string): Observable<void> {

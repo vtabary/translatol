@@ -21,7 +21,7 @@ export interface INotification extends IMessage {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NotificationService {
   public notify = new EventEmitter<INotification>();

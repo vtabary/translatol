@@ -11,11 +11,10 @@
         class="nav-link"
         href="#{{ toTranslateItem.currentPath }}"
         title="{{ toTranslateItem.currentPath }}"
-      >{{ toTranslateItem.currentId }}</a>
+        >{{ toTranslateItem.currentId }}</a
+      >
       <ng-template #isFolder>
-        <span
-          title="{{ toTranslateItem.currentPath }}"
-        >{{ toTranslateItem.currentId }}</span>
+        <span title="{{ toTranslateItem.currentPath }}">{{ toTranslateItem.currentId }}</span>
       </ng-template>
     </clr-tree-node>
   </clr-tree>
@@ -32,11 +31,10 @@
         class="nav-link"
         href="#{{ translatedItem.currentPath }}"
         title="{{ translatedItem.currentPath }}"
-      >{{ translatedItem.currentId }}</a>
+        >{{ translatedItem.currentId }}</a
+      >
       <ng-template #isFolder>
-        <span
-          title="{{ translatedItem.currentPath }}"
-        >{{ translatedItem.currentId }}</span>
+        <span title="{{ translatedItem.currentPath }}">{{ translatedItem.currentId }}</span>
       </ng-template>
     </clr-tree-node>
   </clr-tree>

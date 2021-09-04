@@ -1,10 +1,4 @@
-import {
-  IXliffTransUnit,
-  IXliffTag,
-  IXliffTarget,
-  IXliffSource,
-  IXliffNote,
-} from '@vtabary/xliff2js';
+import { IXliffTransUnit, IXliffTag, IXliffTarget, IXliffSource, IXliffNote } from '@vtabary/xliff2js';
 import { Component, Input, OnChanges, SimpleChanges, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ElectronService } from 'src/app/modules/shared/public-api';
@@ -12,7 +6,7 @@ import { ElectronService } from 'src/app/modules/shared/public-api';
 @Component({
   selector: 'app-translation',
   templateUrl: './translation.component.html',
-  styleUrls: ['./translation.component.scss']
+  styleUrls: ['./translation.component.scss'],
 })
 export class TranslationComponent implements OnChanges {
   @Input()
@@ -32,10 +26,7 @@ export class TranslationComponent implements OnChanges {
   public target: IXliffTarget;
   public notes: IXliffNote[];
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private electron: ElectronService
-  ) {
+  constructor(private formBuilder: FormBuilder, private electron: ElectronService) {
     this.group = this.formBuilder.group({});
   }
 
@@ -60,7 +51,7 @@ export class TranslationComponent implements OnChanges {
   public submit() {
     this.source.children.forEach((value, index) => {
       if (typeof value !== 'string') {
-        return this.target.children[index] = value;
+        return (this.target.children[index] = value);
       }
 
       this.target.children[index] = this.group.controls['target-' + index].value;
@@ -78,7 +69,7 @@ export class TranslationComponent implements OnChanges {
 
   public copySource() {
     this.source.children.forEach((value, index) => {
-      this.group.controls[ 'target-' + index ].setValue(value);
+      this.group.controls['target-' + index].setValue(value);
     });
     this.group.markAsDirty();
   }

@@ -16,20 +16,9 @@ import { ClarityIcons, fileIcon, folderIcon, infoStandardIcon } from '@cds/core/
 ClarityIcons.addIcons(fileIcon, folderIcon, infoStandardIcon);
 
 @NgModule({
-  declarations: [
-    MainLayoutComponent,
-    RootComponent,
-    AboutComponent,
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ClarityModule,
-    BrowserAnimationsModule,
-    ReactiveFormsModule,
-    SharedModule,
-  ],
+  declarations: [MainLayoutComponent, RootComponent, AboutComponent],
+  imports: [BrowserModule, AppRoutingModule, ClarityModule, BrowserAnimationsModule, ReactiveFormsModule, SharedModule],
   providers: [],
-  bootstrap: [RootComponent]
+  bootstrap: [RootComponent],
 })
-export class AppModule { }
+export class AppModule {}

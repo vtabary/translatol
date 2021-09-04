@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'endOfString'
+  name: 'endOfString',
 })
 export class EndOfStringPipe implements PipeTransform {
   transform(value: string, length: number, approx: number = 5): string {

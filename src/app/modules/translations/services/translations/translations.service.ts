@@ -7,13 +7,10 @@ import { FileService } from '../file/file.service';
 import { ElectronService } from 'src/app/modules/shared/public-api';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TranslationsService {
-  constructor(
-    private electron: ElectronService,
-    private fileService: FileService
-  ) {}
+  constructor(private electron: ElectronService, private fileService: FileService) {}
 
   public load(filePath: string, templateFilePath?: string): Observable<IXliff> {
     templateFilePath = templateFilePath || this.getTemplatePathFrom(filePath);
@@ -21,19 +18,17 @@ export class TranslationsService {
     return forkJoin([
       this.fileService.openXLIFF(templateFilePath).pipe(catchError(() => of(undefined))),
       this.fileService.openXLIFF(filePath),
-    ]).pipe(
-      map(translations => this.merge(translations[0], translations[1]))
-    );
+    ]).pipe(map(translations => this.merge(translations[0], translations[1])));
   }
 
   public merge(template: IXliff, current: IXliff): IXliff {
-    if (!template ) {
+    if (!template) {
       return current;
     }
 
     const clone: IXliff = cloneDeep(template);
     // Transfer all target language from the current translation file to the clone
-    clone.children.forEach((cloneFile, index) => cloneFile.$['target-language'] = current.children[index].$['target-language']);
+    clone.children.forEach((cloneFile, index) => (cloneFile.$['target-language'] = current.children[index].$['target-language']));
 
     const templateTranslations = this.getAllTranslations(clone);
     const currentTranslations = this.getAllTranslations(current);
@@ -51,8 +46,7 @@ export class TranslationsService {
       return [];
     }
 
-    return locale.children.map(child => this.getAllFileTranslations(child))
-      .reduce((prev, curr) => prev.concat(curr), []);
+    return locale.children.map(child => this.getAllFileTranslations(child)).reduce((prev, curr) => prev.concat(curr), []);
   }
 
   private getAllFileTranslations(file: IXliffFile): IXliffTransUnit[] {
@@ -60,8 +54,7 @@ export class TranslationsService {
       return [];
     }
 
-    return file.children.map(child => this.getAllBodyTranslations(child))
-      .reduce((prev, curr) => prev.concat(curr), []);
+    return file.children.map(child => this.getAllBodyTranslations(child)).reduce((prev, curr) => prev.concat(curr), []);
   }
 
   private getAllBodyTranslations(body: IXliffBody): IXliffTransUnit[] {
@@ -73,8 +66,7 @@ export class TranslationsService {
   }
 
   private getTranslation(id: string, translations: IXliffTransUnit[]): IXliffTransUnit | undefined {
-    return (translations || [])
-      .find(translation => translation.$.id === id);
+    return (translations || []).find(translation => translation.$.id === id);
   }
 
   private copyTarget(from: IXliffTransUnit, to: IXliffTransUnit) {

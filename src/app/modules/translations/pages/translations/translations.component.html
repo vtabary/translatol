@@ -1,17 +1,11 @@
 <div class="content-container" *ngIf="translations$ | async as translations">
   <div class="content-area">
-    <h2 [title]="filePath">{{ filePath | endOfString:50 }}</h2>
+    <h2 [title]="filePath">{{ filePath | endOfString: 50 }}</h2>
     <button type="button" class="btn" (click)="refresh()" i18n="@@translations.refresh">Refresh</button>
 
-    <app-translation-search
-      (changed)="searched$.emit($event)"
-    ></app-translation-search>
+    <app-translation-search (changed)="searched$.emit($event)"></app-translation-search>
 
-    <app-translation-language
-      *ngFor="let file of translations.children"
-      [file]="file"
-      (submitted)="onSave()"
-    ></app-translation-language>
+    <app-translation-language *ngFor="let file of translations.children" [file]="file" (submitted)="onSave()"></app-translation-language>
     <app-translation-list
       [translations]="toTranslate$ | async"
       [targetLanguage]="targetLanguage"
@@ -27,9 +21,6 @@
     ></app-translation-list>
   </div>
   <nav class="sidenav">
-    <app-translation-navigation
-      [toTranslate]="toTranslate$ | async"
-      [translated]="translated$ | async"
-    ></app-translation-navigation>
+    <app-translation-navigation [toTranslate]="toTranslate$ | async" [translated]="translated$ | async"></app-translation-navigation>
   </nav>
 </div>

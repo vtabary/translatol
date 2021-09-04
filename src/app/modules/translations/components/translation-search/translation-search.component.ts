@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-translation-search',
   templateUrl: './translation-search.component.html',
-  styleUrls: ['./translation-search.component.scss']
+  styleUrls: ['./translation-search.component.scss'],
 })
 export class TranslationSearchComponent {
   @Output()
@@ -12,9 +12,7 @@ export class TranslationSearchComponent {
 
   public group: FormGroup;
 
-  constructor(
-    private formBuilder: FormBuilder
-  ) {
+  constructor(private formBuilder: FormBuilder) {
     this.group = this.formBuilder.group({
       text: '',
     });

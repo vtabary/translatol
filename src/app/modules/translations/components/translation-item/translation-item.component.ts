@@ -5,7 +5,7 @@ import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 @Component({
   selector: 'app-translation-item',
   templateUrl: './translation-item.component.html',
-  styleUrls: ['./translation-item.component.scss']
+  styleUrls: ['./translation-item.component.scss'],
 })
 export class TranslationItemComponent implements OnChanges, OnDestroy {
   @Input()
@@ -30,9 +30,7 @@ export class TranslationItemComponent implements OnChanges, OnDestroy {
   public text: string;
   public interpolation: IXliffInterpolation;
 
-  constructor(
-    private formBuilder: FormBuilder
-  ) {}
+  constructor(private formBuilder: FormBuilder) {}
 
   public ngOnChanges() {
     if (!this.source) {
@@ -49,7 +47,7 @@ export class TranslationItemComponent implements OnChanges, OnDestroy {
       return;
     }
 
-    this.group.addControl(this.id, this.formBuilder.control((this.target ? this.target as string : '').trim()));
+    this.group.addControl(this.id, this.formBuilder.control((this.target ? (this.target as string) : '').trim()));
   }
 
   public ngOnDestroy() {

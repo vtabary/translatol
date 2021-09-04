@@ -8,10 +8,9 @@ describe('FileListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FileListComponent,  ],
-      imports: [RouterTestingModule]
-    })
-    .compileComponents();
+      declarations: [FileListComponent],
+      imports: [RouterTestingModule],
+    }).compileComponents();
   });
 
   beforeEach(() => {

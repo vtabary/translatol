@@ -5,14 +5,12 @@ import { INotification, NotificationService } from '../../services/notification/
 @Component({
   selector: 'app-notification',
   templateUrl: './notification.component.html',
-  styleUrls: ['./notification.component.scss']
+  styleUrls: ['./notification.component.scss'],
 })
 export class NotificationComponent {
   public notification$: Observable<INotification>;
 
-  constructor(
-    notificationService: NotificationService
-  ) {
+  constructor(notificationService: NotificationService) {
     this.notification$ = notificationService.notify;
   }
 }

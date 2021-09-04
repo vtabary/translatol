@@ -4,15 +4,12 @@ import { ElectronService, HistoryService } from 'src/app/modules/shared/public-a
 @Component({
   selector: 'app-history',
   templateUrl: './history.component.html',
-  styleUrls: ['./history.component.scss']
+  styleUrls: ['./history.component.scss'],
 })
 export class HistoryComponent {
   public filePaths: { path: string; type: 'file' | 'folder' }[];
 
-  constructor(
-    private historyService: HistoryService,
-    private electron: ElectronService
-  ) {
+  constructor(private historyService: HistoryService, private electron: ElectronService) {
     this.filePaths = this.historyService.list();
   }
 

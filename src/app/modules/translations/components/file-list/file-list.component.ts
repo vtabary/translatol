@@ -7,7 +7,7 @@ import { ITreeNode, TreeBuilderService } from '../../services/tree-builder/tree-
 @Component({
   selector: 'app-file-list',
   templateUrl: './file-list.component.html',
-  styleUrls: ['./file-list.component.scss']
+  styleUrls: ['./file-list.component.scss'],
 })
 export class FileListComponent implements OnChanges {
   @Input()
@@ -17,9 +17,7 @@ export class FileListComponent implements OnChanges {
   public treeItems: ITreeNode[] = [];
 
   constructor(activatedRoute: ActivatedRoute, private treeBuilder: TreeBuilderService) {
-    this.folderPath$ = activatedRoute.params.pipe(
-      map(params => atob(params.folder || ''))
-    );
+    this.folderPath$ = activatedRoute.params.pipe(map(params => atob(params.folder || '')));
   }
 
   public ngOnChanges(changes: SimpleChanges): void {

@@ -2,7 +2,7 @@
   "name": "translatol",
   "description": "A tool in order to translate XLIFF files",
   "author": "Vincent Tabary <vincent@tabary.me>",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/vtabary/translatol"
@@ -31,7 +31,7 @@
   "build": {
     "appId": "com.vtabary.translatol",
     "productName": "Translatol",
-    "copyright": "Copyright © 2019 Vincent Tabary",
+    "copyright": "Copyright © 2021 Vincent Tabary",
     "files": [
       "dist/translatol",
       "src/electron",
@@ -71,6 +71,11 @@
             "x64",
             "ia32"
           ]
+        }
+      ],
+      "publish": [
+        {
+          "provider": "github"
         }
       ]
     }

@@ -7,6 +7,8 @@ on:
 
 jobs:
   release:
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     strategy:
       fail-fast: true
       matrix:
@@ -36,5 +38,6 @@ jobs:
       - name: Create a release
         uses: ncipollo/release-action@v1
         with:
+          allowUpdates: true
           artifacts: ${{ matrix.config.artifacts }}
           token: ${{ secrets.GITHUB_TOKEN }}

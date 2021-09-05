@@ -24,7 +24,8 @@
     "pack": "electron-builder --dir",
     "dist": "electron-builder build",
     "postinstall": "electron-builder install-app-deps",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "postversion": "git push origin HEAD && git push origin v$npm_package_version"
   },
   "main": "electron.js",
   "build": {

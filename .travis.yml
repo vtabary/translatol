@@ -1,22 +1,39 @@
 sudo: false
 
 language: node_js
+
 node_js:
-  - '12'
+  - 14
 
 addons:
   chrome: stable
 
 cache:
+  yarn: true
   directories:
-    - $HOME/.npm
     - ./node_modules
+    - $HOME/.npm
+    - $HOME/.cache/electron
+    - $HOME/.cache/electron-builder
 
 notifications:
   email: false
 
-install:
-  - npm install
+# Since yarn.lock and package.json files are present, Travis should use `yarn`
+# https://docs.travis-ci.com/user/languages/javascript-with-nodejs/#using-yarn
 
 script:
-  - npm run test -- --watch=false --no-progress --browsers=ChromeHeadless
+  - yarn test -- --watch=false --no-progress --browsers=ChromeHeadless
+  # Build Angular project
+  - yarn build
+  # Build Electron project
+  - yarn dist
+
+deploy:
+  - provider: releases
+    api_key: $GITHUB_TOKEN
+    file_glob: true
+    file: 'dist/packages/linux/x64/*'
+    skip_cleanup: true
+    on:
+      tags: true

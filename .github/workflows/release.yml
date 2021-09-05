@@ -6,8 +6,17 @@ on:
       - v*
 
 jobs:
-  release-ubuntu:
-    runs-on: ubuntu-latest
+  release:
+    strategy:
+      fail-fast: true
+      matrix:
+        config:
+          - os: ubuntu-latest
+            artifacts: 'dist/packages/linux/x64/*.deb'
+          - os: windows-latest
+            artifacts: 'dist/packages/win/x64/*.exe'
+
+    runs-on: ${{ matrix.config.os }}
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js 14
@@ -27,5 +36,5 @@ jobs:
       - name: Create a release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: 'dist/packages/linux/x64/*.deb'
+          artifacts: ${{ matrix.config.artifacts }}
           token: ${{ secrets.GITHUB_TOKEN }}

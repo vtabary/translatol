@@ -2,7 +2,7 @@
   "name": "translatol",
   "description": "A tool in order to translate XLIFF files",
   "author": "Vincent Tabary <vincent@tabary.me>",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/vtabary/translatol"

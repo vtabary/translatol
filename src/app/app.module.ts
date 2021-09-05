@@ -11,9 +11,9 @@ import { AboutComponent } from './pages/about/about.component';
 import { SharedModule } from './modules/shared/shared.module';
 
 import '@cds/core/icon/register.js';
-import { ClarityIcons, fileIcon, folderIcon, infoStandardIcon } from '@cds/core/icon';
+import { ClarityIcons, helpIcon, languageIcon } from '@cds/core/icon';
 
-ClarityIcons.addIcons(fileIcon, folderIcon, infoStandardIcon);
+ClarityIcons.addIcons(helpIcon, languageIcon);
 
 @NgModule({
   declarations: [MainLayoutComponent, RootComponent, AboutComponent],

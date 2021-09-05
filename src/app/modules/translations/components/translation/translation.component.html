@@ -2,9 +2,7 @@
   <div class="clr-col-12">
     <div class="card">
       <div class="card-header">
-        <a href="#" i18n-title="translation.copy-id" title="Copy id" (click)="copy(translation.$.id, $event)"
-          ><clr-icon shape="copy-to-clipboard"></clr-icon
-        ></a>
+        <app-copy-to-clipboard [toCopy]="translation.$.id"></app-copy-to-clipboard>
         {{ translation.$.id }}
       </div>
 

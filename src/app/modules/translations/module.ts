@@ -15,6 +15,10 @@ import { FolderTranslationsComponent } from './pages/folder-translations/folder-
 import { NoFileComponent } from './pages/no-file/no-file.component';
 import { TranslationsComponent } from './pages/translations/translations.component';
 
+import { ClarityIcons, fileIcon, folderIcon, infoStandardIcon, searchIcon } from '@cds/core/icon';
+
+ClarityIcons.addIcons(fileIcon, folderIcon, infoStandardIcon, searchIcon);
+
 @NgModule({
   declarations: [
     TranslationsComponent,

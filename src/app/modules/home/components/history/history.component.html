@@ -11,9 +11,7 @@
           <a routerLink="/translate/folder/{{ filePath.path | btoa }}" [title]="filePath.path">{{ filePath.path | endOfString: 50 }}</a>
         </ng-container>
       </ng-container>
-      <button type="button" class="btn btn-link btn-sm" (click)="copy(filePath.path)">
-        <clr-icon shape="copy-to-clipboard"></clr-icon>
-      </button>
+      <app-copy-to-clipboard [toCopy]="filePath.path"></app-copy-to-clipboard>
     </li>
   </ul>
 </ng-container>

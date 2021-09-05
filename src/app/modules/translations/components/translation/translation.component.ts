@@ -26,7 +26,7 @@ export class TranslationComponent implements OnChanges {
   public target: IXliffTarget;
   public notes: IXliffNote[];
 
-  constructor(private formBuilder: FormBuilder, private electron: ElectronService) {
+  constructor(private formBuilder: FormBuilder) {
     this.group = this.formBuilder.group({});
   }
 
@@ -72,12 +72,6 @@ export class TranslationComponent implements OnChanges {
       this.group.controls['target-' + index].setValue(value);
     });
     this.group.markAsDirty();
-  }
-
-  public copy(filePath: string, event: Event) {
-    event.preventDefault();
-    event.stopPropagation();
-    this.electron.clipboard.writeText(filePath, 'clipboard');
   }
 
   private getSource(): IXliffSource {

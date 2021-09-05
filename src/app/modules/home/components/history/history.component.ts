@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ElectronService, HistoryService } from 'src/app/modules/shared/public-api';
+import { HistoryService } from 'src/app/modules/shared/public-api';
 
 @Component({
   selector: 'app-history',
@@ -9,11 +9,7 @@ import { ElectronService, HistoryService } from 'src/app/modules/shared/public-a
 export class HistoryComponent {
   public filePaths: { path: string; type: 'file' | 'folder' }[];
 
-  constructor(private historyService: HistoryService, private electron: ElectronService) {
+  constructor(private historyService: HistoryService) {
     this.filePaths = this.historyService.list();
-  }
-
-  public copy(filePath: string) {
-    this.electron.clipboard.writeText(filePath, 'clipboard');
   }
 }

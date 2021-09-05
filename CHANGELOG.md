@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
+- Add a component to "copy to clipboard"
+
+### Fixed
+
+- When the target is a complex object, the translation item coul throw an error
+
+## 0.1.0 (2021/09/05)
+
+### Added
+
 - Support folders
 - Use lazy loading to speed up the application
 - Upgrade to Angular 12

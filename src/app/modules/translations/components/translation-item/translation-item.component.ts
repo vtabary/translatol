@@ -47,11 +47,13 @@ export class TranslationItemComponent implements OnChanges, OnDestroy {
       return;
     }
 
-    this.group.addControl(this.id, this.formBuilder.control((this.target ? (this.target as string) : '').trim()));
+    // Display the target only if the target is a string (could be an object from a previous edition)
+    const target = typeof this.target === 'string' ? this.target.trim() : '';
+    this.group.addControl(this.id, this.formBuilder.control(target));
   }
 
   public ngOnDestroy() {
-    if (!this.group) {
+    if (!this.group || !this.group.contains(this.id)) {
       return;
     }
 

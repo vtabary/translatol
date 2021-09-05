@@ -2,7 +2,7 @@
 
 A tool in order to translate XLIFF files.
 
-[![Build Status](https://app.travis-ci.com/vtabary/translatol.svg?branch=master)](https://app.travis-ci.com/vtabary/translatol)
+[![Testing](https://github.com/vtabary/translatol/actions/workflows/testing.yml/badge.svg)](https://github.com/vtabary/translatol/actions/workflows/testing.yml)
 
 ## Installation
 

@@ -42,12 +42,12 @@ yarn electron
 
 ```shell
 npm run build
-npm run pack
+npm run dist
 
 # or with yarn
 
 yarn build
-yarn pack
+yarn dist
 ```
 
 ## License

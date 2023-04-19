@@ -1,0 +1,22 @@
+{
+  "name": "translatol-vscode-extension-e2e",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "implicitDependencies": ["translatol-vscode-extension"],
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{e2eProjectRoot}"],
+      "options": {
+        "jestConfig": "translatol-vscode-extension-e2e/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["translatol-vscode-extension-e2e/**/*.{js,ts}"]
+      }
+    }
+  }
+}

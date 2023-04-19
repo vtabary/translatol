@@ -1,0 +1,45 @@
+{
+  "name": "translatol",
+  "version": "0.0.0",
+  "main": "translatol-vscode-extension/src/main.js",
+  "engines": {
+    "vscode": "^1.77.0"
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "translatol.start",
+        "title": "Start Translatol"
+      }
+    ],
+    "customEditors": [
+      {
+        "viewType": "translatol.xlf",
+        "displayName": "XLF editor",
+        "selector": [
+          {
+            "filenamePattern": "*.xlf"
+          }
+        ]
+      },
+      {
+        "viewType": "catCustoms.catScratch",
+        "displayName": "Cat Scratch",
+        "selector": [
+          {
+            "filenamePattern": "*.cscratch"
+          }
+        ]
+      },
+      {
+        "viewType": "catCustoms.pawDraw",
+        "displayName": "Paw Draw",
+        "selector": [
+          {
+            "filenamePattern": "*.pawdraw"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "name": "translatol-vscode-webview-e2e",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "translatol-vscode-webview-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "translatol-vscode-webview-e2e/cypress.config.ts",
+        "devServerTarget": "translatol-vscode-webview:serve:development",
+        "testingType": "e2e"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "translatol-vscode-webview:serve:production"
+        },
+        "ci": {
+          "devServerTarget": "translatol-vscode-webview:serve-static"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["translatol-vscode-webview-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["translatol-vscode-webview"]
+}

@@ -1,6 +1,6 @@
 import { IXliffTransUnit, IXliffTag, IXliffTarget, IXliffSource, IXliffNote } from '@vtabary/xliff2js';
 import { Component, Input, OnChanges, SimpleChanges, EventEmitter, Output } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
 import { ElectronService } from 'src/app/modules/shared/public-api';
 
 @Component({
@@ -21,12 +21,12 @@ export class TranslationComponent implements OnChanges {
   @Output()
   public submitted = new EventEmitter<void>();
 
-  public group: FormGroup;
+  public group: UntypedFormGroup;
   public source: IXliffSource;
   public target: IXliffTarget;
   public notes: IXliffNote[];
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: UntypedFormBuilder) {
     this.group = this.formBuilder.group({});
   }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-translation-search',
@@ -10,9 +10,9 @@ export class TranslationSearchComponent {
   @Output()
   public changed = new EventEmitter<string>();
 
-  public group: FormGroup;
+  public group: UntypedFormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: UntypedFormBuilder) {
     this.group = this.formBuilder.group({
       text: '',
     });

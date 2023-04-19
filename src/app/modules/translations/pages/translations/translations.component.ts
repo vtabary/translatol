@@ -1,7 +1,7 @@
 import { Observable, merge, combineLatest } from 'rxjs';
 import { map, shareReplay, switchMap, startWith, filter } from 'rxjs/operators';
 import { Component, EventEmitter } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { IXliffTransUnit, IXliff } from '@vtabary/xliff2js';
 import { HistoryService, NotificationService } from 'src/app/modules/shared/public-api';
@@ -14,7 +14,7 @@ import { TranslationsService } from '../../services/translations/translations.se
   styleUrls: ['./translations.component.scss'],
 })
 export class TranslationsComponent {
-  public group: FormGroup;
+  public group: UntypedFormGroup;
   public toTranslate$: Observable<IXliffTransUnit[]>;
   public translated$: Observable<IXliffTransUnit[]>;
   public translations$: Observable<IXliffTransUnit[]>;

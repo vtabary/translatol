@@ -13,6 +13,9 @@
     "target": "ES2022",
     "allowSyntheticDefaultImports": true,
     "typeRoots": ["node_modules/@types"],
+    "paths": {
+      "translatol-shared-module": ["translatol-shared-module/src/public-api.ts"]
+    },
     "lib": ["es2018", "dom"],
     "useDefineForClassFields": false
   },

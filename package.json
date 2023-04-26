@@ -14,7 +14,7 @@
   "license": "ISC",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --base-href \"\"",
+    "start": "ng serve --configuration=dev-electron",
     "build": "ng build --base-href \"\"",
     "build:prod": "ng build --base-href \"\" --configuration production",
     "test": "ng test",

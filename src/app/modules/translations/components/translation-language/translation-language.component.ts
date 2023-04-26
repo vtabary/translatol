@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
 import { IXliffFile } from '@vtabary/xliff2js';
 import { ElectronService } from 'src/app/modules/shared/public-api';
 
@@ -15,9 +15,9 @@ export class TranslationLanguageComponent implements OnChanges {
   @Output()
   public submitted = new EventEmitter<void>();
 
-  public group: FormGroup;
+  public group: UntypedFormGroup;
 
-  constructor(formBuilder: FormBuilder, private electron: ElectronService) {
+  constructor(formBuilder: UntypedFormBuilder, private electron: ElectronService) {
     this.group = formBuilder.group({
       target: '',
     });

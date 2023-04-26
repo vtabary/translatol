@@ -1,6 +1,6 @@
 import { Component, Input, SimpleChanges, OnChanges, OnDestroy } from '@angular/core';
 import { IXliffInterpolation } from '@vtabary/xliff2js';
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, UntypedFormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-translation-item',
@@ -18,7 +18,7 @@ export class TranslationItemComponent implements OnChanges, OnDestroy {
   public id: string;
 
   @Input()
-  public group: FormGroup;
+  public group: UntypedFormGroup;
 
   @Input()
   public sourceLanguage: string;
@@ -26,11 +26,11 @@ export class TranslationItemComponent implements OnChanges, OnDestroy {
   @Input()
   public targetLanguage: string;
 
-  public control: FormControl;
+  public control: UntypedFormControl;
   public text: string;
   public interpolation: IXliffInterpolation;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: UntypedFormBuilder) {}
 
   public ngOnChanges() {
     if (!this.source) {

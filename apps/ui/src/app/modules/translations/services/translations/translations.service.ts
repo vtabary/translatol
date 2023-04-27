@@ -2,7 +2,7 @@ import { cloneDeep } from 'lodash';
 import { forkJoin, Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import {
+import type {
   IXliff,
   IXliffTransUnit,
   IXliffFile,

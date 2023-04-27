@@ -21,10 +21,10 @@ jobs:
     runs-on: ${{ matrix.config.os }}
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js 14
+      - name: Use Node.js 18
         uses: actions/setup-node@v2
         with:
-          node-version: 14
+          node-version: 18
       - uses: actions/cache@v2
         with:
           path: '**/node_modules'

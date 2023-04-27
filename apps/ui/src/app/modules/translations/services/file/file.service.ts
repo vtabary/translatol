@@ -1,7 +1,7 @@
 import { Observable, of, throwError } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { XliffBuilder, IXliff, XliffParser } from '@vtabary/xliff2js';
+import type { XliffBuilder, IXliff, XliffParser } from '@vtabary/xliff2js';
 import { ElectronService } from '../../../shared/public-api';
 
 @Injectable({

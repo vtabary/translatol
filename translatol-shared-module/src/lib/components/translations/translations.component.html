@@ -1,5 +1,6 @@
 <div class="content-container" *ngIf="translations$ | async as translations">
   <div class="content-area">
+    <app-notification></app-notification>
     <h2 [title]="filePath">{{ filePath | endOfString : 50 }}</h2>
     <button type="button" class="btn" (click)="refresh()" i18n="@@translations.refresh">Refresh</button>
 

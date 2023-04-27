@@ -4,9 +4,10 @@ import { ActivatedRoute } from '@angular/router';
 import { IXliff, IXliffTransUnit } from '@vtabary/xliff2js';
 import { Observable, combineLatest, merge } from 'rxjs';
 import { filter, map, shareReplay, startWith, switchMap, take } from 'rxjs/operators';
-// import { HistoryService, NotificationService } from 'src/app/modules/shared/public-api';
 import { XLIFF_FILE_HANDLER, XLIFFFileHandlerInterface } from '../../models/xliff-file.service.interface';
 import { TranslationsService } from '../../services/translations/translations.service';
+import { NotificationService } from '../../services/notification/notification.service';
+// import { HistoryService, NotificationService } from 'src/app/modules/shared/public-api';
 
 @Component({
   selector: 'app-translations',
@@ -26,10 +27,11 @@ export class TranslationsComponent {
   private refreshed = new EventEmitter();
 
   constructor(
-    translationsService: TranslationsService,
+    private translationsService: TranslationsService,
     @Inject(XLIFF_FILE_HANDLER)
     private fileService: XLIFFFileHandlerInterface,
-    private activatedRoute: ActivatedRoute // private historyService: HistoryService, // private notification: NotificationService
+    private activatedRoute: ActivatedRoute,
+    private notification: NotificationService // private historyService: HistoryService,
   ) {
     this.translations$ = merge(
       this.activatedRoute.params.pipe(
@@ -55,13 +57,17 @@ export class TranslationsComponent {
   }
 
   public async onSave() {
-    const result = this.fileService.saveXLIFF(this.filePath, this.translations).pipe(take(1)).subscribe();
-    // this.notification.success({
-    //   message: 'Translation file saved',
-    // });
+    this.fileService
+      .saveXLIFF(this.filePath, this.translations)
+      .pipe(take(1))
+      .subscribe(() =>
+        this.notification.success({
+          message: 'Translation file saved',
+        })
+      );
   }
 
-  public refresh() {
+  public refresh(): void {
     this.refreshed.emit();
   }
 

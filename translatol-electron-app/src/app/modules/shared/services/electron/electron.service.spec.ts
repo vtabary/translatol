@@ -7,10 +7,8 @@ describe('ElectronService', () => {
 
   describe('#new', () => {
     it('should be created', () => {
-      const service: ElectronService = TestBed.get(ElectronService);
+      const service: ElectronService = TestBed.inject(ElectronService);
       expect(service).toBeTruthy();
-
-      pending('TODO');
     });
   });
 });

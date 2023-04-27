@@ -8,3 +8,10 @@
   order: 1;
   overflow-y: scroll;
 }
+
+.ui-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}

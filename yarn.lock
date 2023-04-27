@@ -3407,10 +3407,10 @@
     jszip "^3.10.1"
     semver "^7.3.8"
 
-"@vtabary/xliff2js@0.2.1":
-  version "0.2.1"
-  resolved "https://artefacts.si.perfect-memory.com/repository/npm-all/@vtabary/xliff2js/-/xliff2js-0.2.1.tgz#2fd38bb52d898c2d7d9c4ea2ef890cfc9b9cb843"
-  integrity sha512-Ru96kTAwQPyV+v5eWx8yZCRVpmSk/UjX+ZWXSQ8l6xK+ZgY9Lg848D4ku9BHgmXqASS8GG3HqPXdFOYlDHmJQg==
+"@vtabary/xliff2js@^0.3.1":
+  version "0.3.1"
+  resolved "https://artefacts.si.perfect-memory.com/repository/npm-all/@vtabary/xliff2js/-/xliff2js-0.3.1.tgz#848df9c2ad225d2e212993466e204cf1f2116485"
+  integrity sha512-lhTYyHZcxX79rfLW33/pR7WXfYOTUCakxy5mTGGEBUkZAM8VSOZR9FZRbrTYC9nt1CfWL90eOeBI2J0vGPoEbQ==
   dependencies:
     sax "^1.2.4"
     xmlbuilder "^13.0.2"

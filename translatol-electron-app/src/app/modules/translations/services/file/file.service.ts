@@ -52,7 +52,7 @@ export class FileService implements XLIFFFileHandlerInterface {
       return throwError(new Error('Can not open file outside an Electron application'));
     }
 
-    const builder = new XliffBuilder({ pretty: true });
+    const builder = new XliffBuilder({ pretty: true, dontPrettyTextNodes: true });
     const xml = builder.build(data);
     return this.save(filePath, xml);
   }

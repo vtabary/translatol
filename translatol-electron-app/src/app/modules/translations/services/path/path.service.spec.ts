@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
-import { TranslationsService } from './translations.service';
+import { PathService } from './path.service';
 
-describe('TranslationsService', () => {
+describe('PathService', () => {
   beforeEach(() =>
     TestBed.configureTestingModule({
       imports: [],
@@ -9,7 +9,7 @@ describe('TranslationsService', () => {
   );
 
   it('should be created', () => {
-    const service: TranslationsService = TestBed.get(TranslationsService);
+    const service: PathService = TestBed.get(PathService);
     expect(service).toBeTruthy();
   });
 });

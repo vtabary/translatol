@@ -1,5 +1,6 @@
 const { app, BrowserWindow } = require('electron');
-require('@electron/remote/main').initialize();
+const remoteMain = require('@electron/remote/main');
+remoteMain.initialize();
 
 function createWindow() {
   // Create the browser window.
@@ -9,9 +10,9 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
-      enableRemoteModule: true,
     },
   });
+  remoteMain.enable(win.webContents);
   win.maximize();
 
   // and load the index.html of the app.

@@ -3,15 +3,16 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ClarityModule } from '@clr/angular';
 import { XLIFFFileHandlerInterface, XLIFF_FILE_HANDLER } from './models/xliff-file.service.interface';
+import { NotificationComponent } from './components/notification/notification.component';
 import { TranslationItemComponent } from './components/translation-item/translation-item.component';
 import { TranslationListComponent } from './components/translation-list/translation-list.component';
 import { TranslationNavigationComponent } from './components/translation-navigation/translation-navigation.component';
 import { TranslationSearchComponent } from './components/translation-search/translation-search.component';
 import { TranslationComponent } from './components/translation/translation.component';
 import { TranslationsComponent } from './components/translations/translations.component';
+import { ModalComponent } from './components/modal/modal.component';
 import { TEMPLATE_FILE_HANDLER, TemplateFileHandlerInterface } from './models/template-file.service.interface.1';
 import { EndOfStringPipe } from './pipes/end-of-string/end-of-string.pipe';
-import { NotificationComponent } from './components/notification/notification.component';
 
 function initializeTranslatolSharedModule(
   xliffFileHandler?: XLIFFFileHandlerInterface,
@@ -43,7 +44,7 @@ const exportedComponents = [
 ];
 
 @NgModule({
-  declarations: [exportedComponents, EndOfStringPipe],
+  declarations: [exportedComponents, EndOfStringPipe, ModalComponent],
   imports: [CommonModule, ReactiveFormsModule, ClarityModule],
   exports: [EndOfStringPipe],
   providers: [

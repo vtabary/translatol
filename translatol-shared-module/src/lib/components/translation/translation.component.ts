@@ -5,7 +5,6 @@ import { IXliffNote, IXliffSource, IXliffTag, IXliffTarget, IXliffTransUnit } fr
 @Component({
   selector: 'app-translation',
   templateUrl: './translation.component.html',
-  styleUrls: ['./translation.component.scss'],
 })
 export class TranslationComponent implements OnChanges {
   @Input()

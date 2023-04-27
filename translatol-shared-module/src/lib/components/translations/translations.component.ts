@@ -22,6 +22,8 @@ export class TranslationsComponent {
   public translations: IXliff;
   public filePath: string;
   public targetLanguage: string;
+  public isObsoleteTranslation = false;
+  public openModalDeleteObsolete = false;
   public searched$ = new EventEmitter<string>();
 
   private refreshed = new EventEmitter();
@@ -40,12 +42,14 @@ export class TranslationsComponent {
       ),
       this.refreshed.pipe(map(() => this.filePath))
     ).pipe(
-      switchMap(filePath => translationsService.load(filePath)),
+      switchMap(filePath => this.translationsService.load(filePath)),
       map(locale => {
         this.translations = locale;
         this.targetLanguage = locale.children[0]?.$?.['target-language'];
         // this.historyService.add({ path: this.filePath, type: 'file' });
-        return translationsService.getAllTranslations(locale);
+        this.isObsoleteTranslation = this.translationsService.isObsoleteTranslation;
+
+        return this.translationsService.getAllTranslations(locale);
       }),
       this.filterOperator(this.searched$),
       shareReplay(1)
@@ -57,26 +61,35 @@ export class TranslationsComponent {
   }
 
   public async onSave() {
-    this.fileService
-      .saveXLIFF(this.filePath, this.translations)
-      .pipe(take(1))
-      .subscribe(() =>
-        this.notification.success({
-          message: 'Translation file saved',
-        })
-      );
+    this.saveXLIFF(this.translations, 'Translation file saved');
   }
 
   public refresh(): void {
     this.refreshed.emit();
   }
 
+  public openModal(): void {
+    this.openModalDeleteObsolete = true;
+  }
+
+  public deleteObsoleteKey(isConfirm: boolean): void {
+    this.openModalDeleteObsolete = false;
+
+    if (!isConfirm) {
+      return;
+    }
+
+    this.translationsService.load(this.filePath).subscribe(locale => {
+      this.saveXLIFF(locale, 'Obsolete translation key deleted');
+      this.isObsoleteTranslation = false;
+    });
+  }
+
   private filterByTranslatedOperator(translated: boolean): (source: Observable<IXliffTransUnit[]>) => Observable<IXliffTransUnit[]> {
     return source$ =>
       new Observable(observer => {
         return source$.subscribe({
-          next: translations =>
-            observer.next(translations.filter(translation => translation.children.some(child => child.name === 'target') === translated)),
+          next: translations => observer.next(this.translationsService.filterByTranslatedOperator(translations, translated)),
           error: err => observer.error(err),
           complete: () => observer.complete(),
         });
@@ -103,5 +116,12 @@ export class TranslationsComponent {
     return translations.filter(translation => {
       return translation.name.indexOf(formatFilter) >= 0 || translation.$.id.indexOf(formatFilter) >= 0;
     });
+  }
+
+  private saveXLIFF(translations: IXliff, message: string): void {
+    this.fileService
+      .saveXLIFF(this.filePath, translations)
+      .pipe(take(1))
+      .subscribe(() => this.notification.success({ message }));
   }
 }

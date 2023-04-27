@@ -30,6 +30,10 @@ export class NotificationService {
     return this.notify$.asObservable();
   }
 
+  public delete(): void {
+    this.notify$.next(null);
+  }
+
   public info(notification: IMessage): void {
     this.send(Object.assign({ type: INotificationType.INFO }, notification));
   }

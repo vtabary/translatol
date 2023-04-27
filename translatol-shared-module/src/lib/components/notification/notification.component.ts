@@ -9,4 +9,8 @@ export class NotificationComponent {
   public notification$ = this.notificationService.obs();
 
   constructor(private notificationService: NotificationService) {}
+
+  public onClose(): void {
+    this.notificationService.delete();
+  }
 }

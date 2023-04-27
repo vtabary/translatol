@@ -3,13 +3,13 @@ import { IXliff, XliffBuilder, XliffParser } from '@vtabary/xliff2js';
 import type fs from 'node:fs';
 import { Observable, of, throwError } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { XLIFFFileHandlerInterface } from 'translatol-shared-module';
+import { XLIFFWritingInterface } from 'translatol-shared-module';
 import { ElectronService } from '../../../shared/public-api';
 
 @Injectable({
   providedIn: 'root',
 })
-export class FileService implements XLIFFFileHandlerInterface {
+export class FileService implements XLIFFWritingInterface {
   constructor(private electron: ElectronService) {}
 
   public open(filePath: string): Observable<string> {

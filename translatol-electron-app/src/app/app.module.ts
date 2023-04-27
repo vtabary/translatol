@@ -5,7 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ClarityIcons, helpIcon, languageIcon } from '@cds/core/icon';
 import '@cds/core/icon/register.js';
 import { ClarityModule } from '@clr/angular';
-import { TEMPLATE_FILE_HANDLER, XLIFF_FILE_HANDLER } from 'translatol-shared-module';
+import { TEMPLATE_FILE_HANDLER, XLIFF_WRITING } from 'translatol-shared-module';
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './modules/shared/shared.module';
 import { TranslationsModule } from './modules/translations/module';
@@ -19,7 +19,7 @@ ClarityIcons.addIcons(helpIcon, languageIcon);
 @NgModule({
   providers: [
     {
-      provide: XLIFF_FILE_HANDLER,
+      provide: XLIFF_WRITING,
       useClass: FileService,
     },
     {

@@ -1,29 +1,18 @@
-import { Inject, Injectable } from '@angular/core';
-import { IXliff, IXliffBody, IXliffFile, IXliffTransUnit } from '@vtabary/xliff2js';
+import { Injectable } from '@angular/core';
+import { IXliff, IXliffBody, IXliffFile, IXliffTransUnit, XliffParser } from '@vtabary/xliff2js';
 import { cloneDeep } from 'lodash';
-import { Observable, forkJoin, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
-import { TEMPLATE_FILE_HANDLER, TemplateFileHandlerInterface } from '../../models/template-file.service.interface.1';
-import { XLIFFFileHandlerInterface, XLIFF_FILE_HANDLER } from '../../models/xliff-file.service.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TranslationsService {
-  constructor(
-    @Inject(TEMPLATE_FILE_HANDLER)
-    private templateFileService: TemplateFileHandlerInterface,
-    @Inject(XLIFF_FILE_HANDLER)
-    private xliffFileService: XLIFFFileHandlerInterface
-  ) {}
+  private parser = new XliffParser();
 
-  public load(filePath: string, templateFilePath?: string): Observable<IXliff> {
-    templateFilePath = templateFilePath || this.getTemplatePathFrom(filePath);
+  public parseXLiff(fileContent: string, templateContent: string): IXliff {
+    const xliffTemplate = this.parser.parse(templateContent);
+    const xliffFile = this.parser.parse(fileContent);
 
-    return forkJoin([
-      this.xliffFileService.openXLIFF(templateFilePath).pipe(catchError(() => of(undefined))),
-      this.xliffFileService.openXLIFF(filePath),
-    ]).pipe(map(translations => this.merge(translations[0], translations[1])));
+    return this.merge(xliffTemplate, xliffFile);
   }
 
   public merge(template: IXliff, current: IXliff): IXliff {
@@ -80,9 +69,5 @@ export class TranslationsService {
     }
 
     to.children = to.children.concat(from.children.filter(child => child.name === 'target'));
-  }
-
-  private getTemplatePathFrom(filePath: string): string {
-    return this.templateFileService.getTemplatePath(filePath);
   }
 }

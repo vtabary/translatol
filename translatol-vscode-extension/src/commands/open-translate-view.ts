@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 import * as vscode from 'vscode';
-import { TranslatolPanel } from '../editors/translatol-panel';
+import { TranslatolPanel } from '../panels/translatol-panel';
 
 export class ShowPreviewCommand {
   public static readonly id = 'translatol.OpenTranslateView';
@@ -19,14 +19,7 @@ export class ShowPreviewCommand {
 
   constructor(private context: vscode.ExtensionContext) {}
 
-  public execute(fileUri?: vscode.Uri) {
-    TranslatolPanel.render(this.context.extensionUri, fileUri);
-    //console.log(`Open ${mainUri}!!!`);
-    /* for (const uri of Array.isArray(allUris) ? allUris : [mainUri]) {
-			showPreview(this._webviewManager, this._telemetryReporter, uri, {
-				sideBySide: false,
-				locked: previewSettings && previewSettings.locked
-			});
-		} */
+  public async execute(fileUri?: vscode.Uri) {
+    await TranslatolPanel.render(this.context.extensionUri, fileUri);
   }
 }

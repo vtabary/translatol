@@ -1,9 +1,12 @@
 <div class="content-container" *ngIf="translations$ | async as translations">
   <div class="content-area">
-    <h2 [title]="filePath">{{ filePath | endOfString: 50 }}</h2>
-    <button type="button" class="btn" (click)="refresh()" i18n="@@translations.refresh">Refresh</button>
-
-    <app-translation-search (changed)="searched$.emit($event)"></app-translation-search>
+    <h2 [title]="filePath">{{ filePath | endOfString : 50 }}</h2>
+    <div class="ui-header">
+      <app-translation-search (changed)="searched$.emit($event)"></app-translation-search>
+      <div>
+        <button type="button" class="btn btn-success-outline" (click)="refresh()" i18n="@@translations.refresh">Refresh</button>
+      </div>
+    </div>
 
     <app-translation-language *ngFor="let file of translations.children" [file]="file" (submitted)="onSave()"></app-translation-language>
     <app-translation-list

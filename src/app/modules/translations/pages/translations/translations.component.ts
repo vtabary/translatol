@@ -96,12 +96,13 @@ export class TranslationsComponent {
   }
 
   private filterByText(translations: IXliffTransUnit[], filter: string): IXliffTransUnit[] {
-    if (filter === '') {
+    const formatFilter = filter.trim();
+    if (formatFilter === '') {
       return translations;
     }
 
     return translations.filter(translation => {
-      return translation.name.indexOf(filter) >= 0 || translation.$.id.indexOf(filter) >= 0;
+      return translation.name.indexOf(formatFilter) >= 0 || translation.$.id.indexOf(formatFilter) >= 0;
     });
   }
 }

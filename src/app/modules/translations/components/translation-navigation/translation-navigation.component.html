@@ -1,8 +1,8 @@
 <section class="sidenav-content">
-  <span class="nav-link">
-    <ng-container i18n="@@translation-navigation.to-translate-title">To translate</ng-container>
+  <div class="title">
+    <h5 i18n="@@translation-navigation.to-translate-title">To translate</h5>
     <span class="badge">{{ toTranslate.length }}</span>
-  </span>
+  </div>
 
   <clr-tree>
     <clr-tree-node *clrRecursiveFor="let toTranslateItem of toTranslateTree; getChildren: getChildren" [clrExpanded]="true">
@@ -19,10 +19,10 @@
     </clr-tree-node>
   </clr-tree>
 
-  <span class="nav-link">
-    <ng-container i18n="@@translation-navigation.translated-title">Translated</ng-container>
+  <div class="title">
+    <h5 i18n="@@translation-navigation.translated-title">Translated</h5>
     <span class="badge">{{ translated.length }}</span>
-  </span>
+  </div>
 
   <clr-tree>
     <clr-tree-node *clrRecursiveFor="let translatedItem of translatedTree; getChildren: getChildren">

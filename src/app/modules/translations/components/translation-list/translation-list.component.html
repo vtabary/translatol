@@ -1,7 +1,8 @@
 <ng-container *ngIf="translations && translations.length > 0; else noTranslation">
-  <h2>
-    {{ listTitle }} <span class="badge">{{ translations.length }}</span>
-  </h2>
+  <div class="ui-header">
+    <h2>{{ listTitle }}</h2>
+    <span class="badge">{{ translations.length }}</span>
+  </div>
   <app-translation
     *ngFor="let translation of translations"
     [id]="translation.$.id"

@@ -2,3 +2,22 @@
 .card-text .clr-form-control {
   margin-top: 0;
 }
+
+.sidenav-content .title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 1.2rem 0 0 1.5rem;
+
+  h5 {
+    margin-top: 0;
+    margin-right: 5px;
+    color: var(--clr-sidenav-header-color, #333333);
+    font-weight: var(--clr-sidenav-header-font-weight, 500);
+  }
+
+  span {
+    margin-bottom: 3px;
+  }
+}
+

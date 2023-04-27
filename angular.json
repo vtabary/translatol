@@ -30,10 +30,15 @@
             "buildOptimizer": false,
             "sourceMap": true,
             "optimization": false,
-            "namedChunks": true
+            "namedChunks": true,
+            "baseHref": "/"
           },
           "configurations": {
+            "dev-electron": {
+              "baseHref": ""
+            },
             "production": {
+              "baseHref": "",
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -69,6 +74,9 @@
             "browserTarget": "translatol:build"
           },
           "configurations": {
+            "dev-electron": {
+              "browserTarget": "translatol:build:dev-electron"
+            },
             "production": {
               "browserTarget": "translatol:build:production"
             }
@@ -113,6 +121,5 @@
         }
       }
     }
-  },
-  "defaultProject": "translatol"
+  }
 }

@@ -15,7 +15,7 @@
         "bundle": false,
         "main": "translatol-vscode-extension/src/main.ts",
         "tsConfig": "translatol-vscode-extension/tsconfig.app.json",
-        "assets": ["translatol-vscode-extension/src/assets"],
+        "assets": ["translatol-vscode-extension/src/assets/**"],
         "generatePackageJson": true,
         "esbuildOptions": {
           "sourcemap": true,

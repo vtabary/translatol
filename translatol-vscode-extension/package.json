@@ -8,35 +8,40 @@
   "contributes": {
     "commands": [
       {
-        "command": "translatol.start",
-        "title": "Start Translatol"
+        "command": "translatol.OpenTranslateView",
+        "title": "Open Translate view",
+        "category": "Translatol",
+        "icon": {
+          "light": "./src/assets/icons/translate-light.svg",
+          "dark": "./src/assets/icons/translate-dark.svg"
+        },
+        "enablement": "resourceExtname == .xlf"
       }
     ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "translatol.OpenTranslateView",
+          "group": "navigation",
+          "when": "resourceExtname == .xlf"
+        }
+      ],
+      "editor/title/context": [
+        {
+          "command": "translatol.OpenTranslateView",
+          "group": "navigation",
+          "when": "resourceExtname == .xlf"
+        }
+      ]
+    },
     "customEditors": [
       {
         "viewType": "translatol.xlf",
         "displayName": "XLF editor",
+        "priority": "option",
         "selector": [
           {
             "filenamePattern": "*.xlf"
-          }
-        ]
-      },
-      {
-        "viewType": "catCustoms.catScratch",
-        "displayName": "Cat Scratch",
-        "selector": [
-          {
-            "filenamePattern": "*.cscratch"
-          }
-        ]
-      },
-      {
-        "viewType": "catCustoms.pawDraw",
-        "displayName": "Paw Draw",
-        "selector": [
-          {
-            "filenamePattern": "*.pawdraw"
           }
         ]
       }

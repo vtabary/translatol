@@ -25,7 +25,8 @@
     "dist": "electron-builder build",
     "postinstall": "electron-builder install-app-deps",
     "prepare": "husky install",
-    "postversion": "git push origin HEAD && git push origin v$npm_package_version"
+    "postversion": "git push origin HEAD && git push origin v$npm_package_version",
+    "build:extension": "nx build translatol-vscode-extension && nx build translatol-vscode-webview"
   },
   "main": "electron.js",
   "build": {

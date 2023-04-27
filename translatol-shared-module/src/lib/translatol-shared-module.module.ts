@@ -11,6 +11,8 @@ import { TEMPLATE_FILE_HANDLER, TemplateFileHandlerInterface } from './models/te
 import { XLIFFFileHandlerInterface, XLIFF_FILE_HANDLER } from './models/xliff-file.service.interface';
 import { EndOfStringPipe } from './pipes/end-of-string/end-of-string.pipe';
 import { CommonModule } from '@angular/common';
+import { TranslationDuplicatedListComponent } from './components/translation-duplicated-list/translation-duplicated-list.component';
+import { AlertWarningComponent } from './components/alert-warning/alert-warning.component';
 
 function initializeTranslatolSharedModule(
   xliffFileHandler?: XLIFFFileHandlerInterface,
@@ -33,8 +35,10 @@ function initializeTranslatolSharedModule(
 
 @NgModule({
   declarations: [
+    AlertWarningComponent,
     EndOfStringPipe,
     TranslationComponent,
+    TranslationDuplicatedListComponent,
     TranslationItemComponent,
     TranslationListComponent,
     TranslationNavigationComponent,

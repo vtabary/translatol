@@ -19,6 +19,8 @@ export class TranslationsComponent {
   public translated$: Observable<IXliffTransUnit[]>;
   public translations$: Observable<IXliffTransUnit[]>;
   public translations: IXliff;
+  public duplicated: IXliffTransUnit[];
+
   public filePath: string;
   public targetLanguage: string;
   public searched$ = new EventEmitter<string>();
@@ -39,7 +41,8 @@ export class TranslationsComponent {
       this.refreshed.pipe(map(() => this.filePath))
     ).pipe(
       switchMap(filePath => translationsService.load(filePath)),
-      map(locale => {
+      map(({ locale, duplicated }) => {
+        this.duplicated = duplicated;
         this.translations = locale;
         this.targetLanguage = locale.children[0]?.$?.['target-language'];
         // this.historyService.add({ path: this.filePath, type: 'file' });

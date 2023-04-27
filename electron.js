@@ -1,6 +1,6 @@
 const { app, BrowserWindow } = require('electron');
-const remoteMain = require('@electron/remote/main');
-remoteMain.initialize();
+const electron = require('@electron/remote/main');
+electron.initialize();
 
 function createWindow() {
   // Create the browser window.
@@ -8,16 +8,17 @@ function createWindow() {
     width: 800,
     height: 600,
     webPreferences: {
+      nativeWindowOpen: true,
       nodeIntegration: true,
       contextIsolation: false,
     },
   });
-  remoteMain.enable(win.webContents);
+  electron.enable(win.webContents);
   win.maximize();
 
   // and load the index.html of the app.
   if (app.isPackaged) {
-    win.loadFile('./dist/translatol/index.html');
+    win.loadFile('./dist/translatol-electron-app/index.html');
   } else {
     win.loadURL('http://localhost:4200');
   }

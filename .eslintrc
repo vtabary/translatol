@@ -1,5 +1,4 @@
 {
-  "root": true,
   "ignorePatterns": ["projects/**/*"],
   "overrides": [
     {
@@ -33,5 +32,6 @@
       "extends": ["plugin:@angular-eslint/template/recommended"],
       "rules": {}
     }
-  ]
+  ],
+  "extends": ["./.eslintrc.base.json"]
 }

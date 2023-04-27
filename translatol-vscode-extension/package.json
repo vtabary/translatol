@@ -1,0 +1,50 @@
+{
+  "name": "translatol",
+  "version": "0.0.0",
+  "main": "translatol-vscode-extension/src/main.js",
+  "engines": {
+    "vscode": "^1.77.0"
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "translatol.OpenTranslateView",
+        "title": "Open Translate view",
+        "category": "Translatol",
+        "icon": {
+          "light": "./src/assets/icons/translate-light.svg",
+          "dark": "./src/assets/icons/translate-dark.svg"
+        },
+        "enablement": "resourceExtname == .xlf"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "translatol.OpenTranslateView",
+          "group": "navigation",
+          "when": "resourceExtname == .xlf"
+        }
+      ],
+      "editor/title/context": [
+        {
+          "command": "translatol.OpenTranslateView",
+          "group": "navigation",
+          "when": "resourceExtname == .xlf"
+        }
+      ]
+    },
+    "customEditors": [
+      {
+        "viewType": "translatol.xlf",
+        "displayName": "XLF editor",
+        "priority": "option",
+        "selector": [
+          {
+            "filenamePattern": "*.xlf"
+          }
+        ]
+      }
+    ]
+  }
+}

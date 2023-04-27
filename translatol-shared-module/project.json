@@ -1,0 +1,32 @@
+{
+  "name": "translatol-shared-module",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "translatol-shared-module/src",
+  "prefix": "lib",
+  "tags": ["scope:shared"],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:ng-packagr",
+      "options": {
+        "project": "translatol-shared-module/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "translatol-shared-module/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "translatol-shared-module/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@angular-devkit/build-angular:karma",
+      "options": {
+        "tsConfig": "translatol-shared-module/tsconfig.spec.json",
+        "polyfills": ["zone.js", "zone.js/testing"]
+      }
+    }
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "name": "translatol-vscode-extension",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "translatol-vscode-extension/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "platform": "node",
+        "outputPath": "dist/translatol-vscode-extension",
+        "format": ["cjs"],
+        "bundle": false,
+        "main": "translatol-vscode-extension/src/main.ts",
+        "tsConfig": "translatol-vscode-extension/tsconfig.app.json",
+        "assets": ["translatol-vscode-extension/src/assets/**"],
+        "generatePackageJson": true,
+        "esbuildOptions": {
+          "sourcemap": true,
+          "outExtension": {
+            ".js": ".js"
+          }
+        }
+      },
+      "configurations": {
+        "development": {},
+        "production": {
+          "esbuildOptions": {
+            "sourcemap": false,
+            "outExtension": {
+              ".js": ".js"
+            }
+          }
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "translatol-vscode-extension:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "translatol-vscode-extension:build:development"
+        },
+        "production": {
+          "buildTarget": "translatol-vscode-extension:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["translatol-vscode-extension/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "translatol-vscode-extension/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}

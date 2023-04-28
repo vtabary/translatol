@@ -96,7 +96,7 @@
     "@clr/angular": "15.2.0",
     "@clr/ui": "^15.2.0",
     "@electron/remote": "^2.0.0",
-    "@vtabary/xliff2js": "^0.3.1",
+    "@vtabary/xliff2js": "^0.5.2",
     "@webcomponents/custom-elements": "^1.0.0",
     "axios": "^1.0.0",
     "fast-glob": "^3.2.7",

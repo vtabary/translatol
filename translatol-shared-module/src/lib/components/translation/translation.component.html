@@ -13,7 +13,6 @@
               <app-translation-item
                 [source]="value"
                 [target]="target.children[i]"
-                [sourceLanguage]="sourceLanguage"
                 [targetLanguage]="targetLanguage"
                 id="target-{{ i }}"
                 [group]="group"
@@ -27,7 +26,7 @@
         </div>
         <div class="card-footer">
           <button class="btn btn-sm btn-primary" type="submit" [disabled]="!group.dirty">Submit</button>
-          <button class="btn btn-sm btn-link" type="button" (click)="copySource()">Copy source</button>
+          <button class="btn btn-sm btn-link" type="button" [disabled]="isPlural" (click)="copySource()">Copy source</button>
           <button class="btn btn-sm btn-link" type="button" (click)="resetForm()" [disabled]="!group.dirty">Reset</button>
         </div>
       </form>

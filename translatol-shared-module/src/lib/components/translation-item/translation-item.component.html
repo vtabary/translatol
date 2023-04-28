@@ -1,14 +1,19 @@
 <ng-container *ngIf="group">
-  <div *ngIf="interpolation; else sourceText">
-    <p>
-      <ng-container i18n="@@translation-item.interpolation">Interpolation: </ng-container>
-    </p>
-    <pre class="langage-html">{{ interpolation.$['equiv-text'] }}</pre>
-  </div>
-  <ng-template #sourceText>
+  <ng-container *ngIf="interpolation">
+    <app-translation-interpolation [interpolation]="interpolation"> </app-translation-interpolation>
+  </ng-container>
+  <ng-container *ngIf="plural">
+    <app-translation-plural
+      [plural]="plural"
+      [target]="pluralTarget"
+      [group]="group"
+      [targetLanguage]="targetLanguage"
+    ></app-translation-plural>
+  </ng-container>
+  <ng-container *ngIf="text">
     <clr-input-container [formGroup]="group">
       <label>{{ source }}</label>
       <input clrInput type="text" [formControlName]="id" [lang]="targetLanguage" />
     </clr-input-container>
-  </ng-template>
+  </ng-container>
 </ng-container>

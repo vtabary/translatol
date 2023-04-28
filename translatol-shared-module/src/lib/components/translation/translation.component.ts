@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
-import { IXliffNote, IXliffSource, IXliffTag, IXliffTarget, IXliffTransUnit } from '@vtabary/xliff2js';
+import { IXliffInterpolation, IXliffNote, IXliffSource, IXliffTag, IXliffTarget, IXliffTransUnit, IXliffPlural } from '@vtabary/xliff2js';
 
 @Component({
   selector: 'app-translation',
@@ -23,6 +23,7 @@ export class TranslationComponent implements OnChanges {
   public source: IXliffSource;
   public target: IXliffTarget;
   public notes: IXliffNote[];
+  public isPlural = false;
 
   constructor(private formBuilder: UntypedFormBuilder) {
     this.group = this.formBuilder.group({});
@@ -40,6 +41,7 @@ export class TranslationComponent implements OnChanges {
     this.source = this.getSource();
     this.target = this.getTarget();
     this.notes = this.getNotes();
+    this.isPlural = this.source.children.some(child => (child as any).name === 'plural');
   }
 
   public resetForm() {
@@ -47,9 +49,15 @@ export class TranslationComponent implements OnChanges {
   }
 
   public submit() {
-    this.source.children.forEach((value, index) => {
+    this.source.children.forEach((value: string | IXliffInterpolation | IXliffPlural, index) => {
+      if ((value as any).name === 'plural') {
+        this.handlePluralSubmit(value, index);
+        return;
+      }
+
       if (typeof value !== 'string') {
-        return (this.target.children[index] = value);
+        this.target.children[index] = value;
+        return;
       }
 
       this.target.children[index] = this.group.controls['target-' + index].value;
@@ -100,5 +108,19 @@ export class TranslationComponent implements OnChanges {
 
     const children = this.translation.children.filter(child => child.name === name);
     return children || [];
+  }
+
+  private handlePluralSubmit(value: string | IXliffInterpolation | IXliffPlural, index: number): void {
+    const pluralCounters = (value as IXliffPlural).counters;
+
+    Object.keys(pluralCounters).forEach(key => {
+      pluralCounters[key].forEach((trad, indexTrad) => {
+        if (typeof trad !== 'string') {
+          return ((this.target.children[index] as any).counters[key][indexTrad] = trad);
+        }
+
+        (this.target.children[index] as any).counters[key][indexTrad] = this.group.controls['target-plural-' + key + '-' + indexTrad].value;
+      });
+    });
   }
 }

@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouteReuseStrategy } from '@angular/router';
 import { ClarityModule } from '@clr/angular';
+import { ClarityIcons, copyToClipboardIcon, fileIcon, folderIcon, infoStandardIcon, searchIcon } from '@cds/core/icon';
 import { AlertWarningComponent } from './components/alert-warning/alert-warning.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { NotificationComponent } from './components/notification/notification.component';
@@ -17,15 +18,14 @@ import { ReloadRouteReuseStrategy } from './models/reload-route-reuse-strategy/r
 import { XLIFF_WRITING_SERVICE } from './models/xliff-file.service.interface';
 import { EndOfStringPipe } from './pipes/end-of-string/end-of-string.pipe';
 import { CopyToClipboardComponent } from './components/copy-to-clipboard/copy-to-clipboard.component';
-import { ClarityIcons, copyToClipboardIcon, fileIcon, folderIcon, infoStandardIcon, searchIcon } from '@cds/core/icon';
+import { TranslationPluralComponent } from './components/translation-plural/translation-plural.component';
+import { TranslationInterpolationComponent } from './components/translation-interpolation/translation-interpolation.component';
+
 ClarityIcons.addIcons(fileIcon, folderIcon, infoStandardIcon, searchIcon, copyToClipboardIcon);
 
-const declaredComponents = [
-  AlertWarningComponent,
+const exportedComponent = [
   CopyToClipboardComponent,
-  NotificationComponent,
   TranslationComponent,
-  TranslationDuplicatedListComponent,
   TranslationItemComponent,
   TranslationListComponent,
   TranslationNavigationComponent,
@@ -34,18 +34,18 @@ const declaredComponents = [
 ];
 
 @NgModule({
-  declarations: [...declaredComponents, EndOfStringPipe, ModalComponent],
-  imports: [CommonModule, ReactiveFormsModule, ClarityModule],
-  exports: [
-    CopyToClipboardComponent,
+  declarations: [
+    ...exportedComponent,
+    AlertWarningComponent,
     EndOfStringPipe,
-    TranslationComponent,
-    TranslationItemComponent,
-    TranslationListComponent,
-    TranslationNavigationComponent,
-    TranslationsComponent,
-    TranslationSearchComponent,
+    ModalComponent,
+    NotificationComponent,
+    TranslationDuplicatedListComponent,
+    TranslationPluralComponent,
+    TranslationInterpolationComponent,
   ],
+  imports: [CommonModule, ReactiveFormsModule, ClarityModule],
+  exports: [EndOfStringPipe, ...exportedComponent],
   providers: [
     { provide: XLIFF_WRITING_SERVICE, useValue: undefined },
     { provide: RouteReuseStrategy, useClass: ReloadRouteReuseStrategy },

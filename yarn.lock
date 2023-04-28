@@ -1815,6 +1815,38 @@
   resolved "https://artefacts.si.perfect-memory.com/repository/npm-all/@eslint/js/-/js-8.39.0.tgz#58b536bcc843f4cd1e02a7e6171da5c040f4d44b"
   integrity sha512-kf9RB0Fg7NZfap83B3QOqOGg9QmD9yBudqQXzzOtn3i4y7ZUXe5ONeW34Gwi+TxhH4mvj72R1Zc300KUMa9Bng==
 
+"@formatjs/ecma402-abstract@1.14.3":
+  version "1.14.3"
+  resolved "https://artefacts.si.perfect-memory.com/repository/npm-all/@formatjs/ecma402-abstract/-/ecma402-abstract-1.14.3.tgz#6428f243538a11126180d121ce8d4b2f17465738"
+  integrity sha512-SlsbRC/RX+/zg4AApWIFNDdkLtFbkq3LNoZWXZCE/nHVKqoIJyaoQyge/I0Y38vLxowUn9KTtXgusLD91+orbg==
+  dependencies:
+    "@formatjs/intl-localematcher" "0.2.32"
+    tslib "^2.4.0"
+
+"@formatjs/icu-messageformat-parser@^2.3.1":
+  version "2.3.1"
+  resolved "https://artefacts.si.perfect-memory.com/repository/npm-all/@formatjs/icu-messageformat-parser/-/icu-messageformat-parser-2.3.1.tgz#953080ea5c053bc73bdf55d0a524a3c3c133ae6b"
+  integrity sha512-knF2AkAKN4Upv4oIiKY4Wd/dLH68TNMPgV/tJMu/T6FP9aQwbv8fpj7U3lkyniPaNVxvia56Gxax8MKOjtxLSQ==
+  dependencies:
+    "@formatjs/ecma402-abstract" "1.14.3"
+    "@formatjs/icu-skeleton-parser" "1.3.18"
+    tslib "^2.4.0"
+
+"@formatjs/icu-skeleton-parser@1.3.18":
+  version "1.3.18"
+  resolved "https://artefacts.si.perfect-memory.com/repository/npm-all/@formatjs/icu-skeleton-parser/-/icu-skeleton-parser-1.3.18.tgz#7aed3d60e718c8ad6b0e64820be44daa1e29eeeb"
+  integrity sha512-ND1ZkZfmLPcHjAH1sVpkpQxA+QYfOX3py3SjKWMUVGDow18gZ0WPqz3F+pJLYQMpS2LnnQ5zYR2jPVYTbRwMpg==
+  dependencies:
+    "@formatjs/ecma402-abstract" "1.14.3"
+    tslib "^2.4.0"
+
+"@formatjs/intl-localematcher@0.2.32":
+  version "0.2.32"
+  resolved "https://artefacts.si.perfect-memory.com/repository/npm-all/@formatjs/intl-localematcher/-/intl-localematcher-0.2.32.tgz#00d4d307cd7d514b298e15a11a369b86c8933ec1"
+  integrity sha512-k/MEBstff4sttohyEpXxCmC3MqbUn9VvHGlZ8fauLzkbwXmVrEeyzS+4uhrvAk9DWU9/7otYWxyDox4nT/KVLQ==
+  dependencies:
+    tslib "^2.4.0"
+
 "@gar/promisify@^1.1.3":
   version "1.1.3"
   resolved "https://artefacts.si.perfect-memory.com/repository/npm-all/@gar/promisify/-/promisify-1.1.3.tgz#555193ab2e3bb3b6adc3d551c9c030d9e860daf6"
@@ -3622,13 +3654,13 @@
     jszip "^3.10.1"
     semver "^7.3.8"
 
-"@vtabary/xliff2js@^0.3.1":
-  version "0.3.1"
-  resolved "https://artefacts.si.perfect-memory.com/repository/npm-all/@vtabary/xliff2js/-/xliff2js-0.3.1.tgz#848df9c2ad225d2e212993466e204cf1f2116485"
-  integrity sha512-lhTYyHZcxX79rfLW33/pR7WXfYOTUCakxy5mTGGEBUkZAM8VSOZR9FZRbrTYC9nt1CfWL90eOeBI2J0vGPoEbQ==
+"@vtabary/xliff2js@^0.5.2":
+  version "0.5.2"
+  resolved "https://artefacts.si.perfect-memory.com/repository/npm-all/@vtabary/xliff2js/-/xliff2js-0.5.2.tgz#f436cc06fa4b2fdfdba942d598a0a8fc30ed538d"
+  integrity sha512-Lca9Wp0BKUSpJaw+PJmPKJvfAv75aH3LclrfA5RpCsx/ymJVyVHWR2TT5h0Ub6QICvPRm8MQdEoQPXawgmECog==
   dependencies:
-    sax "^1.2.4"
-    xmlbuilder "^13.0.2"
+    "@formatjs/icu-messageformat-parser" "^2.3.1"
+    fast-xml-parser "^4.2.2"
 
 "@webassemblyjs/ast@1.11.1":
   version "1.11.1"
@@ -6772,6 +6804,13 @@ fast-levenshtein@^2.0.6, fast-levenshtein@~2.0.6:
   version "2.0.6"
   resolved "https://artefacts.si.perfect-memory.com/repository/npm-all/fast-levenshtein/-/fast-levenshtein-2.0.6.tgz#3d8a5c66883a16a30ca8643e851f19baa7797917"
   integrity sha512-DCXu6Ifhqcks7TZKY3Hxp3y6qphY5SJZmrWMDrKcERSOXWQdMhU9Ig/PYrzyw/ul9jOIyh0N4M0tbC5hodg8dw==
+
+fast-xml-parser@^4.2.2:
+  version "4.2.2"
+  resolved "https://artefacts.si.perfect-memory.com/repository/npm-all/fast-xml-parser/-/fast-xml-parser-4.2.2.tgz#cb7310d1e9cf42d22c687b0fae41f3c926629368"
+  integrity sha512-DLzIPtQqmvmdq3VUKR7T6omPK/VCRNqgFlGtbESfyhcH2R4I8EzK1/K6E8PkRCK2EabWrUHK32NjYRbEFnnz0Q==
+  dependencies:
+    strnum "^1.0.5"
 
 fastq@^1.6.0:
   version "1.15.0"
@@ -12399,6 +12438,11 @@ strip-json-comments@~2.0.1:
   resolved "https://artefacts.si.perfect-memory.com/repository/npm-all/strip-json-comments/-/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
   integrity sha512-4gB8na07fecVVkOI6Rs4e7T6NOTki5EmL7TUduTs6bu3EdnSycntVJ4re8kgZA+wx9IueI2Y11bfbgwtzuE0KQ==
 
+strnum@^1.0.5:
+  version "1.0.5"
+  resolved "https://artefacts.si.perfect-memory.com/repository/npm-all/strnum/-/strnum-1.0.5.tgz#5c4e829fe15ad4ff0d20c3db5ac97b73c9b072db"
+  integrity sha512-J8bbNyKKXl5qYcR36TIO8W3mVGVHrmmxsd5PAItGkmyzwJvybiw2IVq5nqd0i4LSNSkB/sx9VHllbfFdr9k1JA==
+
 strong-log-transformer@^2.1.0:
   version "2.1.0"
   resolved "https://artefacts.si.perfect-memory.com/repository/npm-all/strong-log-transformer/-/strong-log-transformer-2.1.0.tgz#0f5ed78d325e0421ac6f90f7f10e691d6ae3ae10"
@@ -13593,11 +13637,6 @@ xmlbuilder@>=11.0.1, xmlbuilder@^15.1.1:
   version "15.1.1"
   resolved "https://artefacts.si.perfect-memory.com/repository/npm-all/xmlbuilder/-/xmlbuilder-15.1.1.tgz#9dcdce49eea66d8d10b42cae94a79c3c8d0c2ec5"
   integrity sha512-yMqGBqtXyeN1e3TGYvgNgDVZ3j84W4cwkOXQswghol6APgZWaff9lnbvN7MHYJOiXsvGPXtjTYJEiC9J2wv9Eg==
-
-xmlbuilder@^13.0.2:
-  version "13.0.2"
-  resolved "https://artefacts.si.perfect-memory.com/repository/npm-all/xmlbuilder/-/xmlbuilder-13.0.2.tgz#02ae33614b6a047d1c32b5389c1fdacb2bce47a7"
-  integrity sha512-Eux0i2QdDYKbdbA6AM6xE4m6ZTZr4G4xF9kahI2ukSEMCzwce2eX9WlTI5J3s+NU7hpasFsr8hWIONae7LluAQ==
 
 xmlbuilder@~11.0.0:
   version "11.0.1"

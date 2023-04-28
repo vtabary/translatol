@@ -33,7 +33,7 @@ export class FileService implements XLIFFWritingInterface {
     return this.open(filePath).pipe(
       switchMap(data => {
         const parser = new XliffParser();
-        return of(parser.parse(data));
+        return of(parser.parse<IXliff>(data));
       })
     );
   }
@@ -52,7 +52,7 @@ export class FileService implements XLIFFWritingInterface {
       return throwError(new Error('Can not open file outside an Electron application'));
     }
 
-    const builder = new XliffBuilder({ pretty: true, dontPrettyTextNodes: true });
+    const builder = new XliffBuilder({ pretty: true });
     const xml = builder.build(data);
     return this.save(filePath, xml);
   }

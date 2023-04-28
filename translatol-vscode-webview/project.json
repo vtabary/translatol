@@ -14,10 +14,10 @@
         "outputPath": "dist/translatol-vscode-extension/translatol-vscode-webview",
         "index": "translatol-vscode-webview/src/index.html",
         "main": "translatol-vscode-webview/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": ["@angular/localize/init", "zone.js"],
         "tsConfig": "translatol-vscode-webview/tsconfig.app.json",
         "assets": ["translatol-vscode-webview/src/favicon.ico", "translatol-vscode-webview/src/assets"],
-        "styles": ["translatol-vscode-webview/src/styles.scss"],
+        "styles": ["node_modules/@clr/ui/clr-ui.min.css", "translatol-vscode-webview/src/styles.scss"],
         "scripts": []
       },
       "configurations": {
@@ -26,7 +26,7 @@
             {
               "type": "initial",
               "maximumWarning": "500kb",
-              "maximumError": "1mb"
+              "maximumError": "10mb"
             },
             {
               "type": "anyComponentStyle",

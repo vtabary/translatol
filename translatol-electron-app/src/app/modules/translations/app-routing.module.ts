@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TranslationsComponent } from 'translatol-shared-module';
+import { TranslationsComponent, xliffResolver } from 'translatol-shared-module';
 import { FolderTranslationsComponent } from './pages/folder-translations/folder-translations.component';
 import { NoFileComponent } from './pages/no-file/no-file.component';
 
@@ -15,6 +15,13 @@ const routes: Routes = [
           {
             path: ':properties',
             component: TranslationsComponent,
+            data: {
+              reuseComponent: false,
+            },
+            resolve: {
+              files: xliffResolver,
+            },
+            runGuardsAndResolvers: 'always',
           },
           {
             path: '',
@@ -27,6 +34,13 @@ const routes: Routes = [
   {
     path: ':properties',
     component: TranslationsComponent,
+    data: {
+      reuseComponent: false,
+    },
+    resolve: {
+      files: xliffResolver,
+    },
+    runGuardsAndResolvers: 'always',
   },
   {
     path: '',

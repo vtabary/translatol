@@ -25,8 +25,9 @@ export { TreeBuilderService, ITreeNode } from './lib/services/tree-builder/tree-
 /**
  * Models
  */
-export { XLIFF_FILE_HANDLER, XLIFFFileHandlerInterface } from './lib/models/xliff-file.service.interface';
-export { TEMPLATE_FILE_HANDLER, TemplateFileHandlerInterface } from './lib/models/template-file.service.interface.1';
+export { XLIFF_WRITING_SERVICE, XLIFFWritingInterface } from './lib/models/xliff-file.service.interface';
+export { ResolvedXLIFF, XliffResolverService, xliffResolver } from './lib/services/xliff-resolver/xliff-resolver.service';
+export { XLIFF_RESOLVER_SERVICE } from './lib/services/xliff-resolver/xliff-resolver.service';
 
 /**
  * Module

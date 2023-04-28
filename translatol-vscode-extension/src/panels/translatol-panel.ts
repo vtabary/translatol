@@ -1,5 +1,20 @@
-import { Disposable, Uri, ViewColumn, Webview, WebviewPanel, window } from 'vscode';
+import { Disposable, Uri, ViewColumn, Webview, WebviewPanel, window, workspace } from 'vscode';
 import { getNonce } from '../util';
+
+async function getFileContent(fileUri: Uri): Promise<string> {
+  const file = await workspace.fs.readFile(fileUri);
+  const content = Buffer.from(file).toString('utf8');
+
+  return content;
+}
+
+async function writeFileContent(fileUri: Uri, content: string): Promise<void> {
+  try {
+    await workspace.fs.writeFile(fileUri, Buffer.from(content, 'utf8'));
+  } catch (error) {
+    console.log('Error writing file');
+  }
+}
 
 /**
  * This class manages the state and behavior of HelloWorld webview panels.
@@ -31,9 +46,6 @@ export class TranslatolPanel {
 
     // Set the HTML content for the webview panel
     this._panel.webview.html = this._getWebviewContent(this._panel.webview, extensionUri);
-
-    // Set an event listener to listen for messages passed from the webview context
-    this._setWebviewMessageListener(this._panel.webview);
   }
 
   /**
@@ -42,7 +54,7 @@ export class TranslatolPanel {
    *
    * @param extensionUri The URI of the directory containing the extension.
    */
-  public static render(extensionUri: Uri, fileUri: Uri) {
+  public static async render(extensionUri: Uri, fileUri: Uri) {
     if (TranslatolPanel.currentPanel) {
       // If the webview panel already exists reveal it
       TranslatolPanel.currentPanel._panel.reveal(ViewColumn.Active);
@@ -66,9 +78,23 @@ export class TranslatolPanel {
         }
       );
 
+      const templateFileUri = Uri.joinPath(fileUri, '..', 'messages.xlf');
       panel.webview.postMessage({
-        type: 'xliff',
-        content: fileUri.toString(),
+        type: 'xliff_load',
+        file: {
+          path: fileUri.toString(),
+          content: await getFileContent(fileUri),
+        },
+        template: {
+          path: templateFileUri.toString(),
+          content: await getFileContent(templateFileUri),
+        },
+      });
+
+      panel.webview.onDidReceiveMessage(message => {
+        if (message.type === 'xliff_write') {
+          writeFileContent(fileUri, message.file.content);
+        }
       });
 
       TranslatolPanel.currentPanel = new TranslatolPanel(panel, extensionUri);
@@ -105,75 +131,39 @@ export class TranslatolPanel {
    * rendered within the webview panel
    */
   private _getWebviewContent(webview: Webview, extensionUri: Uri) {
-    // The CSS file from the Angular build output
-    const stylesUri = getUri(webview, extensionUri, ['translatol-vscode-webview', 'styles.css']);
-    // The JS files from the Angular build output
-    const runtimeUri = getUri(webview, extensionUri, ['translatol-vscode-webview', 'runtime.js']);
-    const polyfillsUri = getUri(webview, extensionUri, ['translatol-vscode-webview', 'polyfills.js']);
-    const scriptUri = getUri(webview, extensionUri, ['translatol-vscode-webview', 'main.js']);
+    // Local path to script and css for the webview
+    const angularCSSURI = webview.asWebviewUri(Uri.joinPath(extensionUri, 'translatol-vscode-webview', 'styles.css'));
+    const angularRuntimeURI = webview.asWebviewUri(Uri.joinPath(extensionUri, 'translatol-vscode-webview', 'runtime.js'));
+    const angularPolyfillsURI = webview.asWebviewUri(Uri.joinPath(extensionUri, 'translatol-vscode-webview', 'polyfills.js'));
+    const angularMainURI = webview.asWebviewUri(Uri.joinPath(extensionUri, 'translatol-vscode-webview', 'main.js'));
 
+    // Use a nonce to whitelist which scripts can be run
     const nonce = getNonce();
 
     // Tip: Install the es6-string-html VS Code extension to enable code highlighting below
-    return /*html*/ `
-      <!DOCTYPE html>
-      <html lang="en">
-        <head>
-          <meta charset="UTF-8" />
-          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-          <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src ${webview.cspSource}; script-src 'nonce-${nonce}';">
-          <link rel="stylesheet" type="text/css" href="${stylesUri}">
-          <title>Hello World</title>
-        </head>
-        <body>
-          <app-root></app-root>
-          <script type="module" nonce="${nonce}" src="${runtimeUri}"></script>
-          <script type="module" nonce="${nonce}" src="${polyfillsUri}"></script>
-          <script type="module" nonce="${nonce}" src="${scriptUri}"></script>
-        </body>
-      </html>
+    return /*html*/ `<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <!--
+		Use a content security policy to only allow loading images from https or from our extension directory,
+		and only allow scripts that have a specific nonce.
+		-->
+    <!--
+		<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src ${webview.cspSource}; style-src ${webview.cspSource}; script-src 'nonce-${nonce}';">
+    -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="${angularCSSURI}">
+  </head>
+  <body>
+    <app-root></app-root>
+    <script src="${angularRuntimeURI}" type="module"></script>
+    <script src="${angularPolyfillsURI}" type="module"></script>
+    <script src="${angularMainURI}" type="module"></script>
+  </body>
+</html>
     `;
   }
-
-  /**
-   * Sets up an event listener to listen for messages passed from the webview context and
-   * executes code based on the message that is recieved.
-   *
-   * @param webview A reference to the extension webview
-   * @param context A reference to the extension context
-   */
-  private _setWebviewMessageListener(webview: Webview) {
-    webview.onDidReceiveMessage(
-      (message: any) => {
-        const command = message.command;
-        const text = message.text;
-
-        switch (command) {
-          case 'hello':
-            // Code that should run in response to the hello message command
-            window.showInformationMessage(text);
-            return;
-          // Add more switch case statements here as more webview message commands
-          // are created within the webview context (i.e. inside media/main.js)
-        }
-      },
-      undefined,
-      this._disposables
-    );
-  }
-}
-
-/**
- * A helper function which will get the webview URI of a given file or resource.
- *
- * @remarks This URI can be used within a webview's HTML as a link to the
- * given file/resource.
- *
- * @param webview A reference to the extension webview
- * @param extensionUri The URI of the directory containing the extension
- * @param pathList An array of strings representing the path to a file/resource
- * @returns A URI pointing to the file/resource
- */
-export function getUri(webview: Webview, extensionUri: Uri, pathList: string[]) {
-  return webview.asWebviewUri(Uri.joinPath(extensionUri, ...pathList));
 }

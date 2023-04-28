@@ -1,7 +1,7 @@
 <div class="content-container" *ngIf="translations$ | async as translations">
   <div class="content-area">
     <app-notification></app-notification>
-    <h2 [title]="filePath">{{ filePath | endOfString : 50 }}</h2>
+    <h2 [title]="resolvedXliff.file.path">{{ resolvedXliff.file.path | endOfString : 50 }}</h2>
     <div class="ui-header">
       <app-translation-search (changed)="searched$.emit($event)"> </app-translation-search>
       <div>

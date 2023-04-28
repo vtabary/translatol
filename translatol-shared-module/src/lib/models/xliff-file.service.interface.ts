@@ -1,10 +1,8 @@
 import { InjectionToken } from '@angular/core';
 import { IXliff } from '@vtabary/xliff2js';
-import { Observable } from 'rxjs';
 
-export interface XLIFFFileHandlerInterface {
-  openXLIFF(path: string): Observable<IXliff | undefined>;
-  saveXLIFF(path: string, content: IXliff): Observable<void>;
+export interface XLIFFWritingInterface {
+  saveXLIFF(path: string, content: IXliff): void;
 }
 
-export const XLIFF_FILE_HANDLER = new InjectionToken<XLIFFFileHandlerInterface>('XLIFF_FILE_SERVICE');
+export const XLIFF_WRITING_SERVICE = new InjectionToken<XLIFFWritingInterface>('XLIFF_WRITING');

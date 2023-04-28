@@ -2,6 +2,7 @@
   "name": "translatol-shared-module",
   "version": "0.0.1",
   "peerDependencies": {
+    "@angular/router": "^15.2.0",
     "@angular/common": "^15.2.0",
     "@angular/core": "^15.2.0"
   },

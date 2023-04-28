@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RouteReuseStrategy } from '@angular/router';
 import { ClarityModule } from '@clr/angular';
+import { AlertWarningComponent } from './components/alert-warning/alert-warning.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { NotificationComponent } from './components/notification/notification.component';
 import { TranslationDuplicatedListComponent } from './components/translation-duplicated-list/translation-duplicated-list.component';
@@ -11,29 +13,9 @@ import { TranslationNavigationComponent } from './components/translation-navigat
 import { TranslationSearchComponent } from './components/translation-search/translation-search.component';
 import { TranslationComponent } from './components/translation/translation.component';
 import { TranslationsComponent } from './components/translations/translations.component';
-import { TEMPLATE_FILE_HANDLER, TemplateFileHandlerInterface } from './models/template-file.service.interface.1';
-import { XLIFFFileHandlerInterface, XLIFF_FILE_HANDLER } from './models/xliff-file.service.interface';
+import { ReloadRouteReuseStrategy } from './models/reload-route-reuse-strategy/reload-route-reuse-strategy';
+import { XLIFF_WRITING_SERVICE } from './models/xliff-file.service.interface';
 import { EndOfStringPipe } from './pipes/end-of-string/end-of-string.pipe';
-import { AlertWarningComponent } from './components/alert-warning/alert-warning.component';
-
-function initializeTranslatolSharedModule(
-  xliffFileHandler?: XLIFFFileHandlerInterface,
-  templateFileHandler?: TemplateFileHandlerInterface
-): () => Promise<void> {
-  return () =>
-    new Promise((resolve, reject) => {
-      if (xliffFileHandler === undefined) {
-        reject('TranslatolSharedModuleModule requires a XLIFF_FILE_HANDLER provider implementing XLiffFileHandlerInterface');
-        return;
-      }
-
-      if (templateFileHandler === undefined) {
-        reject('TranslatolSharedModuleModule requires a XLIFF_FILE_HANDLER provider implementing templateFileHandler');
-        return;
-      }
-      resolve();
-    });
-}
 
 const declaredComponents = [
   AlertWarningComponent,
@@ -50,17 +32,18 @@ const declaredComponents = [
 @NgModule({
   declarations: [...declaredComponents, EndOfStringPipe, ModalComponent],
   imports: [CommonModule, ReactiveFormsModule, ClarityModule],
-  exports: [EndOfStringPipe],
+  exports: [
+    EndOfStringPipe,
+    TranslationComponent,
+    TranslationItemComponent,
+    TranslationListComponent,
+    TranslationNavigationComponent,
+    TranslationsComponent,
+    TranslationSearchComponent,
+  ],
   providers: [
-    { provide: XLIFF_FILE_HANDLER, useValue: undefined },
-    { provide: TEMPLATE_FILE_HANDLER, useValue: undefined },
-
-    {
-      provide: APP_INITIALIZER,
-      useFactory: initializeTranslatolSharedModule,
-      multi: true,
-      deps: [XLIFF_FILE_HANDLER, TEMPLATE_FILE_HANDLER],
-    },
+    { provide: XLIFF_WRITING_SERVICE, useValue: undefined },
+    { provide: RouteReuseStrategy, useClass: ReloadRouteReuseStrategy },
   ],
 })
 export class TranslatolSharedModule {}

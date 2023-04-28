@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { PostMessageService } from '../../services/post-message/post-message.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-translate-page',
@@ -7,16 +8,16 @@ import { PostMessageService } from '../../services/post-message/post-message.ser
   styleUrls: ['./translate-page.component.scss'],
 })
 export class TranslatePageComponent {
-  public content?: string;
+  public content?: any;
 
-  constructor(private postMessageService: PostMessageService) {}
+  constructor(private activatedRoute: ActivatedRoute) {}
   /**
    * @internal
    */
   public ngOnInit(): void {
-    this.postMessageService.onMessageReceive.subscribe(message => {
+    this.activatedRoute.data.subscribe(message => {
       console.log('onMessageReceive', message);
-      this.content = message.content;
+      this.content = message;
     });
   }
 }

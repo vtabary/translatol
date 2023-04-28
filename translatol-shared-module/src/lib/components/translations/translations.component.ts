@@ -1,13 +1,14 @@
 import { Component, EventEmitter, Inject } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Data, Router } from '@angular/router';
 import { IXliff, IXliffTransUnit } from '@vtabary/xliff2js';
-import { Observable, combineLatest, merge } from 'rxjs';
-import { filter, map, shareReplay, startWith, switchMap, take } from 'rxjs/operators';
-import { XLIFF_FILE_HANDLER, XLIFFFileHandlerInterface } from '../../models/xliff-file.service.interface';
-import { TranslationsService } from '../../services/translations/translations.service';
+import { combineLatest, merge, Observable } from 'rxjs';
+import { filter, map, shareReplay, startWith } from 'rxjs/operators';
+// import { HistoryService } from 'src/app/modules/shared/public-api';
+import { XLIFF_WRITING_SERVICE, XLIFFWritingInterface } from '../../models/xliff-file.service.interface';
 import { NotificationService } from '../../services/notification/notification.service';
-// import { HistoryService, NotificationService } from 'src/app/modules/shared/public-api';
+import { TranslationsService } from '../../services/translations/translations.service';
+import { ResolvedXLIFF } from '../../services/xliff-resolver/xliff-resolver.service';
 
 @Component({
   selector: 'app-translations',
@@ -20,31 +21,30 @@ export class TranslationsComponent {
   public translated$: Observable<IXliffTransUnit[]>;
   public translations$: Observable<IXliffTransUnit[]>;
   public translations: IXliff;
+  public resolvedXliff: ResolvedXLIFF;
   public duplicated: IXliffTransUnit[];
-
-  public filePath: string;
   public targetLanguage: string;
   public isObsoleteTranslation = false;
   public openModalDeleteObsolete = false;
   public searched$ = new EventEmitter<string>();
 
-  private refreshed = new EventEmitter();
-
   constructor(
     private translationsService: TranslationsService,
-    @Inject(XLIFF_FILE_HANDLER)
-    private fileService: XLIFFFileHandlerInterface,
+    @Inject(XLIFF_WRITING_SERVICE)
+    private xliffService: XLIFFWritingInterface,
     private activatedRoute: ActivatedRoute,
-    private notification: NotificationService // private historyService: HistoryService,
+    private notification: NotificationService, // private historyService: HistoryService,
+    private router: Router
   ) {
-    this.translations$ = merge(
-      this.activatedRoute.params.pipe(
-        filter(params => !!params.properties),
-        map(params => (this.filePath = atob(params.properties)))
-      ),
-      this.refreshed.pipe(map(() => this.filePath))
-    ).pipe(
-      switchMap(filePath => translationsService.load(filePath)),
+    this.translations$ = this.activatedRoute.data.pipe(
+      filter(data => !!data.files),
+      map<Data, ResolvedXLIFF>(data => {
+        this.resolvedXliff = data.files;
+        return this.resolvedXliff;
+      }),
+      map(resolvedXliff => {
+        return translationsService.parseXLiff(resolvedXliff.file.content, resolvedXliff.template.content);
+      }),
       map(({ locale, duplicated }) => {
         this.duplicated = duplicated;
         this.translations = locale;
@@ -62,13 +62,19 @@ export class TranslationsComponent {
 
     this.translated$ = this.translations$.pipe(this.filterByTranslatedOperator(true), shareReplay(1));
   }
-
+  /**
+   * @internal
+   */
   public async onSave() {
     this.saveXLIFF(this.translations, 'Translation file saved');
   }
 
-  public refresh(): void {
-    this.refreshed.emit();
+  /**
+   * @internal
+   */
+  public async refresh() {
+    // Reload same URL, router is configured to handle reload
+    await this.router.navigateByUrl(this.router.url, { onSameUrlNavigation: 'reload' });
   }
 
   public openModal(): void {
@@ -82,11 +88,8 @@ export class TranslationsComponent {
       return;
     }
 
-    this.translationsService.load(this.filePath).subscribe(({ locale, duplicated }) => {
-      this.duplicated = duplicated;
-      this.saveXLIFF(locale, 'Obsolete translation key deleted');
-      this.isObsoleteTranslation = false;
-    });
+    this.saveXLIFF(this.translations, 'Obsolete translation key deleted');
+    this.isObsoleteTranslation = false;
   }
 
   private filterByTranslatedOperator(translated: boolean): (source: Observable<IXliffTransUnit[]>) => Observable<IXliffTransUnit[]> {
@@ -123,9 +126,7 @@ export class TranslationsComponent {
   }
 
   private saveXLIFF(translations: IXliff, message: string): void {
-    this.fileService
-      .saveXLIFF(this.filePath, translations)
-      .pipe(take(1))
-      .subscribe(() => this.notification.success({ message }));
+    this.xliffService.saveXLIFF(this.resolvedXliff.file.path, translations);
+    this.notification.success({ message });
   }
 }

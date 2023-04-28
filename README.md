@@ -6,7 +6,14 @@ A tool to translate XLIFF files. It comes in two flavors a desktop application a
 
 ## Installation
 
-All releases are available on [the release page](https://github.com/vtabary/translatol/releases)
+All application releases are available on [the release page](https://github.com/vtabary/translatol/releases)
+
+VSCode extension is available in the [Market Place](https://marketplace.visualstudio.com/items?itemName=PerfectMemory.translatol)
+and can be installed with the following command in VSCode:
+
+```vscode
+ext install PerfectMemory.translatol
+```
 
 ## Contributing
 

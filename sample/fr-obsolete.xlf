@@ -1,6 +1,7 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-  <file source-language="en-US" datatype="plaintext" original="ng2.template">
+  <file source-language="en-US" datatype="plaintext" original="ng2.template"
+    target-language="undefined">
     <body>
       <trans-unit id="template.simple-case-translated" datatype="html">
         <source>Simple case</source>
@@ -25,12 +26,11 @@
             apps/ui/src/app/modules/carts/components/create-order/first-step/first-step.component.ts</context>
           <context context-type="linenumber">88</context>
         </context-group>
-        <target> Cas:<x id="PH" />
-        </target>
+        <target> Cas:<x id="PH" /></target>
       </trans-unit>
       <trans-unit id="template.plural-case-translated" datatype="html">
-        <source>{VAR_PLURAL, plural, =0 {0 item} =1 {<x id="INTERPOLATION" /> item} other {<x
-            id="INTERPOLATION" /> items}}</source>
+        <source>{VAR_PLURAL, plural, =0 {0 item} =1 {<x id="INTERPOLATION" equiv-text="list.length" />
+          item} other {<x id="INTERPOLATION" equiv-text="list.length" /> items}}</source>
         <context-group purpose="location">
           <context context-type="sourcefile">
             apps/ui/src/app/modules/shared/components/item-counter/item-counter.component.html</context>
@@ -39,29 +39,19 @@
         <target>{VAR_PLURAL, plural, =0 {0 élément} =1 {<x id="INTERPOLATION" /> élément} other {<x
             id="INTERPOLATION" /> éléments}}</target>
       </trans-unit>
-      <trans-unit id="template.obsolete-case-translated" datatype="html">
-        <source>Obsolete case</source>
+      <trans-unit id="template.simple-case-not-translated" datatype="html">
+        <source>Simple case</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/ui/src/app/components/footer/footer.component.html</context>
           <context context-type="linenumber">17</context>
         </context-group>
-        <target>Cas obsolete</target>
       </trans-unit>
-      <trans-unit id="template.duplicated-key-case-translated" datatype="html">
-        <source>Duplicated key case 1</source>
+      <trans-unit id="template.obsolete-key-case-translated" datatype="html">
+        <source>Obsolete key case</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/ui/src/app/components/footer/footer.component.html</context>
           <context context-type="linenumber">17</context>
         </context-group>
-        <target>Cle duplique 1</target>
-      </trans-unit>
-      <trans-unit id="template.duplicated-key-case-translated" datatype="html">
-        <source>Duplicated key case 2</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/ui/src/app/components/footer/footer.component.html</context>
-          <context context-type="linenumber">17</context>
-        </context-group>
-        <target>Cle duplique 2</target>
       </trans-unit>
     </body>
   </file>

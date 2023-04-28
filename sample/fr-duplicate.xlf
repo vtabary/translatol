@@ -8,6 +8,7 @@
           <context context-type="sourcefile">apps/ui/src/app/components/footer/footer.component.html</context>
           <context context-type="linenumber">17</context>
         </context-group>
+        <target>Cas simple</target>
       </trans-unit>
       <trans-unit id="template.description-case-translated" datatype="html">
         <source>Description case</source>
@@ -15,6 +16,7 @@
           <context context-type="sourcefile">apps/ui/src/app/components/footer/footer.component.html</context>
           <context context-type="linenumber">17</context>
         </context-group>
+        <target>Cas avec description</target>
       </trans-unit>
       <trans-unit id="template.interpolation-case-translated" datatype="html">
         <source>Case:<x id="PH" equiv-text="this.something" /></source>
@@ -23,6 +25,8 @@
             apps/ui/src/app/modules/carts/components/create-order/first-step/first-step.component.ts</context>
           <context context-type="linenumber">88</context>
         </context-group>
+        <target> Cas:<x id="PH" />
+        </target>
       </trans-unit>
       <trans-unit id="template.plural-case-translated" datatype="html">
         <source>{VAR_PLURAL, plural, =0 {0 item} =1 {<x id="INTERPOLATION" /> item} other {<x
@@ -32,37 +36,8 @@
             apps/ui/src/app/modules/shared/components/item-counter/item-counter.component.html</context>
           <context context-type="linenumber">2,7</context>
         </context-group>
-      </trans-unit>
-      <trans-unit id="template.simple-case-not-translated" datatype="html">
-        <source>Simple case</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/ui/src/app/components/footer/footer.component.html</context>
-          <context context-type="linenumber">17</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="template.description-case-not-translated" datatype="html">
-        <source>Description case</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/ui/src/app/components/footer/footer.component.html</context>
-          <context context-type="linenumber">17</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="template.interpolation-case-not-translated" datatype="html">
-        <source>Case:<x id="PH" equiv-text="this.something" /></source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">
-            apps/ui/src/app/modules/carts/components/create-order/first-step/first-step.component.ts</context>
-          <context context-type="linenumber">88</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="template.plural-case-not-translated" datatype="html">
-        <source>{VAR_PLURAL, plural, =0 {0 item} =1 {<x id="INTERPOLATION" /> item} other {<x
-            id="INTERPOLATION" /> items}}</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">
-            apps/ui/src/app/modules/shared/components/item-counter/item-counter.component.html</context>
-          <context context-type="linenumber">2,7</context>
-        </context-group>
+        <target>{VAR_PLURAL, plural, =0 {0 élément} =1 {<x id="INTERPOLATION" /> élément} other {<x
+            id="INTERPOLATION" /> éléments}}</target>
       </trans-unit>
       <trans-unit id="template.duplicated-key-case-translated" datatype="html">
         <source>Duplicated key case 1</source>
@@ -70,13 +45,15 @@
           <context context-type="sourcefile">apps/ui/src/app/components/footer/footer.component.html</context>
           <context context-type="linenumber">17</context>
         </context-group>
+        <target>Cle duplique 2</target>
       </trans-unit>
       <trans-unit id="template.duplicated-key-case-translated" datatype="html">
-        <source>Duplicated key case 2</source>
+        <source>Duplicated key case 1</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/ui/src/app/components/footer/footer.component.html</context>
           <context context-type="linenumber">17</context>
         </context-group>
+        <target>Cle duplique 2</target>
       </trans-unit>
     </body>
   </file>

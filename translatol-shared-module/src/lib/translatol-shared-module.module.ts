@@ -17,6 +17,8 @@ import { ReloadRouteReuseStrategy } from './models/reload-route-reuse-strategy/r
 import { XLIFF_WRITING_SERVICE } from './models/xliff-file.service.interface';
 import { EndOfStringPipe } from './pipes/end-of-string/end-of-string.pipe';
 import { CopyToClipboardComponent } from './components/copy-to-clipboard/copy-to-clipboard.component';
+import { ClarityIcons, copyToClipboardIcon, fileIcon, folderIcon, infoStandardIcon, searchIcon } from '@cds/core/icon';
+ClarityIcons.addIcons(fileIcon, folderIcon, infoStandardIcon, searchIcon, copyToClipboardIcon);
 
 const declaredComponents = [
   AlertWarningComponent,

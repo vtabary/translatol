@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ClarityIcons, fileIcon, folderIcon, infoStandardIcon, searchIcon } from '@cds/core/icon';
 import { ClarityModule } from '@clr/angular';
 import { TranslatolSharedModule, XLIFF_RESOLVER_SERVICE, XLIFF_WRITING_SERVICE } from 'translatol-shared-module';
 import { SharedModule } from '../shared/shared.module';
@@ -12,8 +11,6 @@ import { FolderTranslationsComponent } from './pages/folder-translations/folder-
 import { NoFileComponent } from './pages/no-file/no-file.component';
 import { ElectronXliffResolverService } from './services/electron-xliff-resolver/electron-xliff-resolver.service';
 import { FileService } from './services/file/file.service';
-
-ClarityIcons.addIcons(fileIcon, folderIcon, infoStandardIcon, searchIcon);
 
 @NgModule({
   providers: [

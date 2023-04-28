@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ElectronService } from '../../services/electron/electron.service';
+import { ClipboardService } from '../../services/clipboard/clipboard.service';
 
 @Component({
   selector: 'app-copy-to-clipboard',
@@ -10,13 +10,12 @@ export class CopyToClipboardComponent {
   @Input()
   public toCopy?: string;
 
-  constructor(private electron: ElectronService) {}
+  constructor(private clipboardService: ClipboardService) {}
 
   public copy(filePath?: string) {
     if (!filePath) {
       return;
     }
-
-    this.electron.clipboard.writeText(filePath, 'clipboard');
+    this.clipboardService.writeInClipboard(filePath);
   }
 }

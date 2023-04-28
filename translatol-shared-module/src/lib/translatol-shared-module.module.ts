@@ -16,9 +16,11 @@ import { TranslationsComponent } from './components/translations/translations.co
 import { ReloadRouteReuseStrategy } from './models/reload-route-reuse-strategy/reload-route-reuse-strategy';
 import { XLIFF_WRITING_SERVICE } from './models/xliff-file.service.interface';
 import { EndOfStringPipe } from './pipes/end-of-string/end-of-string.pipe';
+import { CopyToClipboardComponent } from './components/copy-to-clipboard/copy-to-clipboard.component';
 
 const declaredComponents = [
   AlertWarningComponent,
+  CopyToClipboardComponent,
   NotificationComponent,
   TranslationComponent,
   TranslationDuplicatedListComponent,
@@ -33,6 +35,7 @@ const declaredComponents = [
   declarations: [...declaredComponents, EndOfStringPipe, ModalComponent],
   imports: [CommonModule, ReactiveFormsModule, ClarityModule],
   exports: [
+    CopyToClipboardComponent,
     EndOfStringPipe,
     TranslationComponent,
     TranslationItemComponent,

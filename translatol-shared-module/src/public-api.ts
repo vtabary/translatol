@@ -5,6 +5,7 @@
 /**
  * Components
  */
+export { CopyToClipboardComponent } from './lib/components/copy-to-clipboard/copy-to-clipboard.component';
 export { TranslationComponent } from './lib/components/translation/translation.component';
 export { TranslationItemComponent } from './lib/components/translation-item/translation-item.component';
 export { TranslationListComponent } from './lib/components/translation-list/translation-list.component';

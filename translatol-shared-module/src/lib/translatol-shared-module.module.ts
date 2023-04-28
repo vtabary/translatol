@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
 import { ClarityModule } from '@clr/angular';
+import { ModalComponent } from './components/modal/modal.component';
+import { NotificationComponent } from './components/notification/notification.component';
 import { TranslationItemComponent } from './components/translation-item/translation-item.component';
 import { TranslationListComponent } from './components/translation-list/translation-list.component';
 import { TranslationNavigationComponent } from './components/translation-navigation/translation-navigation.component';
@@ -32,17 +33,19 @@ function initializeTranslatolSharedModule(
     });
 }
 
+const exportedComponents = [
+  NotificationComponent,
+  TranslationComponent,
+  TranslationItemComponent,
+  TranslationListComponent,
+  TranslationNavigationComponent,
+  TranslationsComponent,
+  TranslationSearchComponent,
+];
+
 @NgModule({
-  declarations: [
-    EndOfStringPipe,
-    TranslationComponent,
-    TranslationItemComponent,
-    TranslationListComponent,
-    TranslationNavigationComponent,
-    TranslationsComponent,
-    TranslationSearchComponent,
-  ],
-  imports: [CommonModule, RouterModule, ReactiveFormsModule, ClarityModule],
+  declarations: [exportedComponents, EndOfStringPipe, ModalComponent],
+  imports: [CommonModule, ReactiveFormsModule, ClarityModule],
   exports: [
     EndOfStringPipe,
     TranslationComponent,

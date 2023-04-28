@@ -2,10 +2,11 @@ import { Component, EventEmitter, Inject } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { ActivatedRoute, Data } from '@angular/router';
 import { IXliff, IXliffTransUnit } from '@vtabary/xliff2js';
-import { Observable, combineLatest, merge } from 'rxjs';
-import { filter, map, shareReplay, startWith, switchMap, take } from 'rxjs/operators';
-// import { HistoryService, NotificationService } from 'src/app/modules/shared/public-api';
+import { combineLatest, merge, Observable } from 'rxjs';
+import { filter, map, shareReplay, startWith } from 'rxjs/operators';
+// import { HistoryService } from 'src/app/modules/shared/public-api';
 import { XLIFF_WRITING, XLIFFWritingInterface } from '../../models/xliff-file.service.interface';
+import { NotificationService } from '../../services/notification/notification.service';
 import { TranslationsService } from '../../services/translations/translations.service';
 import { ResolvedXLIFF } from '../../services/xliff-resolver/xliff-resolver.service';
 
@@ -22,15 +23,18 @@ export class TranslationsComponent {
   public translations: IXliff;
   public resolvedXliff: ResolvedXLIFF;
   public targetLanguage: string;
+  public isObsoleteTranslation = false;
+  public openModalDeleteObsolete = false;
   public searched$ = new EventEmitter<string>();
 
   private refreshed = new EventEmitter();
 
   constructor(
-    translationsService: TranslationsService,
+    private translationsService: TranslationsService,
     @Inject(XLIFF_WRITING)
     private xliffService: XLIFFWritingInterface,
-    private activatedRoute: ActivatedRoute // private historyService: HistoryService, // private notification: NotificationService
+    private activatedRoute: ActivatedRoute,
+    private notification: NotificationService // private historyService: HistoryService,
   ) {
     this.translations$ = merge(
       this.activatedRoute.data.pipe(
@@ -49,7 +53,9 @@ export class TranslationsComponent {
         this.translations = locale;
         this.targetLanguage = locale.children[0]?.$?.['target-language'];
         // this.historyService.add({ path: this.filePath, type: 'file' });
-        return translationsService.getAllTranslations(locale);
+        this.isObsoleteTranslation = this.translationsService.isObsoleteTranslation;
+
+        return this.translationsService.getAllTranslations(locale);
       }),
       this.filterOperator(this.searched$),
       shareReplay(1)
@@ -59,15 +65,11 @@ export class TranslationsComponent {
 
     this.translated$ = this.translations$.pipe(this.filterByTranslatedOperator(true), shareReplay(1));
   }
-
   /**
    * @internal
    */
-  public onSave() {
-    this.xliffService.saveXLIFF(this.resolvedXliff.file.path, this.translations);
-    // this.notification.success({
-    //   message: 'Translation file saved',
-    // });
+  public async onSave() {
+    this.saveXLIFF(this.translations, 'Translation file saved');
   }
 
   /**
@@ -77,12 +79,26 @@ export class TranslationsComponent {
     this.refreshed.emit();
   }
 
+  public openModal(): void {
+    this.openModalDeleteObsolete = true;
+  }
+
+  public deleteObsoleteKey(isConfirm: boolean): void {
+    this.openModalDeleteObsolete = false;
+
+    if (!isConfirm) {
+      return;
+    }
+
+    this.saveXLIFF(this.translations, 'Obsolete translation key deleted');
+    this.isObsoleteTranslation = false;
+  }
+
   private filterByTranslatedOperator(translated: boolean): (source: Observable<IXliffTransUnit[]>) => Observable<IXliffTransUnit[]> {
     return source$ =>
       new Observable(observer => {
         return source$.subscribe({
-          next: translations =>
-            observer.next(translations.filter(translation => translation.children.some(child => child.name === 'target') === translated)),
+          next: translations => observer.next(this.translationsService.filterByTranslatedOperator(translations, translated)),
           error: err => observer.error(err),
           complete: () => observer.complete(),
         });
@@ -109,5 +125,10 @@ export class TranslationsComponent {
     return translations.filter(translation => {
       return translation.name.indexOf(formatFilter) >= 0 || translation.$.id.indexOf(formatFilter) >= 0;
     });
+  }
+
+  private saveXLIFF(translations: IXliff, message: string): void {
+    this.xliffService.saveXLIFF(this.resolvedXliff.file.path, translations);
+    this.notification.success({ message });
   }
 }

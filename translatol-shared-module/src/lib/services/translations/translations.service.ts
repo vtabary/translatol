@@ -6,7 +6,12 @@ import { cloneDeep } from 'lodash';
   providedIn: 'root',
 })
 export class TranslationsService {
+  private $isObsoleteTranslation = false;
   private parser = new XliffParser();
+
+  public get isObsoleteTranslation(): boolean {
+    return this.$isObsoleteTranslation;
+  }
 
   public parseXLiff(fileContent: string, templateContent: string): IXliff {
     const xliffTemplate = this.parser.parse(templateContent);
@@ -27,6 +32,8 @@ export class TranslationsService {
     const templateTranslations = this.getAllTranslations(clone);
     const currentTranslations = this.getAllTranslations(current);
 
+    this.handleTranslationObsolete(currentTranslations, templateTranslations);
+
     templateTranslations.forEach(translation => {
       const translated = this.getTranslation(translation.$.id, currentTranslations);
       this.copyTarget(translated, translation);
@@ -41,6 +48,10 @@ export class TranslationsService {
     }
 
     return locale.children.map(child => this.getAllFileTranslations(child)).reduce((prev, curr) => prev.concat(curr), []);
+  }
+
+  public filterByTranslatedOperator(translations: IXliffTransUnit[], translated = true): IXliffTransUnit[] {
+    return translations.filter(translation => translation.children.some(child => child.name === 'target') === translated);
   }
 
   private getAllFileTranslations(file: IXliffFile): IXliffTransUnit[] {
@@ -69,5 +80,11 @@ export class TranslationsService {
     }
 
     to.children = to.children.concat(from.children.filter(child => child.name === 'target'));
+  }
+
+  private handleTranslationObsolete(currentTranslations: IXliffTransUnit[], templateTranslations: IXliffTransUnit[]): void {
+    this.$isObsoleteTranslation = currentTranslations.some(
+      currentTrad => templateTranslations.filter(trad => trad.$.id === currentTrad.$.id).length === 0
+    );
   }
 }

@@ -4,9 +4,10 @@ import { ActivatedRoute } from '@angular/router';
 import { IXliff, IXliffTransUnit } from '@vtabary/xliff2js';
 import { Observable, combineLatest, merge } from 'rxjs';
 import { filter, map, shareReplay, startWith, switchMap, take } from 'rxjs/operators';
-// import { HistoryService, NotificationService } from 'src/app/modules/shared/public-api';
 import { XLIFF_FILE_HANDLER, XLIFFFileHandlerInterface } from '../../models/xliff-file.service.interface';
 import { TranslationsService } from '../../services/translations/translations.service';
+import { NotificationService } from '../../services/notification/notification.service';
+// import { HistoryService, NotificationService } from 'src/app/modules/shared/public-api';
 
 @Component({
   selector: 'app-translations',
@@ -23,15 +24,18 @@ export class TranslationsComponent {
 
   public filePath: string;
   public targetLanguage: string;
+  public isObsoleteTranslation = false;
+  public openModalDeleteObsolete = false;
   public searched$ = new EventEmitter<string>();
 
   private refreshed = new EventEmitter();
 
   constructor(
-    translationsService: TranslationsService,
+    private translationsService: TranslationsService,
     @Inject(XLIFF_FILE_HANDLER)
     private fileService: XLIFFFileHandlerInterface,
-    private activatedRoute: ActivatedRoute // private historyService: HistoryService, // private notification: NotificationService
+    private activatedRoute: ActivatedRoute,
+    private notification: NotificationService // private historyService: HistoryService,
   ) {
     this.translations$ = merge(
       this.activatedRoute.params.pipe(
@@ -46,7 +50,9 @@ export class TranslationsComponent {
         this.translations = locale;
         this.targetLanguage = locale.children[0]?.$?.['target-language'];
         // this.historyService.add({ path: this.filePath, type: 'file' });
-        return translationsService.getAllTranslations(locale);
+        this.isObsoleteTranslation = this.translationsService.isObsoleteTranslation;
+
+        return this.translationsService.getAllTranslations(locale);
       }),
       this.filterOperator(this.searched$),
       shareReplay(1)
@@ -58,22 +64,36 @@ export class TranslationsComponent {
   }
 
   public async onSave() {
-    const result = this.fileService.saveXLIFF(this.filePath, this.translations).pipe(take(1)).subscribe();
-    // this.notification.success({
-    //   message: 'Translation file saved',
-    // });
+    this.saveXLIFF(this.translations, 'Translation file saved');
   }
 
-  public refresh() {
+  public refresh(): void {
     this.refreshed.emit();
+  }
+
+  public openModal(): void {
+    this.openModalDeleteObsolete = true;
+  }
+
+  public deleteObsoleteKey(isConfirm: boolean): void {
+    this.openModalDeleteObsolete = false;
+
+    if (!isConfirm) {
+      return;
+    }
+
+    this.translationsService.load(this.filePath).subscribe(({ locale, duplicated }) => {
+      this.duplicated = duplicated;
+      this.saveXLIFF(locale, 'Obsolete translation key deleted');
+      this.isObsoleteTranslation = false;
+    });
   }
 
   private filterByTranslatedOperator(translated: boolean): (source: Observable<IXliffTransUnit[]>) => Observable<IXliffTransUnit[]> {
     return source$ =>
       new Observable(observer => {
         return source$.subscribe({
-          next: translations =>
-            observer.next(translations.filter(translation => translation.children.some(child => child.name === 'target') === translated)),
+          next: translations => observer.next(this.translationsService.filterByTranslatedOperator(translations, translated)),
           error: err => observer.error(err),
           complete: () => observer.complete(),
         });
@@ -100,5 +120,12 @@ export class TranslationsComponent {
     return translations.filter(translation => {
       return translation.name.indexOf(formatFilter) >= 0 || translation.$.id.indexOf(formatFilter) >= 0;
     });
+  }
+
+  private saveXLIFF(translations: IXliff, message: string): void {
+    this.fileService
+      .saveXLIFF(this.filePath, translations)
+      .pipe(take(1))
+      .subscribe(() => this.notification.success({ message }));
   }
 }

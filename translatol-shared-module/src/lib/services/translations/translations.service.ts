@@ -10,12 +10,18 @@ import { XLIFFFileHandlerInterface, XLIFF_FILE_HANDLER } from '../../models/xlif
   providedIn: 'root',
 })
 export class TranslationsService {
+  private $isObsoleteTranslation = false;
+
   constructor(
     @Inject(TEMPLATE_FILE_HANDLER)
     private templateFileService: TemplateFileHandlerInterface,
     @Inject(XLIFF_FILE_HANDLER)
     private xliffFileService: XLIFFFileHandlerInterface
   ) {}
+
+  public get isObsoleteTranslation(): boolean {
+    return this.$isObsoleteTranslation;
+  }
 
   public load(filePath: string, templateFilePath?: string): Observable<{ locale: IXliff; duplicated: IXliffTransUnit[] }> {
     templateFilePath = templateFilePath || this.getTemplatePathFrom(filePath);
@@ -40,6 +46,8 @@ export class TranslationsService {
 
     const templateTranslations = this.getAllTranslations(clone);
 
+    this.handleTranslationObsolete(currentTranslations, templateTranslations);
+
     templateTranslations.forEach(translation => {
       const translated = this.getTranslation(translation.$.id, currentTranslations);
       this.copyTarget(translated, translation);
@@ -54,6 +62,10 @@ export class TranslationsService {
     }
 
     return locale.children.map(child => this.getAllFileTranslations(child)).reduce((prev, curr) => prev.concat(curr), []);
+  }
+
+  public filterByTranslatedOperator(translations: IXliffTransUnit[], translated = true): IXliffTransUnit[] {
+    return translations.filter(translation => translation.children.some(child => child.name === 'target') === translated);
   }
 
   private getAllFileTranslations(file: IXliffFile): IXliffTransUnit[] {
@@ -98,5 +110,11 @@ export class TranslationsService {
       keys.add(translation.$.id);
     });
     return Object.values(duplicated);
+  }
+
+  private handleTranslationObsolete(currentTranslations: IXliffTransUnit[], templateTranslations: IXliffTransUnit[]): void {
+    this.$isObsoleteTranslation = currentTranslations.some(
+      currentTrad => templateTranslations.filter(trad => trad.$.id === currentTrad.$.id).length === 0
+    );
   }
 }

@@ -8,17 +8,25 @@
         <button type="button" class="btn btn-success-outline" (click)="refresh()" i18n="@@translations.refresh">Refresh</button>
         <button
           type="button"
-          class="btn btn-danger-outline"
+          class="btn btn-danger-outline tooltip tooltip-md tooltip-top-left"
+          role="tooltip"
+          aria-haspopup="true"
           i18n="@@translations.delete-key"
-          [disabled]="!isObsoleteTranslation"
+          [disabled]="duplicated.length || !isObsoleteTranslation"
           (click)="openModal()"
         >
           Delete obsolete key
+          <span *ngIf="duplicated.length" class="tooltip-content"> Fix duplicated translations first </span>
         </button>
       </div>
     </div>
 
     <!--     <app-translation-language *ngFor="let file of translations.children" [file]="file" (submitted)="onSave()"></app-translation-language> -->
+    <app-translation-duplicated-list
+      [translations]="duplicated"
+      i18n-listTitle="@@translations.duplicated-translations"
+      listTitle="Duplicated translations"
+    ></app-translation-duplicated-list>
     <app-translation-list
       [translations]="toTranslate$ | async"
       [targetLanguage]="targetLanguage"
@@ -34,7 +42,11 @@
     ></app-translation-list>
   </div>
   <nav class="sidenav">
-    <app-translation-navigation [toTranslate]="toTranslate$ | async" [translated]="translated$ | async"> </app-translation-navigation>
+    <app-translation-navigation
+      [duplicated]="duplicated"
+      [toTranslate]="toTranslate$ | async"
+      [translated]="translated$ | async"
+    ></app-translation-navigation>
   </nav>
 </div>
 

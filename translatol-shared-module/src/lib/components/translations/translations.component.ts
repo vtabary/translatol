@@ -20,6 +20,8 @@ export class TranslationsComponent {
   public translated$: Observable<IXliffTransUnit[]>;
   public translations$: Observable<IXliffTransUnit[]>;
   public translations: IXliff;
+  public duplicated: IXliffTransUnit[];
+
   public filePath: string;
   public targetLanguage: string;
   public isObsoleteTranslation = false;
@@ -42,8 +44,9 @@ export class TranslationsComponent {
       ),
       this.refreshed.pipe(map(() => this.filePath))
     ).pipe(
-      switchMap(filePath => this.translationsService.load(filePath)),
-      map(locale => {
+      switchMap(filePath => translationsService.load(filePath)),
+      map(({ locale, duplicated }) => {
+        this.duplicated = duplicated;
         this.translations = locale;
         this.targetLanguage = locale.children[0]?.$?.['target-language'];
         // this.historyService.add({ path: this.filePath, type: 'file' });
@@ -79,7 +82,8 @@ export class TranslationsComponent {
       return;
     }
 
-    this.translationsService.load(this.filePath).subscribe(locale => {
+    this.translationsService.load(this.filePath).subscribe(({ locale, duplicated }) => {
+      this.duplicated = duplicated;
       this.saveXLIFF(locale, 'Obsolete translation key deleted');
       this.isObsoleteTranslation = false;
     });

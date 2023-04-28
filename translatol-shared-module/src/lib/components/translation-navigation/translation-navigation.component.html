@@ -1,4 +1,24 @@
 <section class="sidenav-content">
+  <div *ngIf="duplicated.length" class="title">
+    <h5 i18n="@@translation-navigation.duplicated-title">Duplicated</h5>
+    <span class="badge">{{ duplicated.length }}</span>
+  </div>
+
+  <clr-tree>
+    <clr-tree-node *clrRecursiveFor="let duplicatedItem of duplicatedTree; getChildren: getChildren" [clrExpanded]="true">
+      <a
+        *ngIf="duplicatedItem.children.length === 0; else isFolder"
+        class="nav-link"
+        href="#{{ duplicatedItem.currentPath }}"
+        title="{{ duplicatedItem.currentPath }}"
+        >{{ duplicatedItem.currentId }}</a
+      >
+      <ng-template #isFolder>
+        <span title="{{ duplicatedItem.currentPath }}">{{ duplicatedItem.currentId }}</span>
+      </ng-template>
+    </clr-tree-node>
+  </clr-tree>
+
   <div class="title">
     <h5 i18n="@@translation-navigation.to-translate-title">To translate</h5>
     <span class="badge">{{ toTranslate.length }}</span>

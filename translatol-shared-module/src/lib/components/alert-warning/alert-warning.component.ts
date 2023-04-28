@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { IXliffTransUnit } from '@vtabary/xliff2js';
 
 @Component({
   selector: 'app-alert-warning',
@@ -7,5 +8,5 @@ import { Component, Input } from '@angular/core';
 })
 export class AlertWarningComponent {
   @Input()
-  public text: string;
+  public translation: IXliffTransUnit;
 }

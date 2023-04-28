@@ -3,5 +3,5 @@
     <h2>{{ listTitle }}</h2>
     <span class="badge">{{ translations.length }}</span>
   </div>
-  <app-alert-warning *ngFor="let translation of translations" [text]="translation.$.id"></app-alert-warning>
+  <app-alert-warning *ngFor="let translation of translations" [translation]="translation"></app-alert-warning>
 </ng-container>

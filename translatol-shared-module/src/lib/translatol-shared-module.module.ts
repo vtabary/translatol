@@ -14,6 +14,7 @@ import { TranslationsComponent } from './components/translations/translations.co
 import { TEMPLATE_FILE_HANDLER, TemplateFileHandlerInterface } from './models/template-file.service.interface.1';
 import { XLIFFFileHandlerInterface, XLIFF_FILE_HANDLER } from './models/xliff-file.service.interface';
 import { EndOfStringPipe } from './pipes/end-of-string/end-of-string.pipe';
+import { AlertWarningComponent } from './components/alert-warning/alert-warning.component';
 
 function initializeTranslatolSharedModule(
   xliffFileHandler?: XLIFFFileHandlerInterface,
@@ -35,6 +36,7 @@ function initializeTranslatolSharedModule(
 }
 
 const declaredComponents = [
+  AlertWarningComponent,
   NotificationComponent,
   TranslationComponent,
   TranslationDuplicatedListComponent,

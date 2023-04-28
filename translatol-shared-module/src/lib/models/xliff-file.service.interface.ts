@@ -5,4 +5,4 @@ export interface XLIFFWritingInterface {
   saveXLIFF(path: string, content: IXliff): void;
 }
 
-export const XLIFF_WRITING = new InjectionToken<XLIFFWritingInterface>('XLIFF_WRITING');
+export const XLIFF_WRITING_SERVICE = new InjectionToken<XLIFFWritingInterface>('XLIFF_WRITING');

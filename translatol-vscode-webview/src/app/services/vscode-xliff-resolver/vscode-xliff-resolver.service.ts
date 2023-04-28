@@ -8,7 +8,6 @@ import { PostMessageService } from '../post-message/post-message.service';
 export class VSCodeXliffResolverService implements XliffResolverService {
   constructor(private postMessageService: PostMessageService) {}
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ResolvedXLIFF> {
-    console.log('VSCodeXliffResolverService', route);
     return this.postMessageService.onMessageReceive;
   }
 }

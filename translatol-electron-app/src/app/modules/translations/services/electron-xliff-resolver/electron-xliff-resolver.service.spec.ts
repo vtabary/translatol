@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
-import { TranslationsService } from './translations.service';
+import { ElectronXliffResolverService } from './electron-xliff-resolver.service';
 
-describe('TranslationsService', () => {
+describe('Service: ElectronXliffResolverService', () => {
   beforeEach(() =>
     TestBed.configureTestingModule({
       imports: [],
@@ -9,7 +9,7 @@ describe('TranslationsService', () => {
   );
 
   it('should be created', () => {
-    const service: TranslationsService = TestBed.get(TranslationsService);
+    const service = TestBed.inject(ElectronXliffResolverService);
     expect(service).toBeTruthy();
   });
 });

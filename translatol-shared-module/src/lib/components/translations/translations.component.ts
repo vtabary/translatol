@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Inject } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-import { ActivatedRoute, Data } from '@angular/router';
+import { ActivatedRoute, Data, Router } from '@angular/router';
 import { IXliff, IXliffTransUnit } from '@vtabary/xliff2js';
 import { combineLatest, merge, Observable } from 'rxjs';
 import { filter, map, shareReplay, startWith } from 'rxjs/operators';
 // import { HistoryService } from 'src/app/modules/shared/public-api';
-import { XLIFF_WRITING, XLIFFWritingInterface } from '../../models/xliff-file.service.interface';
+import { XLIFF_WRITING_SERVICE, XLIFFWritingInterface } from '../../models/xliff-file.service.interface';
 import { NotificationService } from '../../services/notification/notification.service';
 import { TranslationsService } from '../../services/translations/translations.service';
 import { ResolvedXLIFF } from '../../services/xliff-resolver/xliff-resolver.service';
@@ -27,25 +27,20 @@ export class TranslationsComponent {
   public openModalDeleteObsolete = false;
   public searched$ = new EventEmitter<string>();
 
-  private refreshed = new EventEmitter();
-
   constructor(
     private translationsService: TranslationsService,
-    @Inject(XLIFF_WRITING)
+    @Inject(XLIFF_WRITING_SERVICE)
     private xliffService: XLIFFWritingInterface,
     private activatedRoute: ActivatedRoute,
-    private notification: NotificationService // private historyService: HistoryService,
+    private notification: NotificationService, // private historyService: HistoryService,
+    private router: Router
   ) {
-    this.translations$ = merge(
-      this.activatedRoute.data.pipe(
-        filter(data => !!data.files),
-        map<Data, ResolvedXLIFF>(data => {
-          this.resolvedXliff = data.files;
-          return this.resolvedXliff;
-        })
-      ),
-      this.refreshed.pipe(map(() => this.resolvedXliff))
-    ).pipe(
+    this.translations$ = this.activatedRoute.data.pipe(
+      filter(data => !!data.files),
+      map<Data, ResolvedXLIFF>(data => {
+        this.resolvedXliff = data.files;
+        return this.resolvedXliff;
+      }),
       map(resolvedXliff => {
         return translationsService.parseXLiff(resolvedXliff.file.content, resolvedXliff.template.content);
       }),
@@ -75,8 +70,9 @@ export class TranslationsComponent {
   /**
    * @internal
    */
-  public refresh() {
-    this.refreshed.emit();
+  public async refresh() {
+    // Reload same URL, router is configured to handle reload
+    await this.router.navigateByUrl(this.router.url, { onSameUrlNavigation: 'reload' });
   }
 
   public openModal(): void {

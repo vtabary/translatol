@@ -4,7 +4,6 @@ import { getNonce } from '../util';
 async function getFileContent(fileUri: Uri): Promise<string> {
   const file = await workspace.fs.readFile(fileUri);
   const content = Buffer.from(file).toString('utf8');
-  console.log(content);
 
   return content;
 }
@@ -94,7 +93,6 @@ export class TranslatolPanel {
 
       panel.webview.onDidReceiveMessage(message => {
         if (message.type === 'xliff_write') {
-          console.log('Will save', message);
           writeFileContent(fileUri, message.file.content);
         }
       });

@@ -27,7 +27,7 @@
     "prepare": "husky install",
     "postversion": "git push origin HEAD && git push origin v$npm_package_version",
     "build:extension": "nx build translatol-vscode-extension && nx build translatol-vscode-webview",
-    "pack:extension": "cd ./dist/translatol-vscode-extension && vsce package"
+    "pack:extension": "cd ./dist/translatol-vscode-extension && vsce package --pre-release"
   },
   "main": "electron.js",
   "build": {

@@ -1,6 +1,6 @@
 # Translatol
 
-A tool in order to translate XLIFF files.
+A tool to translate XLIFF files. It comes in two flavors a desktop application and a VSCode extension.
 
 [![Testing](https://github.com/vtabary/translatol/actions/workflows/testing.yml/badge.svg)](https://github.com/vtabary/translatol/actions/workflows/testing.yml)
 
@@ -24,7 +24,9 @@ npm install
 yarn
 ```
 
-### Launch
+### Desktop application
+
+#### Launch
 
 To start the application, you have to run 2 concurrent jobs
 
@@ -38,7 +40,7 @@ yarn start
 yarn electron
 ```
 
-### Build
+#### Build
 
 ```shell
 npm run build
@@ -50,6 +52,28 @@ yarn build
 yarn dist
 ```
 
+### VSCode extension
+
+#### Build
+
+```shell
+npm run build:extension
+
+# or with yarn
+
+yarn build:extension
+```
+
+#### Pack VSIX file
+
+```shell
+npm run pack:extension
+
+# or with yarn
+
+yarn pack:extension
+```
+
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
+[ISC](https://choosealicense.com/licenses/isc/)

@@ -6,18 +6,21 @@
       <app-translation-search (changed)="searched$.emit($event)"> </app-translation-search>
       <div>
         <button type="button" class="btn btn-success-outline" (click)="refresh()" i18n="@@translations.refresh">Refresh</button>
-        <button
-          type="button"
-          class="btn btn-danger-outline tooltip tooltip-md tooltip-top-left"
-          role="tooltip"
-          aria-haspopup="true"
-          i18n="@@translations.delete-key"
-          [disabled]="duplicated.length || !isObsoleteTranslation"
-          (click)="openModal()"
-        >
-          Delete obsolete key
-          <span *ngIf="duplicated.length" class="tooltip-content"> Fix duplicated translations first </span>
-        </button>
+        <div role="tooltip" class="tooltip tooltip-md tooltip-top-left">
+          <button
+            type="button"
+            class="btn btn-danger-outline"
+            aria-haspopup="true"
+            i18n="@@translations.delete-key"
+            [disabled]="duplicated.length || !isObsoleteTranslation"
+            (click)="openModal()"
+          >
+            Delete obsolete key
+          </button>
+          <span *ngIf="duplicated.length && isObsoleteTranslation" class="tooltip-content" i18n="@@translations.fix-duplicate-key-first">
+            Fix duplicated translations first
+          </span>
+        </div>
       </div>
     </div>
 

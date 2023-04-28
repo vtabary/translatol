@@ -14,6 +14,14 @@ export interface XliffWriteMessage {
   file: { path: string; content: string };
 }
 
+export interface NotificationMessage {
+  type: 'notification';
+  level: 'info' | 'warning' | 'error';
+  message: string;
+}
+
+export type MessageToExtension = XliffWriteMessage | NotificationMessage;
+
 @Injectable({
   providedIn: 'root',
 })
@@ -25,7 +33,7 @@ export class PostMessageService {
     shareReplay(1)
   );
 
-  public sendMessage(message: XliffWriteMessage): void {
+  public sendMessage(message: MessageToExtension): void {
     this.vscode.postMessage(message);
   }
 }

@@ -29,6 +29,7 @@ export { TreeBuilderService, ITreeNode } from './lib/services/tree-builder/tree-
 export { XLIFF_WRITING_SERVICE, XLIFFWritingInterface } from './lib/models/xliff-file.service.interface';
 export { ResolvedXLIFF, XliffResolverService, xliffResolver } from './lib/services/xliff-resolver/xliff-resolver.service';
 export { XLIFF_RESOLVER_SERVICE } from './lib/services/xliff-resolver/xliff-resolver.service';
+export { NOTIFICATION_SERVICE, NotificationServiceInterface } from './lib/models/notification.service.interface';
 
 /**
  * Module

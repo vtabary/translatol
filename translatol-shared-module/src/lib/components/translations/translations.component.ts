@@ -2,11 +2,11 @@ import { Component, EventEmitter, Inject } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { ActivatedRoute, Data, Router } from '@angular/router';
 import { IXliff, IXliffTransUnit } from '@vtabary/xliff2js';
-import { combineLatest, merge, Observable } from 'rxjs';
+import { Observable, combineLatest } from 'rxjs';
 import { filter, map, shareReplay, startWith } from 'rxjs/operators';
 // import { HistoryService } from 'src/app/modules/shared/public-api';
-import { XLIFF_WRITING_SERVICE, XLIFFWritingInterface } from '../../models/xliff-file.service.interface';
-import { NotificationService } from '../../services/notification/notification.service';
+import { NOTIFICATION_SERVICE, NotificationServiceInterface } from '../../models/notification.service.interface';
+import { XLIFFWritingInterface, XLIFF_WRITING_SERVICE } from '../../models/xliff-file.service.interface';
 import { TranslationsService } from '../../services/translations/translations.service';
 import { ResolvedXLIFF } from '../../services/xliff-resolver/xliff-resolver.service';
 
@@ -33,7 +33,8 @@ export class TranslationsComponent {
     @Inject(XLIFF_WRITING_SERVICE)
     private xliffService: XLIFFWritingInterface,
     private activatedRoute: ActivatedRoute,
-    private notification: NotificationService, // private historyService: HistoryService,
+    @Inject(NOTIFICATION_SERVICE)
+    private notification: NotificationServiceInterface, // private historyService: HistoryService,
     private router: Router
   ) {
     this.translations$ = this.activatedRoute.data.pipe(
@@ -127,6 +128,6 @@ export class TranslationsComponent {
 
   private saveXLIFF(translations: IXliff, message: string): void {
     this.xliffService.saveXLIFF(this.resolvedXliff.file.path, translations);
-    this.notification.success({ message });
+    this.notification.showInformation(message);
   }
 }

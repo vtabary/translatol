@@ -28,13 +28,19 @@ export interface XliffLoadMessageToWebView {
   };
 }
 
+export interface NotificationMessageFromWebView {
+  type: 'notification';
+  level: 'info' | 'warning' | 'error';
+  message: string;
+}
+
 export interface XliffWriteMessageFromWebView {
   type: 'xliff_write';
   file: { path: string; content: string };
 }
 
 export type MessageToWebView = XliffLoadMessageToWebView;
-export type MessageFromWebView = XliffWriteMessageFromWebView;
+export type MessageFromWebView = XliffWriteMessageFromWebView | NotificationMessageFromWebView;
 
 /**
  * This class manages the state and behavior of TranslatolPanel webview panels.
@@ -119,6 +125,24 @@ export class TranslatolPanel {
   private onReceivedMessage(message: MessageFromWebView) {
     if (message.type === 'xliff_write') {
       writeFileContent(this.fileUri, message.file.content);
+    }
+
+    if (message.type === 'notification') {
+      this.notify(message);
+    }
+  }
+
+  private notify(message: NotificationMessageFromWebView) {
+    switch (message.level) {
+      case 'info':
+        window.showInformationMessage(message.message);
+        break;
+      case 'warning':
+        window.showWarningMessage(message.message);
+        break;
+      case 'error':
+        window.showErrorMessage(message.message);
+        break;
     }
   }
 

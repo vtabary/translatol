@@ -20,6 +20,7 @@ import { EndOfStringPipe } from './pipes/end-of-string/end-of-string.pipe';
 import { CopyToClipboardComponent } from './components/copy-to-clipboard/copy-to-clipboard.component';
 import { TranslationPluralComponent } from './components/translation-plural/translation-plural.component';
 import { TranslationInterpolationComponent } from './components/translation-interpolation/translation-interpolation.component';
+import { TranslationPluralItemComponent } from './components/translation-plural/translation-plural-item/translation-plural-item.component';
 
 ClarityIcons.addIcons(fileIcon, folderIcon, infoStandardIcon, searchIcon, copyToClipboardIcon);
 
@@ -42,6 +43,7 @@ const exportedComponent = [
     NotificationComponent,
     TranslationDuplicatedListComponent,
     TranslationPluralComponent,
+    TranslationPluralItemComponent,
     TranslationInterpolationComponent,
   ],
   imports: [CommonModule, ReactiveFormsModule, ClarityModule],

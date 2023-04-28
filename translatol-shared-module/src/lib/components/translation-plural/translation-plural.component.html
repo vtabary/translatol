@@ -2,14 +2,14 @@
   <div class="plural" *ngFor="let key of pluralCountersKey">
     <p>{{ key }}</p>
     <div class="plural-item" *ngIf="plural.counters[key] as pluralCounter">
-      <app-translation-item
+      <app-translation-plural-item
         *ngFor="let item of pluralCounter; let i = index"
         [source]="item"
         [target]="target?.counters[key][i]"
         [group]="group"
         [targetLanguage]="targetLanguage"
         id="target-plural-{{ key }}-{{ i }}"
-      ></app-translation-item>
+      ></app-translation-plural-item>
     </div>
   </div>
 </div>

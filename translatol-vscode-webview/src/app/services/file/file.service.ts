@@ -7,7 +7,7 @@ import { PostMessageService } from '../post-message/post-message.service';
 export class FileService implements XLIFFWritingInterface {
   constructor(private postMessageService: PostMessageService) {}
   public saveXLIFF(filePath: string, data: IXliff): void {
-    const builder = new XliffBuilder({ pretty: true, dontPrettyTextNodes: true });
+    const builder = new XliffBuilder({ pretty: true });
     const serializedXML = builder.build(data);
     this.postMessageService.sendMessage({ type: 'xliff_write', file: { path: filePath, content: serializedXML } });
   }

@@ -26,7 +26,8 @@
     "postinstall": "electron-builder install-app-deps",
     "prepare": "husky install",
     "postversion": "git push origin HEAD && git push origin v$npm_package_version",
-    "build:extension": "nx build translatol-vscode-extension && nx build translatol-vscode-webview"
+    "build:extension": "nx build translatol-vscode-extension && nx build translatol-vscode-webview",
+    "pack:extension": "cd ./dist/translatol-vscode-extension && vsce package"
   },
   "main": "electron.js",
   "build": {
@@ -139,6 +140,7 @@
     "@typescript-eslint/eslint-plugin": "^5.43.0",
     "@typescript-eslint/parser": "^5.43.0",
     "@vscode/test-electron": "^2.3.0",
+    "@vscode/vsce": "^2.19.0",
     "cypress": "^12.2.0",
     "electron": "^14.0.0",
     "electron-builder": "^22.0.0",

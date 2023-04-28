@@ -1,9 +1,30 @@
 {
   "name": "translatol",
   "version": "0.0.0",
+  "displayName": "Translatol",
+  "description": "Translate XLIFF files easily",
   "main": "translatol-vscode-extension/src/main.js",
+  "license": "ISC",
+  "publisher": "perfect-memory",
+  "contributors": [
+    "vincent@tabary.me",
+    "marion.claude@perfect-memory.com",
+    "stephane.roucheray@perfect-memory.com",
+    "ouassim.benmosbah@perfect-memory.com"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vtabary/translatol"
+  },
   "engines": {
     "vscode": "^1.77.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "vsce": {
+    "dependencies": false,
+    "yarn": false
   },
   "contributes": {
     "commands": [

@@ -22,6 +22,7 @@ export class TranslationsComponent {
   public translations$: Observable<IXliffTransUnit[]>;
   public translations: IXliff;
   public resolvedXliff: ResolvedXLIFF;
+  public duplicated: IXliffTransUnit[];
   public targetLanguage: string;
   public isObsoleteTranslation = false;
   public openModalDeleteObsolete = false;
@@ -44,7 +45,8 @@ export class TranslationsComponent {
       map(resolvedXliff => {
         return translationsService.parseXLiff(resolvedXliff.file.content, resolvedXliff.template.content);
       }),
-      map(locale => {
+      map(({ locale, duplicated }) => {
+        this.duplicated = duplicated;
         this.translations = locale;
         this.targetLanguage = locale.children[0]?.$?.['target-language'];
         // this.historyService.add({ path: this.filePath, type: 'file' });

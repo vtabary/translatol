@@ -14,8 +14,12 @@ export class TranslationNavigationComponent implements OnChanges {
   @Input()
   public translated: IXliffTransUnit[] = [];
 
+  @Input()
+  public duplicated: IXliffTransUnit[] = [];
+
   public toTranslateTree: ITreeNode[] = [];
   public translatedTree: ITreeNode[] = [];
+  public duplicatedTree: ITreeNode[] = [];
 
   constructor(private treeBuilder: TreeBuilderService) {}
 
@@ -30,6 +34,13 @@ export class TranslationNavigationComponent implements OnChanges {
     if (changes.translated) {
       this.translatedTree = this.treeBuilder.build(
         this.translated.map(item => item.$.id),
+        '.'
+      );
+    }
+
+    if (changes.duplicated) {
+      this.duplicatedTree = this.treeBuilder.build(
+        this.duplicated.map(item => item.$.id),
         '.'
       );
     }

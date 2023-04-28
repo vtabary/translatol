@@ -1,10 +1,58 @@
 /* You can add global styles to this file, and also import other style files */
+.content-container {
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+  padding: 0;
+
+  .content-area {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding-right: 15px;
+  }
+
+  .sidenav {
+    padding-left: 10px;
+    max-width: 250px;
+  }
+
+  .clr-treenode-content:first-child {
+    padding-left: 5px;
+  }
+
+  .clr-treenode-content {
+    line-height: 1rem;
+    margin-bottom: 10px;
+  }
+}
+
+.sidenav-content .title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 1.2rem 0 0 1.5rem;
+
+  h5 {
+    margin-top: 0;
+    margin-right: 5px;
+    color: var(--clr-sidenav-header-color, #333333);
+    font-weight: var(--clr-sidenav-header-font-weight, 500);
+  }
+
+  span {
+    margin-bottom: 3px;
+  }
+}
+
 :root {
   --clr-color-neutral-0: var(--vscode-editor-background);
   --clr-global-content-header-font-color: var(--vscode-editor-foreground);
   --clr-forms-text-color: var(--vscode-input-foreground);
   --clr-forms-label-color: var(--vscode-input-foreground);
   --clr-p1-color: var(--vscode-input-foreground);
+
+  --clr-sidenav-header-color: var(--vscode-input-foreground);
 
   --clr-tooltip-color: var(--vscode-input-foreground);
   --clr-tooltip-background-color: var(--vscode-toolbar-activeBackground);

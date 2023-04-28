@@ -6,14 +6,12 @@
 import * as vscode from 'vscode';
 import { TranslatolPanel } from '../panels/translatol-panel';
 
-export class ShowPreviewCommand {
+export class OpenTranslateViewCommand {
   public static readonly id = 'translatol.OpenTranslateView';
 
   public static register(context: vscode.ExtensionContext): vscode.Disposable {
-    context.subscriptions.push();
-
-    const command = new ShowPreviewCommand(context);
-    const providerRegistration = vscode.commands.registerCommand(ShowPreviewCommand.id, arg => command.execute(arg));
+    const command = new OpenTranslateViewCommand(context);
+    const providerRegistration = vscode.commands.registerCommand(OpenTranslateViewCommand.id, arg => command.execute(arg));
     return providerRegistration;
   }
 

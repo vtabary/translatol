@@ -9,7 +9,17 @@
     "commands": [
       {
         "command": "translatol.OpenTranslateView",
-        "title": "Open Translate view",
+        "title": "Open in Translatol",
+        "category": "Translatol",
+        "icon": {
+          "light": "./src/assets/icons/translate-light.svg",
+          "dark": "./src/assets/icons/translate-dark.svg"
+        },
+        "enablement": "resourceExtname == .xlf"
+      },
+      {
+        "command": "translatol.OpenTranslateViewSidePanel",
+        "title": "Open in Translatol (split view)",
         "category": "Translatol",
         "icon": {
           "light": "./src/assets/icons/translate-light.svg",
@@ -23,14 +33,16 @@
         {
           "command": "translatol.OpenTranslateView",
           "group": "navigation",
-          "when": "resourceExtname == .xlf"
+          "when": "resourceExtname == .xlf",
+          "alt": "translatol.OpenTranslateViewSidePanel"
         }
       ],
       "editor/title/context": [
         {
           "command": "translatol.OpenTranslateView",
           "group": "navigation",
-          "when": "resourceExtname == .xlf"
+          "when": "resourceExtname == .xlf",
+          "alt": "translatol.OpenTranslateViewSidePanel"
         }
       ]
     },

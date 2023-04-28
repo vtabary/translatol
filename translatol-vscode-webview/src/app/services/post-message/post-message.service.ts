@@ -9,17 +9,23 @@ declare global {
   };
 }
 
+export interface XliffWriteMessage {
+  type: 'xliff_write';
+  file: { path: string; content: string };
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class PostMessageService {
+  private vscode = acquireVsCodeApi();
+
   public onMessageReceive = fromEvent<MessageEvent<ResolvedXLIFF>>(globalThis, 'message').pipe(
     map(event => event.data),
     shareReplay(1)
   );
 
-  public sendMessage(message: unknown): void {
-    const vscode = acquireVsCodeApi();
-    vscode.postMessage(message);
+  public sendMessage(message: XliffWriteMessage): void {
+    this.vscode.postMessage(message);
   }
 }

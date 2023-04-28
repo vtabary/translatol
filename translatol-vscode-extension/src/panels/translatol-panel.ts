@@ -1,4 +1,4 @@
-import { Disposable, Uri, ViewColumn, WebviewPanel, window, workspace } from 'vscode';
+import { Disposable, ExtensionContext, Uri, ViewColumn, WebviewPanel, window, workspace } from 'vscode';
 import { getWebViewHTML } from '../utils/get-web-view-html';
 
 async function getFileContent(fileUri: Uri): Promise<string> {
@@ -28,7 +28,13 @@ export interface XliffLoadMessageToWebView {
   };
 }
 
+export interface XliffWriteMessageFromWebView {
+  type: 'xliff_write';
+  file: { path: string; content: string };
+}
+
 export type MessageToWebView = XliffLoadMessageToWebView;
+export type MessageFromWebView = XliffWriteMessageFromWebView;
 
 /**
  * This class manages the state and behavior of TranslatolPanel webview panels.
@@ -36,34 +42,13 @@ export type MessageToWebView = XliffLoadMessageToWebView;
 export class TranslatolPanel {
   public static panels = new Map<string, TranslatolPanel>();
 
-  private _disposables: Disposable[] = [];
-
-  /**
-   * The HelloWorldPanel class private constructor (called only from the render method).
-   *
-   * @param panel A reference to the webview panel
-   * @param extensionUri The URI of the directory containing the extension
-   */
-  constructor(private readonly panel: WebviewPanel, extensionUri: Uri, private fileUri: Uri) {
-    // Set an event listener to listen for when the panel is disposed (i.e. when the user closes
-    // the panel or when the panel is closed programmatically)
-    this.panel.onDidDispose(() => this.dispose(), null, this._disposables);
-
-    // Set the HTML content for the webview panel
-    this.panel.webview.html = getWebViewHTML(this.panel.webview, extensionUri);
-  }
-
-  public reveal(viewColumn?: ViewColumn, preserveFocus?: boolean): void {
-    this.panel.reveal(viewColumn, preserveFocus);
-  }
-
   /**
    * Renders the current webview panel if it exists otherwise a new webview panel
    * will be created and displayed.
    *
    * @param extensionUri The URI of the directory containing the extension.
    */
-  public static async render(extensionUri: Uri, fileUri: Uri) {
+  public static async render(context: ExtensionContext, fileUri: Uri, viewColumn: ViewColumn) {
     if (TranslatolPanel.panels.has(fileUri.toString())) {
       TranslatolPanel.panels.get(fileUri.toString()).reveal();
       return;
@@ -74,42 +59,87 @@ export class TranslatolPanel {
       // Panel view type
       'translatolEditorPanel',
       // Panel title
-      fileUri.toString().split('/').at(-1),
+      `Translatol: ${fileUri.toString().split('/').at(-1)}`,
       // The editor column the panel should be displayed in
-      ViewColumn.Active,
+      viewColumn,
       // Extra panel configurations
       {
         // Enable JavaScript in the webview
         enableScripts: true,
         // Restrict the webview to only load resources from the `out` and `webview-ui/build` directories
         localResourceRoots: [
-          Uri.joinPath(extensionUri, 'translatol-vscode-webview') /* , Uri.joinPath(extensionUri, 'webview-ui/build') */,
+          Uri.joinPath(context.extensionUri, 'translatol-vscode-webview') /* , Uri.joinPath(extensionUri, 'webview-ui/build') */,
         ],
         retainContextWhenHidden: true,
       }
     );
 
-    const templateFileUri = Uri.joinPath(fileUri, '..', 'messages.xlf');
+    this.panels.set(fileUri.toString(), new TranslatolPanel(panel, context.extensionUri, fileUri));
+  }
+
+  private disposables: Disposable[] = [];
+
+  /**
+   * The HelloWorldPanel class private constructor (called only from the render method).
+   *
+   * @param panel A reference to the webview panel
+   * @param extensionUri The URI of the directory containing the extension
+   */
+  constructor(private readonly panel: WebviewPanel, extensionUri: Uri, private fileUri: Uri) {
+    // Set an event listener to listen for when the panel is disposed (i.e. when the user closes
+    // the panel or when the panel is closed programmatically)
+    this.panel.onDidDispose(() => this.dispose(), null, this.disposables);
+
+    // Set the HTML content for the webview panel
+    this.panel.webview.html = getWebViewHTML(this.panel.webview, extensionUri);
+
+    this.panel.iconPath = {
+      light: Uri.joinPath(extensionUri, './src/assets/icons/translate-light.svg'),
+      dark: Uri.joinPath(extensionUri, './src/assets/icons/translate-dark.svg'),
+    };
+
+    this.init();
+  }
+
+  public async init(): Promise<void> {
+    this.handleMessageFromWebView();
+    await this.postFileToWebView();
+  }
+
+  public reveal(viewColumn?: ViewColumn, preserveFocus?: boolean): void {
+    this.panel.reveal(viewColumn, preserveFocus);
+  }
+
+  private handleMessageFromWebView() {
+    const disposable = this.panel.webview.onDidReceiveMessage(message => this.onReceivedMessage(message));
+
+    this.disposables.push(disposable);
+  }
+
+  private onReceivedMessage(message: MessageFromWebView) {
+    if (message.type === 'xliff_write') {
+      writeFileContent(this.fileUri, message.file.content);
+    }
+  }
+
+  private async postFileToWebView() {
+    const templateFileUri = Uri.joinPath(this.fileUri, '..', 'messages.xlf');
     const message: XliffLoadMessageToWebView = {
       type: 'xliff_load',
       file: {
-        path: fileUri.toString(),
-        content: await getFileContent(fileUri),
+        path: this.fileUri.toString(),
+        content: await getFileContent(this.fileUri),
       },
       template: {
         path: templateFileUri.toString(),
         content: await getFileContent(templateFileUri),
       },
     };
-    panel.webview.postMessage(message as MessageToWebView);
+    this.postMessage(message);
+  }
 
-    panel.webview.onDidReceiveMessage(message => {
-      if (message.type === 'xliff_write') {
-        writeFileContent(fileUri, message.file.content);
-      }
-    });
-
-    this.panels.set(fileUri.toString(), new TranslatolPanel(panel, extensionUri, fileUri));
+  private postMessage(message: MessageToWebView): void {
+    this.panel.webview.postMessage(message);
   }
 
   /**
@@ -122,8 +152,8 @@ export class TranslatolPanel {
     this.panel.dispose();
 
     // Dispose of all disposables (i.e. commands) for the current webview panel
-    while (this._disposables.length) {
-      const disposable = this._disposables.pop();
+    while (this.disposables.length) {
+      const disposable = this.disposables.pop();
       if (disposable) {
         disposable.dispose();
       }

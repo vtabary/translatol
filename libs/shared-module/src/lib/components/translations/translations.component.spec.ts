@@ -1,7 +1,6 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { SharedModule } from 'src/app/modules/shared/shared.module';
 import { TranslationsComponent } from './translations.component';
 
 describe('TranslationsComponent', () => {
@@ -11,7 +10,7 @@ describe('TranslationsComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [TranslationsComponent],
-      imports: [SharedModule, RouterTestingModule],
+      imports: [RouterTestingModule],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));

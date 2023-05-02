@@ -13,7 +13,7 @@
         "outputPath": "dist/apps/ui",
         "index": "apps/ui/src/index.html",
         "main": "apps/ui/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": ["@angular/localize/init", "zone.js"],
         "tsConfig": "apps/ui/tsconfig.app.json",
         "assets": ["apps/ui/src/favicon.ico", "apps/ui/src/assets"],
         "styles": [

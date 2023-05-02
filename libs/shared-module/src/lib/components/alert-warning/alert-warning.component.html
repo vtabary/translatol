@@ -1,0 +1,11 @@
+<div class="alert alert-warning" role="alert">
+  <div class="alert-items">
+    <div class="alert-item">
+      <div class="alert-icon-wrapper">
+        <cds-icon class="alert-icon" shape="exclamation-triangle"></cds-icon>
+      </div>
+      <app-copy-to-clipboard class="copy-button" [toCopy]="translation.$.id"></app-copy-to-clipboard>
+      {{ translation.$.id }}
+    </div>
+  </div>
+</div>

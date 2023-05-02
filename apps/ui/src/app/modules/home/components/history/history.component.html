@@ -5,10 +5,10 @@
     <li *ngFor="let filePath of filePaths">
       <ng-container [ngSwitch]="filePath.type">
         <ng-container *ngSwitchCase="'file'">
-          <a routerLink="/translate/{{ filePath.path | btoa }}" [title]="filePath.path">{{ filePath.path | endOfString: 50 }}</a>
+          <a routerLink="/translate/{{ filePath.path | btoa }}" [title]="filePath.path">{{ filePath.path | endOfString : 50 }}</a>
         </ng-container>
         <ng-container *ngSwitchCase="'folder'">
-          <a routerLink="/translate/folder/{{ filePath.path | btoa }}" [title]="filePath.path">{{ filePath.path | endOfString: 50 }}</a>
+          <a routerLink="/translate/folder/{{ filePath.path | btoa }}" [title]="filePath.path">{{ filePath.path | endOfString : 50 }}</a>
         </ng-container>
       </ng-container>
       <app-copy-to-clipboard [toCopy]="filePath.path"></app-copy-to-clipboard>

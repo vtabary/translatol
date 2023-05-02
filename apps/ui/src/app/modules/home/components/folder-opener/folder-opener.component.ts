@@ -5,6 +5,7 @@ import { ElectronService } from '../../../shared/public-api';
 @Component({
   selector: 'app-folder-opener',
   templateUrl: './folder-opener.component.html',
+  styleUrls: ['./folder-opener.component.scss'],
 })
 export class FolderOpenerComponent {
   constructor(private electron: ElectronService, private router: Router) {}
@@ -18,7 +19,7 @@ export class FolderOpenerComponent {
       .showOpenDialog({
         properties: ['openDirectory'],
       })
-      .then((result) => {
+      .then(result => {
         if (result.canceled) {
           return;
         }

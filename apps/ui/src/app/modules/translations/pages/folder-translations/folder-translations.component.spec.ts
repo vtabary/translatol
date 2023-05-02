@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { SharedModule } from '../../../shared/shared.module';
+import { SharedModule } from 'src/app/modules/shared/shared.module';
 import { FolderTranslationsComponent } from './folder-translations.component';
 
 describe('FolderTranslationsComponent', () => {

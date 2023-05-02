@@ -7,14 +7,12 @@ describe('OpenerComponent', () => {
   let component: OpenerComponent;
   let fixture: ComponentFixture<OpenerComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [OpenerComponent],
-        imports: [RouterTestingModule],
-      }).compileComponents();
-    })
-  );
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [OpenerComponent],
+      imports: [RouterTestingModule],
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(OpenerComponent);

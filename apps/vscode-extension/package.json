@@ -1,0 +1,83 @@
+{
+  "name": "translatol",
+  "version": "0.0.2",
+  "displayName": "Translatol",
+  "description": "Translate XLIFF files easily",
+  "main": "apps/vscode-extension/src/main.js",
+  "license": "ISC",
+  "publisher": "PerfectMemory",
+  "contributors": [
+    "vincent@tabary.me",
+    "marion.claude@perfect-memory.com",
+    "stephane.roucheray@perfect-memory.com",
+    "ouassim.benmosbah@perfect-memory.com"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vtabary/translatol"
+  },
+  "engines": {
+    "vscode": "^1.77.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "vsce": {
+    "dependencies": false,
+    "yarn": false
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "translatol.OpenTranslateView",
+        "title": "Open in Translatol",
+        "category": "Translatol",
+        "icon": {
+          "light": "./src/assets/icons/translate-light.svg",
+          "dark": "./src/assets/icons/translate-dark.svg"
+        },
+        "enablement": "resourceExtname == .xlf"
+      },
+      {
+        "command": "translatol.OpenTranslateViewSidePanel",
+        "title": "Open in Translatol (split view)",
+        "category": "Translatol",
+        "icon": {
+          "light": "./src/assets/icons/translate-light.svg",
+          "dark": "./src/assets/icons/translate-dark.svg"
+        },
+        "enablement": "resourceExtname == .xlf"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "translatol.OpenTranslateView",
+          "group": "navigation",
+          "when": "resourceExtname == .xlf",
+          "alt": "translatol.OpenTranslateViewSidePanel"
+        }
+      ],
+      "editor/title/context": [
+        {
+          "command": "translatol.OpenTranslateView",
+          "group": "navigation",
+          "when": "resourceExtname == .xlf",
+          "alt": "translatol.OpenTranslateViewSidePanel"
+        }
+      ]
+    },
+    "customEditors": [
+      {
+        "viewType": "translatol.xlf",
+        "displayName": "XLF editor",
+        "priority": "option",
+        "selector": [
+          {
+            "filenamePattern": "*.xlf"
+          }
+        ]
+      }
+    ]
+  }
+}

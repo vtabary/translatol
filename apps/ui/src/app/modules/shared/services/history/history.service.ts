@@ -7,11 +7,10 @@ import uniqBy from 'lodash/uniqBy';
 export class HistoryService {
   public list(): { path: string; type: 'file' | 'folder' }[] {
     try {
-      let list: { path: string; type: 'file' | 'folder' }[] =
-        JSON.parse(localStorage.getItem('translation-history')) || [];
+      let list: { path: string; type: 'file' | 'folder' }[] = JSON.parse(localStorage.getItem('translation-history') || '') || [];
 
       // Clear history list in order to keep retrocompatibility
-      list = list.map((item) => {
+      list = list.map(item => {
         if (typeof item !== 'string') {
           return item;
         }
@@ -28,10 +27,7 @@ export class HistoryService {
   public add(item: { path: string; type: 'file' | 'folder' }) {
     const list = this.list();
     list.unshift(item);
-    localStorage.setItem(
-      'translation-history',
-      JSON.stringify(list.slice(0, 9))
-    );
+    localStorage.setItem('translation-history', JSON.stringify(list.slice(0, 9)));
   }
 
   public clear() {

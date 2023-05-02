@@ -1,0 +1,25 @@
+.plural-container {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.plural {
+  display: flex;
+  flex-direction: row;
+  margin-top: 5px;
+  padding-bottom: 15px;
+  border-bottom-width: var(--clr-card-border-width, 0.05rem);
+  border-bottom-style: solid;
+  border-bottom-color: var(--clr-card-border-color, hsl(198, 0%, 87%));
+
+  p {
+    margin-top: 0;
+    min-width: 50px;
+  }
+}
+
+.plural-item {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}

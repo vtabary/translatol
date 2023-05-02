@@ -4,7 +4,11 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'endOfString',
 })
 export class EndOfStringPipe implements PipeTransform {
-  transform(value: string, length: number, approx: number = 5): string {
+  transform(
+    value: string | undefined,
+    length: number,
+    approx: number = 5
+  ): string {
     if (!value) {
       return '';
     }

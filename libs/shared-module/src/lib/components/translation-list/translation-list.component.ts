@@ -11,13 +11,13 @@ export class TranslationListComponent {
   public translations: IXliffTransUnit[] = [];
 
   @Input()
-  public listTitle: string;
+  public listTitle?: string;
 
   @Input()
-  public sourceLanguage: string;
+  public sourceLanguage?: string;
 
   @Input()
-  public targetLanguage: string;
+  public targetLanguage?: string;
 
   @Output()
   public submitted = new EventEmitter<void>();

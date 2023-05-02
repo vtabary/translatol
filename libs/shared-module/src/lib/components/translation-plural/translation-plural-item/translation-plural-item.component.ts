@@ -28,12 +28,24 @@ export class TranslationPluralItemComponent implements OnChanges, OnDestroy {
   @Input()
   public targetLanguage?: string;
 
+  /**
+   * @internal
+   */
   public control?: UntypedFormControl;
+  /**
+   * @internal
+   */
   public text?: string;
+  /**
+   * @internal
+   */
   public interpolation?: IXliffInterpolation;
 
   constructor(private formBuilder: UntypedFormBuilder) {}
 
+  /**
+   * @internal
+   */
   public ngOnChanges(): void {
     if (!this.source) {
       return;
@@ -45,16 +57,23 @@ export class TranslationPluralItemComponent implements OnChanges, OnDestroy {
       this.interpolation = this.source;
     }
 
-    if (!this.text) {
+    if (!this.text || !this.id) {
       return;
     }
 
     // Display the target only if the target is a string (could be an object from a previous edition)
     const target = typeof this.target === 'string' ? this.target : '';
-    this.group.addControl(this.id, this.formBuilder.control(target));
+    this.group?.addControl(this.id, this.formBuilder.control(target));
   }
 
+  /**
+   * @internal
+   */
   public ngOnDestroy(): void {
+    if (!this.id) {
+      return;
+    }
+
     if (!this.group || !this.group.contains(this.id)) {
       return;
     }

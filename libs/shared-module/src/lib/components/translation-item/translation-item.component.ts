@@ -1,5 +1,9 @@
 import { Component, Input, OnChanges, OnDestroy } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import {
+  UntypedFormBuilder,
+  UntypedFormControl,
+  UntypedFormGroup,
+} from '@angular/forms';
 import { IXliffInterpolation, IXliffPlural } from '@vtabary/xliff2js';
 
 @Component({
@@ -9,28 +13,46 @@ import { IXliffInterpolation, IXliffPlural } from '@vtabary/xliff2js';
 })
 export class TranslationItemComponent implements OnChanges, OnDestroy {
   @Input()
-  public source: string | IXliffInterpolation | IXliffPlural;
+  public source?: string | IXliffInterpolation | IXliffPlural;
 
   @Input()
-  public target: string | IXliffInterpolation | IXliffPlural;
+  public target?: string | IXliffInterpolation | IXliffPlural;
 
   @Input()
-  public id: string;
+  public id?: string;
 
   @Input()
-  public group: UntypedFormGroup;
+  public group?: UntypedFormGroup;
 
   @Input()
-  public targetLanguage: string;
+  public targetLanguage?: string;
 
-  public control: UntypedFormControl;
-  public text: string;
-  public interpolation: IXliffInterpolation;
-  public plural: IXliffPlural;
-  public pluralTarget: IXliffPlural;
+  /**
+   * @internal
+   */
+  public control?: UntypedFormControl;
+  /**
+   * @internal
+   */
+  public text?: string;
+  /**
+   * @internal
+   */
+  public interpolation?: IXliffInterpolation;
+  /**
+   * @internal
+   */
+  public plural?: IXliffPlural;
+  /**
+   * @internal
+   */
+  public pluralTarget?: IXliffPlural;
 
   constructor(private formBuilder: UntypedFormBuilder) {}
 
+  /**
+   * @internal
+   */
   public ngOnChanges(): void {
     if (!this.source) {
       return;
@@ -51,10 +73,19 @@ export class TranslationItemComponent implements OnChanges, OnDestroy {
 
     // Display the target only if the target is a string (could be an object from a previous edition)
     const target = typeof this.target === 'string' ? this.target : '';
-    this.group.addControl(this.id, this.formBuilder.control(target));
+    if (this.id) {
+      this.group?.addControl(this.id, this.formBuilder.control(target));
+    }
   }
 
+  /**
+   * @internal
+   */
   public ngOnDestroy(): void {
+    if (!this.id) {
+      return;
+    }
+
     if (!this.group || !this.group.contains(this.id)) {
       return;
     }

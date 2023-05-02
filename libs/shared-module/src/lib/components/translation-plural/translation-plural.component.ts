@@ -9,22 +9,28 @@ import { IXliffPlural } from '@vtabary/xliff2js';
 })
 export class TranslationPluralComponent implements OnChanges {
   @Input()
-  public plural: IXliffPlural;
+  public plural?: IXliffPlural;
 
   @Input()
-  public target: IXliffPlural;
+  public target?: IXliffPlural;
 
   @Input()
-  public group: UntypedFormGroup;
+  public group?: UntypedFormGroup;
 
   @Input()
-  public targetLanguage: string;
+  public targetLanguage?: string;
 
-  public pluralCountersKey: string[];
+  /**
+   * @internal
+   */
+  public pluralCountersKey?: string[];
 
+  /**
+   * @internal
+   */
   public ngOnChanges(changes: SimpleChanges) {
     if (changes['plural']) {
-      this.pluralCountersKey = Object.keys(this.plural.counters);
+      this.pluralCountersKey = Object.keys(this.plural?.counters ?? {});
     }
   }
 }

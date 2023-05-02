@@ -20,9 +20,9 @@ export class TranslationsService {
   }
 
   public parseXLiff(
-    fileContent: string,
-    templateContent: string
-  ): { locale: IXliff; duplicated: IXliffTransUnit[] } {
+    fileContent: string | undefined,
+    templateContent: string | undefined
+  ): { locale: IXliff | undefined; duplicated: IXliffTransUnit[] } {
     const xliffTemplate = this.parser.parse(templateContent);
     const xliffFile = this.parser.parse(fileContent);
 
@@ -30,9 +30,9 @@ export class TranslationsService {
   }
 
   public merge(
-    template: IXliff,
-    current: IXliff
-  ): { locale: IXliff; duplicated: IXliffTransUnit[] } {
+    template: IXliff | undefined,
+    current: IXliff | undefined
+  ): { locale: IXliff | undefined; duplicated: IXliffTransUnit[] } {
     const currentTranslations = this.getAllTranslations(current);
     const duplicated = this.getDuplicated(currentTranslations);
 
@@ -45,7 +45,7 @@ export class TranslationsService {
     clone.children.forEach(
       (cloneFile, index) =>
         (cloneFile.$['target-language'] =
-          current.children[index].$['target-language'])
+          current?.children[index].$['target-language'])
     );
 
     const templateTranslations = this.getAllTranslations(clone);
@@ -63,7 +63,7 @@ export class TranslationsService {
     return { locale: clone, duplicated };
   }
 
-  public getAllTranslations(locale: IXliff): IXliffTransUnit[] {
+  public getAllTranslations(locale: IXliff | undefined): IXliffTransUnit[] {
     if (!locale) {
       return [];
     }
@@ -109,7 +109,10 @@ export class TranslationsService {
     return (translations || []).find((translation) => translation.$.id === id);
   }
 
-  private copyTarget(from: IXliffTransUnit, to: IXliffTransUnit) {
+  private copyTarget(
+    from: IXliffTransUnit | undefined,
+    to: IXliffTransUnit | undefined
+  ) {
     if (!from || !from.children || !to) {
       return;
     }

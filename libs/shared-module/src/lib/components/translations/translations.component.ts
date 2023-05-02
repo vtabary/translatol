@@ -3,7 +3,7 @@ import { UntypedFormGroup } from '@angular/forms';
 import { ActivatedRoute, Data, Router } from '@angular/router';
 import { IXliff, IXliffTransUnit } from '@vtabary/xliff2js';
 import { Observable, combineLatest } from 'rxjs';
-import { filter, map, shareReplay, startWith } from 'rxjs/operators';
+import { filter, map, shareReplay, startWith, tap } from 'rxjs/operators';
 // import { HistoryService } from 'src/app/modules/shared/public-api';
 import {
   NOTIFICATION_SERVICE,
@@ -15,6 +15,12 @@ import {
 } from '../../models/xliff-file.service.interface';
 import { TranslationsService } from '../../services/translations/translations.service';
 import { ResolvedXLIFF } from '../../services/xliff-resolver/xliff-resolver.service';
+
+function asFilesProp<T extends Data>(
+  value: Data | undefined
+): value is Data & { files: any[] } {
+  return !!value?.['files'];
+}
 
 @Component({
   selector: 'app-translations',
@@ -44,21 +50,20 @@ export class TranslationsComponent {
     private router: Router
   ) {
     this.translations$ = this.activatedRoute.data.pipe(
-      filter((data) => !!data['files']),
-      map<Data, ResolvedXLIFF>((data) => {
+      filter(asFilesProp),
+      tap<Data>((data) => {
         this.resolvedXliff = data['files'];
-        return this.resolvedXliff;
       }),
-      map((resolvedXliff) => {
+      map(() => {
         return translationsService.parseXLiff(
-          resolvedXliff.file.content,
-          resolvedXliff.template.content
+          this.resolvedXliff?.file?.content,
+          this.resolvedXliff?.template.content
         );
       }),
       map(({ locale, duplicated }) => {
         this.duplicated = duplicated;
         this.translations = locale;
-        this.targetLanguage = locale.children[0]?.$?.['target-language'];
+        this.targetLanguage = locale?.children[0]?.$?.['target-language'];
         // this.historyService.add({ path: this.filePath, type: 'file' });
         this.isObsoleteTranslation =
           this.translationsService.isObsoleteTranslation;
@@ -160,7 +165,11 @@ export class TranslationsComponent {
     });
   }
 
-  private saveXLIFF(translations: IXliff, message: string): void {
+  private saveXLIFF(translations: IXliff | undefined, message: string): void {
+    if (!this.resolvedXliff?.file.path || !translations) {
+      return;
+    }
+
     this.xliffService.saveXLIFF(this.resolvedXliff.file.path, translations);
     this.notification.showInformation(message);
   }

@@ -20,7 +20,7 @@ export interface INotification extends IMessage {
   providedIn: 'root',
 })
 export class NotificationService implements NotificationServiceInterface {
-  private notify$ = new BehaviorSubject<INotification>(null);
+  private notify$ = new BehaviorSubject<INotification | null>(null);
 
   public showInformation(message: string): void {
     this.send({ type: INotificationType.INFO, message });
@@ -32,7 +32,7 @@ export class NotificationService implements NotificationServiceInterface {
     this.send({ type: INotificationType.ERROR, message });
   }
 
-  public obs(): Observable<INotification> {
+  public obs(): Observable<INotification | null> {
     return this.notify$.asObservable();
   }
 

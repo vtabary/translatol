@@ -8,5 +8,5 @@ import { IXliffInterpolation } from '@vtabary/xliff2js';
 })
 export class TranslationInterpolationComponent {
   @Input()
-  public interpolation: IXliffInterpolation;
+  public interpolation?: IXliffInterpolation;
 }

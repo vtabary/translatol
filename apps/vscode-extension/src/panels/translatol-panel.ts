@@ -70,7 +70,7 @@ export class TranslatolPanel {
     viewColumn: ViewColumn
   ) {
     if (TranslatolPanel.panels.has(fileUri.toString())) {
-      TranslatolPanel.panels.get(fileUri.toString()).reveal();
+      TranslatolPanel.panels.get(fileUri.toString())?.reveal();
       return;
     }
 

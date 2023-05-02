@@ -16,6 +16,7 @@ import {
   IXliffTransUnit,
   IXliffPlural,
 } from '@vtabary/xliff2js';
+import { isXliffPlural } from '../../functions/xliff';
 
 @Component({
   selector: 'app-translation',
@@ -23,27 +24,45 @@ import {
 })
 export class TranslationComponent implements OnChanges {
   @Input()
-  public translation: IXliffTransUnit;
+  public translation?: IXliffTransUnit;
 
   @Input()
-  public sourceLanguage: string;
+  public sourceLanguage?: string;
 
   @Input()
-  public targetLanguage: string;
+  public targetLanguage?: string;
 
   @Output()
   public submitted = new EventEmitter<void>();
 
+  /**
+   * @internal
+   */
   public group: UntypedFormGroup;
-  public source: IXliffSource;
-  public target: IXliffTarget;
-  public notes: IXliffNote[];
+  /**
+   * @internal
+   */
+  public source?: IXliffSource;
+  /**
+   * @internal
+   */
+  public target?: IXliffTarget;
+  /**
+   * @internal
+   */
+  public notes?: IXliffNote[];
+  /**
+   * @internal
+   */
   public isPlural = false;
 
   constructor(private formBuilder: UntypedFormBuilder) {
     this.group = this.formBuilder.group({});
   }
 
+  /**
+   * @internal
+   */
   public ngOnChanges(changes: SimpleChanges): void {
     if (!changes['translation']) {
       return;
@@ -66,10 +85,14 @@ export class TranslationComponent implements OnChanges {
   }
 
   public submit() {
-    this.source.children.forEach(
+    this.source?.children.forEach(
       (value: string | IXliffInterpolation | IXliffPlural, index) => {
-        if ((value as any).name === 'plural') {
+        if (isXliffPlural(value)) {
           this.handlePluralSubmit(value, index);
+          return;
+        }
+
+        if (!this.target) {
           return;
         }
 
@@ -83,20 +106,29 @@ export class TranslationComponent implements OnChanges {
       }
     );
 
-    this.target.$.state = 'translated';
+    if (this.target) {
+      this.target.$.state = 'translated';
+    }
+
+    if (!this.translation) {
+      return;
+    }
 
     // Remove the current target in order to replace it by the new one
     this.translation.children = this.translation.children.filter(
       (item) => item !== this.target
     );
-    this.translation.children.push(this.target);
+
+    if (this.target) {
+      this.translation.children.push(this.target);
+    }
 
     this.group.markAsPristine();
     this.submitted.emit();
   }
 
   public copySource() {
-    this.source.children.forEach((value, index) => {
+    this.source?.children.forEach((value, index) => {
       this.group.controls['target-' + index].setValue(value);
     });
     this.group.markAsDirty();
@@ -136,22 +168,22 @@ export class TranslationComponent implements OnChanges {
     return children || [];
   }
 
-  private handlePluralSubmit(
-    value: string | IXliffInterpolation | IXliffPlural,
-    index: number
-  ): void {
-    const pluralCounters = (value as IXliffPlural).counters;
+  private handlePluralSubmit(value: IXliffPlural, index: number): void {
+    const pluralCounters = value.counters;
 
     Object.keys(pluralCounters).forEach((key) => {
       pluralCounters[key].forEach((trad, indexTrad) => {
-        if (typeof trad !== 'string') {
-          (this.target.children[index] as IXliffPlural).counters[key][
-            indexTrad
-          ] = trad;
+        const plural = this.target?.children[index];
+        if (!isXliffPlural(plural)) {
           return;
         }
 
-        (this.target.children[index] as IXliffPlural).counters[key][indexTrad] =
+        if (typeof trad !== 'string') {
+          plural.counters[key][indexTrad] = trad;
+          return;
+        }
+
+        plural.counters[key][indexTrad] =
           this.group.controls['target-plural-' + key + '-' + indexTrad].value;
       });
     });

@@ -8,5 +8,5 @@ import { IXliffTransUnit } from '@vtabary/xliff2js';
 })
 export class AlertWarningComponent {
   @Input()
-  public translation: IXliffTransUnit;
+  public translation?: IXliffTransUnit;
 }

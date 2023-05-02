@@ -15,9 +15,16 @@
         "main": "apps/vscode-webview/src/main.ts",
         "polyfills": ["@angular/localize/init", "zone.js"],
         "tsConfig": "apps/vscode-webview/tsconfig.app.json",
-        "assets": ["apps/vscode-webview/src/favicon.ico", "apps/vscode-webview/src/assets"],
-        "styles": ["node_modules/@clr/ui/clr-ui.min.css", "apps/vscode-webview/src/styles.scss"],
-        "scripts": []
+        "assets": [
+          "apps/vscode-webview/src/favicon.ico",
+          "apps/vscode-webview/src/assets"
+        ],
+        "styles": [
+          "node_modules/@clr/ui/clr-ui.min.css",
+          "apps/vscode-webview/src/styles.scss"
+        ],
+        "scripts": [],
+        "allowedCommonJsDependencies": ["lodash", "@vtabary/xliff2js"]
       },
       "configurations": {
         "production": {
@@ -68,7 +75,10 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/vscode-webview/**/*.ts", "apps/vscode-webview/**/*.html"]
+        "lintFilePatterns": [
+          "apps/vscode-webview/**/*.ts",
+          "apps/vscode-webview/**/*.html"
+        ]
       }
     },
     "test": {

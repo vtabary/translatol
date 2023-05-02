@@ -2,8 +2,8 @@
   <div class="clr-col-12">
     <div class="card">
       <div class="card-header">
-        <app-copy-to-clipboard [toCopy]="translation.$.id"></app-copy-to-clipboard>
-        {{ translation.$.id }}
+        <app-copy-to-clipboard [toCopy]="translation?.$?.id"></app-copy-to-clipboard>
+        {{ translation?.$?.id }}
       </div>
 
       <form clrForm *ngIf="group" [formGroup]="group" clrLayout="vertical" (submit)="submit()">
@@ -12,7 +12,7 @@
             <ng-container *ngFor="let value of source.children; let i = index">
               <app-translation-item
                 [source]="value"
-                [target]="target.children[i]"
+                [target]="target?.children?.[i]"
                 [targetLanguage]="targetLanguage"
                 id="target-{{ i }}"
                 [group]="group"

@@ -11,5 +11,5 @@ export class TranslationDuplicatedListComponent {
   public translations: IXliffTransUnit[] = [];
 
   @Input()
-  public listTitle: string;
+  public listTitle?: string;
 }

@@ -1,4 +1,4 @@
-<ng-container *ngIf="notification$ | async as notification">
+<ng-container *ngIf="notificationService.obs() | async as notification">
   <clr-alert [clrAlertType]="notification.type" (clrAlertClosedChange)="onClose()">
     <clr-alert-item>
       <span class="alert-text">

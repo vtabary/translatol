@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'app-modal',
+  selector: 'translatol-modal',
   templateUrl: './modal.component.html',
 })
 export class ModalComponent implements OnChanges {

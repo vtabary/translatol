@@ -23,7 +23,7 @@ function asFilesProp<T extends Data>(
 }
 
 @Component({
-  selector: 'app-translations',
+  selector: 'translatol-translations',
   templateUrl: './translations.component.html',
   styleUrls: ['./translations.component.scss'],
 })

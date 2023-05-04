@@ -17,10 +17,20 @@
         "tsConfig": "apps/vscode-webview/tsconfig.app.json",
         "assets": [
           "apps/vscode-webview/src/favicon.ico",
-          "apps/vscode-webview/src/assets"
+          {
+            "glob": "**/*.*",
+            "input": "apps/vscode-webview/src/assets",
+            "output": "assets"
+          },
+          {
+            "glob": "**/*.*",
+            "input": "node_modules/@vscode/codicons/dist",
+            "output": "assets/codicons"
+          }
         ],
         "styles": [
           "node_modules/@clr/ui/clr-ui.min.css",
+          "libs/shared-module/src/assets/styles.scss",
           "apps/vscode-webview/src/styles.scss"
         ],
         "scripts": [],
@@ -40,7 +50,9 @@
               "maximumError": "4kb"
             }
           ],
-          "outputHashing": "none"
+          "outputHashing": "none",
+          "buildOptimizer": true,
+          "optimization": true
         },
         "development": {
           "buildOptimizer": false,

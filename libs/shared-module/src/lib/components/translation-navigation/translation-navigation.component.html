@@ -1,60 +1,83 @@
 <section class="sidenav-content">
   <div *ngIf="duplicated.length" class="title">
     <h5 i18n="@@translation-navigation.duplicated-title">Duplicated</h5>
-    <span class="badge">{{ duplicated.length }}</span>
+    <vscode-badge>{{ duplicated.length }}</vscode-badge>
   </div>
 
   <clr-tree>
-    <clr-tree-node *clrRecursiveFor="let duplicatedItem of duplicatedTree; getChildren: getChildren" [clrExpanded]="true">
-      <a
-        *ngIf="duplicatedItem.children.length === 0; else isFolder"
-        class="nav-link"
-        href="#{{ duplicatedItem.currentPath }}"
+    <clr-tree-node
+      *clrRecursiveFor="
+        let duplicatedItem of duplicatedTree;
+        getChildren: getChildren
+      "
+      [clrExpanded]="true"
+    >
+      <vscode-link
+        *ngIf="duplicatedItem.children.length === 0; else isFolderTemplate1"
+        [href]="'#' + duplicatedItem.currentPath"
         title="{{ duplicatedItem.currentPath }}"
-        >{{ duplicatedItem.currentId }}</a
+        >{{ duplicatedItem.currentId }}</vscode-link
       >
-      <ng-template #isFolder>
-        <span title="{{ duplicatedItem.currentPath }}">{{ duplicatedItem.currentId }}</span>
+      <ng-template #isFolderTemplate1>
+        <span title="{{ duplicatedItem.currentPath }}">{{
+          duplicatedItem.currentId
+        }}</span>
       </ng-template>
     </clr-tree-node>
   </clr-tree>
 
   <div class="title">
     <h5 i18n="@@translation-navigation.to-translate-title">To translate</h5>
-    <span class="badge">{{ toTranslate.length }}</span>
+    <vscode-badge>{{ toTranslate.length }}</vscode-badge>
   </div>
 
   <clr-tree>
-    <clr-tree-node *clrRecursiveFor="let toTranslateItem of toTranslateTree; getChildren: getChildren" [clrExpanded]="true">
-      <a
-        *ngIf="toTranslateItem.children.length === 0; else isFolder"
+    <clr-tree-node
+      #treeNode
+      *clrRecursiveFor="
+        let toTranslateItem of toTranslateTree;
+        getChildren: getChildren
+      "
+      [clrExpanded]="true"
+    >
+      <vscode-link
+        *ngIf="toTranslateItem.children.length === 0; else isFolderTemplate"
         class="nav-link"
         href="#{{ toTranslateItem.currentPath }}"
         title="{{ toTranslateItem.currentPath }}"
-        >{{ toTranslateItem.currentId }}</a
+        >{{ toTranslateItem.currentId }}</vscode-link
       >
-      <ng-template #isFolder>
-        <span title="{{ toTranslateItem.currentPath }}">{{ toTranslateItem.currentId }}</span>
+      <ng-template #isFolderTemplate>
+        <span title="{{ toTranslateItem.currentPath }}">{{
+          toTranslateItem.currentId
+        }}</span>
       </ng-template>
     </clr-tree-node>
   </clr-tree>
 
   <div class="title">
     <h5 i18n="@@translation-navigation.translated-title">Translated</h5>
-    <span class="badge">{{ translated.length }}</span>
+    <vscode-badge>{{ translated.length }}</vscode-badge>
   </div>
 
   <clr-tree>
-    <clr-tree-node *clrRecursiveFor="let translatedItem of translatedTree; getChildren: getChildren">
-      <a
+    <clr-tree-node
+      *clrRecursiveFor="
+        let translatedItem of translatedTree;
+        getChildren: getChildren
+      "
+    >
+      <vscode-link
         *ngIf="translatedItem.children.length === 0; else isFolder"
         class="nav-link"
         href="#{{ translatedItem.currentPath }}"
         title="{{ translatedItem.currentPath }}"
-        >{{ translatedItem.currentId }}</a
+        >{{ translatedItem.currentId }}</vscode-link
       >
       <ng-template #isFolder>
-        <span title="{{ translatedItem.currentPath }}">{{ translatedItem.currentId }}</span>
+        <span title="{{ translatedItem.currentPath }}">{{
+          translatedItem.currentId
+        }}</span>
       </ng-template>
     </clr-tree-node>
   </clr-tree>

@@ -1,0 +1,25 @@
+<ng-container *ngIf="source && formControl">
+  <section class="component-example">
+    <p
+      ><span title="Source text">{{ source }}</span></p
+    >
+    <vscode-text-field
+      type="text"
+      [formControl]="formControl"
+      [lang]="targetLanguage"
+      ngDefaultControl
+    >
+      <vscode-button
+        class="clear-button"
+        [class.hidden]="!formControl.value"
+        slot="end"
+        appearance="icon"
+        title="Clear field"
+        aria-label="Clear field"
+        (click)="formControl.setValue('')"
+      >
+        <span class="codicon codicon-close"></span>
+      </vscode-button>
+    </vscode-text-field>
+  </section>
+</ng-container>

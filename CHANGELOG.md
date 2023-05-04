@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Use `@vscode/webview-ui-toolkit`
+
 ## 0.1.2 (2021/09/05)
 
 - Support Windows build

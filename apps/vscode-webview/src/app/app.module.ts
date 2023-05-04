@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import {
   NOTIFICATION_SERVICE,
@@ -11,9 +12,9 @@ import {
 import { AppComponent } from './app.component';
 import { appRoutes } from './app.routes';
 import { FileService } from './services/file/file.service';
+import { NotificationService } from './services/notification/notification.service';
 import { PostMessageService } from './services/post-message/post-message.service';
 import { VSCodeXliffResolverService } from './services/vscode-xliff-resolver/vscode-xliff-resolver.service';
-import { NotificationService } from './services/notification/notification.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,6 +23,7 @@ import { NotificationService } from './services/notification/notification.servic
     BrowserModule,
     RouterModule.forRoot(appRoutes, { initialNavigation: 'enabledBlocking' }),
     TranslatolSharedModule,
+    BrowserAnimationsModule,
   ],
   providers: [
     {

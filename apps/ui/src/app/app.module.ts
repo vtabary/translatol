@@ -2,8 +2,6 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ClarityIcons, helpIcon, languageIcon } from '@cds/core/icon';
-import '@cds/core/icon/register.js';
 import { ClarityModule } from '@clr/angular';
 import { XLIFF_WRITING_SERVICE } from '@translatol/shared-module';
 import { AppRoutingModule } from './app-routing.module';
@@ -13,7 +11,6 @@ import { FileService } from './modules/translations/services/file/file.service';
 import { AboutComponent } from './pages/about/about.component';
 import { MainLayoutComponent } from './pages/main-layout/main-layout.component';
 import { RootComponent } from './pages/root/root.component';
-ClarityIcons.addIcons(helpIcon, languageIcon);
 
 @NgModule({
   providers: [

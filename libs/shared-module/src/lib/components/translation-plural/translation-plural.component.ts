@@ -1,21 +1,17 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
-import { IXliffPlural } from '@vtabary/xliff2js';
+import { IXliffInterpolation, IXliffPlural } from '@vtabary/xliff2js';
 
 @Component({
-  selector: 'app-translation-plural',
+  selector: 'translatol-translation-plural',
   templateUrl: './translation-plural.component.html',
   styleUrls: ['./translation-plural.component.scss'],
 })
 export class TranslationPluralComponent implements OnChanges {
   @Input()
-  public plural?: IXliffPlural;
+  public source?: IXliffPlural;
 
   @Input()
-  public target?: IXliffPlural;
-
-  @Input()
-  public group?: UntypedFormGroup;
+  public target?: string | IXliffPlural | IXliffInterpolation;
 
   @Input()
   public targetLanguage?: string;
@@ -30,7 +26,7 @@ export class TranslationPluralComponent implements OnChanges {
    */
   public ngOnChanges(changes: SimpleChanges) {
     if (changes['plural']) {
-      this.pluralCountersKey = Object.keys(this.plural?.counters ?? {});
+      this.pluralCountersKey = Object.keys(this.source?.counters ?? {});
     }
   }
 }

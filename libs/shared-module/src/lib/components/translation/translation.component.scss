@@ -1,0 +1,19 @@
+.source-id {
+  display: inline-block;
+  margin-inline-start: 0.5rem;
+}
+
+.pnotes {
+  span {
+    vertical-align: middle;
+  }
+
+  .note-header {
+    min-width: 4.3rem;
+    display: inline-block;
+  }
+
+  .note-text {
+    margin-inline-start: 0.5rem;
+  }
+}

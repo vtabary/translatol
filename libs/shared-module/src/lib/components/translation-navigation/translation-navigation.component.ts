@@ -6,7 +6,7 @@ import {
 } from '../../services/tree-builder/tree-builder.service';
 
 @Component({
-  selector: 'app-translation-navigation',
+  selector: 'translatol-translation-navigation',
   templateUrl: './translation-navigation.component.html',
   styleUrls: ['./translation-navigation.component.scss'],
 })

@@ -1,24 +1,44 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { FormControl } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { debounceTime, map } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-translation-search',
+  selector: 'translatol-translation-search',
   templateUrl: './translation-search.component.html',
   styleUrls: ['./translation-search.component.scss'],
 })
 export class TranslationSearchComponent {
+  /**
+   * @internal
+   */
+  public searchControl = new FormControl('', { updateOn: 'change' });
+
   @Output()
   public changed = new EventEmitter<string>();
 
-  public group: UntypedFormGroup;
+  private subscriptions = new Subscription();
 
-  constructor(private formBuilder: UntypedFormBuilder) {
-    this.group = this.formBuilder.group({
-      text: '',
-    });
+  /**
+   * @internal
+   */
+  public ngOnInit(): void {
+    const subscription = this.searchControl.valueChanges
+      .pipe(
+        map((text) => text ?? ''),
+        debounceTime(150)
+      )
+      .subscribe((text) => {
+        this.changed.emit(text);
+      });
+
+    this.subscriptions.add(subscription);
   }
 
-  public submit() {
-    this.changed.emit(this.group.controls['text'].value);
+  /**
+   * @internal
+   */
+  public ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

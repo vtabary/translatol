@@ -86,13 +86,8 @@ export class TranslatolPanel {
       {
         // Enable JavaScript in the webview
         enableScripts: true,
-        // Restrict the webview to only load resources from the `out` and `webview-ui/build` directories
-        localResourceRoots: [
-          Uri.joinPath(
-            context.extensionUri,
-            'webview'
-          ) /* , Uri.joinPath(extensionUri, 'webview-ui/build') */,
-        ],
+        // Restrict the webview to only load resources `webview-ui` directory
+        localResourceRoots: [Uri.joinPath(context.extensionUri, 'webview')],
         retainContextWhenHidden: true,
       }
     );

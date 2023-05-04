@@ -1,7 +1,10 @@
 <ng-container *ngIf="translations && translations.length > 0">
   <div class="ui-header">
     <h2>{{ listTitle }}</h2>
-    <span class="badge">{{ translations.length }}</span>
+    <vscode-badge>{{ translations.length }}</vscode-badge>
   </div>
-  <app-alert-warning *ngFor="let translation of translations" [translation]="translation"></app-alert-warning>
+  <translatol-alert-warning
+    *ngFor="let translation of translations"
+    [translation]="translation"
+  ></translatol-alert-warning>
 </ng-container>

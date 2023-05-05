@@ -6,7 +6,7 @@
       "type": "extensionHost",
       "request": "launch",
       "runtimeExecutable": "${execPath}",
-      "args": ["--extensionDevelopmentPath=${workspaceFolder}/dist/apps/vscode-extension", "--disable-extensions"],
+      "args": ["--extensionDevelopmentPath=${workspaceFolder}/dist/apps/vscode-extension", "--disable-extensions", "${workspaceFolder}/samples"],
       "trace": false,
       "internalConsoleOptions": "openOnFirstSessionStart",
       "outFiles": ["${workspaceFolder}/dist/**/*.*"],

@@ -1,4 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+
+html,
+body,
+app-root,
+app-translations,
+.content-area {
+  height: 100vh;
+  width: 100vw;
+}
+
+.content-area,
+.sidenav {
+  overflow-y: auto;
+}
+
 .content-container {
   display: flex;
   flex-direction: row;

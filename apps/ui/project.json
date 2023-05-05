@@ -15,9 +15,14 @@
         "main": "apps/ui/src/main.ts",
         "polyfills": ["@angular/localize/init", "zone.js"],
         "tsConfig": "apps/ui/tsconfig.app.json",
-        "assets": ["apps/ui/src/favicon.ico", "apps/ui/src/assets"],
+        "assets": [
+          "apps/ui/src/favicon.ico",
+          "apps/ui/src/assets"
+        ],
         "styles": [
+          "node_modules/@vscode/codicons/dist/codicon.css",
           "node_modules/@clr/ui/clr-ui.min.css",
+          "libs/shared-module/src/assets/styles.scss",
           "apps/ui/src/styles.scss"
         ],
         "scripts": []

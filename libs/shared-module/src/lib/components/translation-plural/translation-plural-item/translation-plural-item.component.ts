@@ -1,14 +1,16 @@
-import { Component, Input, OnChanges, OnDestroy } from '@angular/core';
+import { Component, Inject, Input, OnChanges, OnDestroy } from '@angular/core';
 import {
-  UntypedFormBuilder,
+  ControlContainer,
+  FormBuilder,
+  FormControl,
+  FormGroupDirective,
   UntypedFormControl,
-  UntypedFormGroup,
 } from '@angular/forms';
 import { IXliffInterpolation, IXliffPlural } from '@vtabary/xliff2js';
 
 // TODO duplication de TranslationItemComponent a supprimer
 @Component({
-  selector: 'app-translation-plural-item',
+  selector: 'translatol-translation-plural-item',
   templateUrl: './translation-plural-item.component.html',
   styleUrls: ['./translation-plural-item.component.scss'],
 })
@@ -21,9 +23,6 @@ export class TranslationPluralItemComponent implements OnChanges, OnDestroy {
 
   @Input()
   public id?: string;
-
-  @Input()
-  public group?: UntypedFormGroup;
 
   @Input()
   public targetLanguage?: string;
@@ -40,8 +39,25 @@ export class TranslationPluralItemComponent implements OnChanges, OnDestroy {
    * @internal
    */
   public interpolation?: IXliffInterpolation;
+  /**
+   * @internal
+   */
+  public plural?: IXliffPlural;
+  /**
+   * @internal
+   */
+  public pluralTarget?: IXliffPlural;
+  /**
+   * @internal
+   */
 
-  constructor(private formBuilder: UntypedFormBuilder) {}
+  public formControl?: FormControl;
+
+  constructor(
+    private formBuilder: FormBuilder,
+    @Inject(ControlContainer)
+    public controlContainer: FormGroupDirective
+  ) {}
 
   /**
    * @internal
@@ -53,17 +69,25 @@ export class TranslationPluralItemComponent implements OnChanges, OnDestroy {
 
     if (typeof this.source === 'string') {
       this.text = this.source;
-    } else if (this.source.name !== 'plural') {
+    } else if (this.source.name === 'plural') {
+      this.plural = this.source;
+      this.pluralTarget = this.target as IXliffPlural;
+    } else {
       this.interpolation = this.source;
     }
 
-    if (!this.text || !this.id) {
+    if (!this.text) {
       return;
     }
 
     // Display the target only if the target is a string (could be an object from a previous edition)
     const target = typeof this.target === 'string' ? this.target : '';
-    this.group?.addControl(this.id, this.formBuilder.control(target));
+    if (this.id) {
+      this.formControl = this.formBuilder.control(target, {
+        nonNullable: true,
+      });
+      this.controlContainer.form?.setControl(this.id, this.formControl);
+    }
   }
 
   /**
@@ -74,10 +98,6 @@ export class TranslationPluralItemComponent implements OnChanges, OnDestroy {
       return;
     }
 
-    if (!this.group || !this.group.contains(this.id)) {
-      return;
-    }
-
-    this.group.removeControl(this.id);
+    this.controlContainer.form.removeControl(this.id);
   }
 }

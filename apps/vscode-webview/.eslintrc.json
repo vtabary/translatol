@@ -1,5 +1,5 @@
 {
-  "extends": ["../.eslintrc.base.json"],
+  "extends": ["../.eslintrc.base.json", "../../.eslintrc.base.json"],
   "ignorePatterns": ["!**/*"],
   "overrides": [
     {
@@ -22,7 +22,10 @@
           }
         ]
       },
-      "extends": ["plugin:@nrwl/nx/angular", "plugin:@angular-eslint/template/process-inline-templates"]
+      "extends": [
+        "plugin:@nrwl/nx/angular",
+        "plugin:@angular-eslint/template/process-inline-templates"
+      ]
     },
     {
       "files": ["*.html"],

@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { ClipboardService } from '../../services/clipboard/clipboard.service';
 
 @Component({
-  selector: 'app-copy-to-clipboard',
+  selector: 'translatol-copy-to-clipboard',
   templateUrl: './copy-to-clipboard.component.html',
   styleUrls: ['./copy-to-clipboard.component.scss'],
 })

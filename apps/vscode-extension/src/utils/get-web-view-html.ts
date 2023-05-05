@@ -26,6 +26,9 @@ export function getWebViewHTML(webview: Webview, extensionUri: Uri) {
   const angularMainURI = webview.asWebviewUri(
     Uri.joinPath(extensionUri, 'webview', 'main.js')
   );
+  const codiconsUri = webview.asWebviewUri(
+    Uri.joinPath(extensionUri, 'webview', 'assets', 'codicons', 'codicon.css')
+  );
 
   // Use a nonce to whitelist which scripts can be run
   const nonce = getNonce();
@@ -46,6 +49,7 @@ export function getWebViewHTML(webview: Webview, extensionUri: Uri) {
     <base href="/">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="${angularCSSURI}">
+    <link rel="stylesheet" href="${codiconsUri}">
   </head>
   <body>
     <app-root></app-root>

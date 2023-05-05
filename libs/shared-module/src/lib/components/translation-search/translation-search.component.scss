@@ -1,6 +1,5 @@
-.clr-input {
-  margin-right: 10px;
-  height: 1.8rem;
-  max-height: 1.8rem;
-  width: 250px;
+.clear-button {
+  &.hidden {
+    visibility: hidden;
+  }
 }

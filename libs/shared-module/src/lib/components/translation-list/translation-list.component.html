@@ -1,18 +1,20 @@
-<ng-container *ngIf="translations && translations.length > 0; else noTranslation">
+<ng-container
+  *ngIf="translations && translations.length > 0; else noTranslation"
+>
   <div class="ui-header">
     <h2>{{ listTitle }}</h2>
-    <span class="badge">{{ translations.length }}</span>
+    <vscode-badge>{{ translations.length }}</vscode-badge>
   </div>
-  <app-translation
+  <translatol-translation
     *ngFor="let translation of translations"
     [id]="translation.$.id"
     [translation]="translation"
     (submitted)="submitted.emit()"
     [sourceLanguage]="sourceLanguage"
     [targetLanguage]="targetLanguage"
-  ></app-translation>
+  ></translatol-translation>
 </ng-container>
 <ng-template #noTranslation>
-  <h2>{{ listTitle }} <span class="badge">0</span></h2>
+  <h2>{{ listTitle }}</h2> <vscode-badge>0</vscode-badge>
   No translation
 </ng-template>

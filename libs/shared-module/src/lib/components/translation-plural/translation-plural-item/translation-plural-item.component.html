@@ -1,11 +1,23 @@
-<ng-container *ngIf="group">
-  <ng-container *ngIf="interpolation">
-    <app-translation-interpolation [interpolation]="interpolation"> </app-translation-interpolation>
-  </ng-container>
-  <ng-container *ngIf="text">
-    <clr-input-container [formGroup]="group">
-      <label>{{ source }}</label>
-      <input clrInput type="text" [formControlName]="id || null" [lang]="targetLanguage" />
-    </clr-input-container>
-  </ng-container>
+<ng-container *ngIf="interpolation">
+  <translatol-translation-interpolation [interpolation]="interpolation">
+  </translatol-translation-interpolation>
+</ng-container>
+<ng-container *ngIf="text && formControl">
+  <vscode-text-field
+    type="text"
+    [formControl]="formControl"
+    [lang]="targetLanguage"
+    ngDefaultControl
+    >{{ source }}
+    <vscode-button
+      class="clear-button"
+      [class.hidden]="!formControl.value"
+      slot="end"
+      appearance="icon"
+      title="Clear field"
+      aria-label="Clear field"
+      (click)="formControl.setValue('')"
+    >
+      <span class="codicon codicon-close"></span> </vscode-button
+  ></vscode-text-field>
 </ng-container>

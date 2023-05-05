@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { IXliffTransUnit } from '@vtabary/xliff2js';
 
 @Component({
-  selector: 'app-translation-duplicated-list',
+  selector: 'translatol-translation-duplicated-list',
   templateUrl: './translation-duplicated-list.component.html',
   styleUrls: ['./translation-duplicated-list.component.scss'],
 })

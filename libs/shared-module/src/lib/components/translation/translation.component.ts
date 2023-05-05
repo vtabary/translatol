@@ -6,21 +6,22 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import {
   IXliffInterpolation,
   IXliffNote,
+  IXliffPlural,
   IXliffSource,
   IXliffTag,
   IXliffTarget,
   IXliffTransUnit,
-  IXliffPlural,
 } from '@vtabary/xliff2js';
 import { isXliffPlural } from '../../functions/xliff';
 
 @Component({
-  selector: 'app-translation',
+  selector: 'translatol-translation',
   templateUrl: './translation.component.html',
+  styleUrls: ['./translation.component.scss'],
 })
 export class TranslationComponent implements OnChanges {
   @Input()
@@ -38,7 +39,7 @@ export class TranslationComponent implements OnChanges {
   /**
    * @internal
    */
-  public group: UntypedFormGroup;
+  public group: FormGroup;
   /**
    * @internal
    */
@@ -56,7 +57,7 @@ export class TranslationComponent implements OnChanges {
    */
   public isPlural = false;
 
-  constructor(private formBuilder: UntypedFormBuilder) {
+  constructor(private formBuilder: FormBuilder) {
     this.group = this.formBuilder.group({});
   }
 
@@ -84,7 +85,7 @@ export class TranslationComponent implements OnChanges {
     this.group.reset();
   }
 
-  public submit() {
+  public save() {
     this.source?.children.forEach(
       (value: string | IXliffInterpolation | IXliffPlural, index) => {
         if (isXliffPlural(value)) {

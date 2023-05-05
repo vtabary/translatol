@@ -1,13 +1,8 @@
 import { Injectable } from '@angular/core';
+import { ResolvedXLIFF } from '@translatol/shared-module';
 import { fromEvent } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { ResolvedXLIFF } from '@translatol/shared-module';
-
-declare global {
-  function acquireVsCodeApi(): {
-    postMessage(message: unknown): void;
-  };
-}
+import type { WebviewApi } from 'vscode-webview';
 
 export interface XliffWriteMessage {
   type: 'xliff_write';

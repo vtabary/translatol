@@ -1,58 +1,68 @@
 <div class="content-container" *ngIf="translations$ | async as translations">
   <div class="content-area">
-    <h2 [title]="resolvedXliff?.file?.path">{{ resolvedXliff?.file?.path | endOfString : 50 }}</h2>
+    <h2 [title]="resolvedXliff?.file?.path">{{
+      resolvedXliff?.file?.path | endOfString : 50
+    }}</h2>
     <div class="ui-header">
-      <app-translation-search (changed)="searched$.emit($event)"> </app-translation-search>
-      <div>
-        <button type="button" class="btn btn-success-outline" (click)="refresh()" i18n="@@translations.refresh">Refresh</button>
+      <translatol-translation-search (changed)="searched$.emit($event)">
+      </translatol-translation-search>
+      <div class="vscode-buttons-group">
+        <vscode-button
+          appearance="secondary"
+          type="button"
+          (click)="refresh()"
+          i18n="@@translations.reload"
+          >Reload</vscode-button
+        >
         <div role="tooltip" class="tooltip tooltip-md tooltip-top-left">
-          <button
+          <vscode-button
+            appearance="secondary"
             type="button"
-            class="btn btn-danger-outline"
-            aria-haspopup="true"
             i18n="@@translations.delete-key"
             [disabled]="duplicated?.length || !isObsoleteTranslation"
             (click)="openModal()"
+            >Cleanup file</vscode-button
           >
-            Delete obsolete key
-          </button>
-          <span *ngIf="duplicated?.length && isObsoleteTranslation" class="tooltip-content" i18n="@@translations.fix-duplicate-key-first">
-            Fix duplicated translations first
-          </span>
-        </div>
+          <span
+            *ngIf="duplicated?.length && isObsoleteTranslation"
+            class="tooltip-content"
+            i18n="@@translations.fix-duplicate-key-first"
+            >Fix duplicated translations first</span
+          >
+ <!--     -->    </div>
       </div>
     </div>
 
-    <!--     <app-translation-language *ngFor="let file of translations.children" [file]="file" (submitted)="onSave()"></app-translation-language> -->
-    <app-translation-duplicated-list
+    <!--     <translatol-translation-language *ngFor="let file of translations.children" [file]="file" (submitted)="onSave()"></translatol-translation-language> -->
+    <translatol-translation-duplicated-list
       [translations]="duplicated || []"
       i18n-listTitle="@@translations.duplicated-translations"
       listTitle="Duplicated translations"
-    ></app-translation-duplicated-list>
-    <app-translation-list
+    ></translatol-translation-duplicated-list>
+    <translatol-translation-list
       [translations]="(toTranslate$ | async) || []"
       [targetLanguage]="targetLanguage"
       i18n-listTitle="@@translations.to-translate"
       listTitle="To translate"
       (submitted)="onSave()"
-    ></app-translation-list>
-    <app-translation-list
+    ></translatol-translation-list>
+    <translatol-translation-list
       [translations]="(translated$ | async) || []"
       i18n-listTitle="@@translations.translated"
       listTitle="Translated"
       (submitted)="onSave()"
-    ></app-translation-list>
+    ></translatol-translation-list>
   </div>
   <nav class="sidenav">
-    <app-translation-navigation
+    <translatol-translation-navigation
       [duplicated]="duplicated || []"
       [toTranslate]="(toTranslate$ | async) || []"
       [translated]="(translated$ | async) || []"
-    ></app-translation-navigation>
+    ></translatol-translation-navigation>
   </nav>
 </div>
 
-<app-modal
+<translatol-modal
   i18n-title="@@translations.modal-title"
   title="Are you sure?"
   i18n-message="@@translations.modal-message"
@@ -61,4 +71,4 @@
   buttonLabel="Delete"
   [isOpen]="openModalDeleteObsolete"
   (close)="deleteObsoleteKey($event)"
-></app-modal>
+></translatol-modal>

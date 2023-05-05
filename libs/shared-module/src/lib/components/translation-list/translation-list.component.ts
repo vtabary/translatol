@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { IXliffTransUnit } from '@vtabary/xliff2js';
 
 @Component({
-  selector: 'app-translation-list',
+  selector: 'translatol-translation-list',
   templateUrl: './translation-list.component.html',
   styleUrls: ['./translation-list.component.scss'],
 })

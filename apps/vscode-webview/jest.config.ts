@@ -1,7 +1,7 @@
 /* eslint-disable */
 export default {
   displayName: 'vscode-webview',
-  preset: '../jest.preset.js',
+  preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   coverageDirectory: '../coverage/vscode-webview',
   transform: {

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en-US" datatype="plaintext" original="ng2.template" target-language="undefined">
+    <body>
+      <trans-unit id="translate-content.this-key-is-obsolete" datatype="html">
+        <source>An obsolete text</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/sample/src/app/app.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <target state="translated">Une traduction obsolète</target>
+      </trans-unit>
+      <trans-unit id="197663069645533926" datatype="html">
+        <source>Translate content of DOM element without source ID</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/sample/src/app/app.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <target state="translated">Traduire le contenu d&apos;un élément DOM sans ID source </target>
+      </trans-unit>
+      <trans-unit id="translate-content.simple-dom-element-content" datatype="html">
+        <source>Translate content of DOM element</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/sample/src/app/app.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <target state="translated">Traduire le contenu d&apos;un élément DOM</target>
+      </trans-unit>
+      <trans-unit id="translate-content.dom-element-content-with-meaning" datatype="html">
+        <source>Translate content of DOM element with description</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/sample/src/app/app.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <note priority="1" from="description">Provide the meaning or intent of the text within the specific context</note>
+        <target state="translated">Traduire le contenu d&apos;un élément DOM avec description</target>
+      </trans-unit>
+      <trans-unit id="translate-content.dom-element-content-with-meaning-and-description" datatype="html">
+        <source>Translate content of DOM element with meaning and description</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/sample/src/app/app.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <note priority="1" from="description">Provide additional information or context</note>
+        <note priority="1" from="meaning">Provide the meaning or intent of the text within the specific context</note>
+        <target state="translated">Traduire le contenu d&apos;un élément DOM avec signification et description</target>
+      </trans-unit>
+      <trans-unit id="translate-content.with-interpolation" datatype="html">
+        <source>Some string with the text &quot;<x id="INTERPOLATION" equiv-text="{{ text }}" />&quot; interpolated without spaces</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/sample/src/app/app.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <note priority="1" from="description">Provide additional information or context</note>
+        <note priority="1" from="meaning">Provide the meaning or intent of the text within the specific context</note>
+        <target state="translated">Une chaine avec du texte &quot;<x id="INTERPOLATION" equiv-text="{{ text }}" />&quot; interpolé sans espaces</target>
+      </trans-unit>
+      <trans-unit id="translate-content.with-interpolation-and-spaces" datatype="html">
+        <source>Some string with the text &quot; <x id="INTERPOLATION" equiv-text="{{ text }}" /> &quot; interpolated with spaces</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/sample/src/app/app.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <note priority="1" from="description">Provide additional information or context</note>
+        <note priority="1" from="meaning">Provide the meaning or intent of the text within the specific context</note>
+        <target state="translated">Une chaine avec du texte &quot; <x id="INTERPOLATION" equiv-text="{{ text }}" /> &quot; interpolé avec espaces</target>
+      </trans-unit>
+      <trans-unit id="translate-content.with-interpolation-at-the-beginning" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{ text }}" /> is interpolated at the beginning of the sentence</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/sample/src/app/app.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <note priority="1" from="description">Provide additional information or context</note>
+        <note priority="1" from="meaning">Provide the meaning or intent of the text within the specific context</note>
+        <target state="translated"><x id="INTERPOLATION" equiv-text="{{ text }}" />est interpolé au début d&apos;une phrase</target>
+      </trans-unit>
+      <trans-unit id="translate-content.with-interpolation-at-the-end" datatype="html">
+        <source>An interpolated text at the end of the sentence is <x id="INTERPOLATION" equiv-text="{{ text }}" /></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/sample/src/app/app.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <note priority="1" from="description">Provide additional information or context</note>
+        <note priority="1" from="meaning">Provide the meaning or intent of the text within the specific context</note>
+        <target state="translated">Un texte interpolé à la fin d&apos;une phrase <x id="INTERPOLATION" equiv-text="{{ text }}" /></target>
+      </trans-unit>
+      <trans-unit id="translate-content.with-twice-the-same-interpolation" datatype="html">
+        <source>The text <x id="INTERPOLATION" equiv-text="{{ text }}" /> and <x id="INTERPOLATION" equiv-text="{{ text }}" /> are the same</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/sample/src/app/app.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <note priority="1" from="description">Provide additional information or context</note>
+        <note priority="1" from="meaning">Provide the meaning or intent of the text within the specific context</note>
+        <target state="translated">Le texte<x id="INTERPOLATION" equiv-text="{{ text }}" />et<x id="INTERPOLATION" equiv-text="{{ text }}" />sont identiques</target>
+      </trans-unit>
+      <trans-unit id="translate-content.with-twice-two-different-interpolations" datatype="html">
+        <source>The text <x id="INTERPOLATION" equiv-text="{{ text }}" /> and <x id="INTERPOLATION_1" equiv-text="{{ otherText }}" /> are not the same</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/sample/src/app/app.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <note priority="1" from="description">Provide additional information or context</note>
+        <note priority="1" from="meaning">Provide the meaning or intent of the text within the specific context</note>
+        <target state="translated">Le texte<x id="INTERPOLATION" equiv-text="{{ text }}" />et<x id="INTERPOLATION_1" equiv-text="{{ otherText }}" />sont différents</target>
+      </trans-unit>
+      <trans-unit id="translate-content.with-plural-interpolation" datatype="html">
+        <source>Interpolation of numbers gives <x id="ICU" equiv-text="{aNumber, plural, =0 {just now} =1 {one minute ago} other {{{aNumber}} minutes ago}}" xid="1887283401472369100" /> to interpolate</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/sample/src/app/app.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <note priority="1" from="description">Provide additional information or context</note>
+        <note priority="1" from="meaning">Provide the meaning or intent of the text within the specific context</note>
+      </trans-unit>
+      <trans-unit id="2002272803511843863" datatype="html">
+        <source>{VAR_PLURAL, plural, =0 {just now} =1 {one minute ago} other {<x id="INTERPOLATION" /> minutes ago}}</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/sample/src/app/app.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="translate-content.with-select-interpolation" datatype="html">
+        <source>The author is <x id="ICU" equiv-text="{gender, select, male {male} female {female} other {other}}" xid="7670372064920373295" /></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/sample/src/app/app.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <note priority="1" from="description">Provide additional information or context</note>
+        <note priority="1" from="meaning">Provide the meaning or intent of the text within the specific context</note>
+      </trans-unit>
+      <trans-unit id="7670372064920373295" datatype="html">
+        <source/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/sample/src/app/app.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="translate-content.with-nested" datatype="html">
+        <source>{VAR_PLURAL, plural, =0 {just now} =1 {one minute ago} other {<x id="INTERPOLATION" /> minutes ago by }}</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/sample/src/app/app.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+        <note priority="1" from="description">Provide additional information or context</note>
+        <note priority="1" from="meaning">Provide the meaning or intent of the text within the specific context</note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -17,6 +17,7 @@
     "electron": "electron .",
     "pack": "electron-builder --dir",
     "dist": "electron-builder build",
+    "sample": "nx extract-i18n sample",
     "postinstall": "electron-builder install-app-deps",
     "postversion": "git push origin HEAD && git push origin v$npm_package_version",
     "build:extension": "nx build vscode-extension && nx build vscode-webview",

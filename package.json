@@ -19,7 +19,9 @@
     "dist": "electron-builder build",
     "sample": "nx extract-i18n sample",
     "postinstall": "electron-builder install-app-deps",
-    "postversion": "git push origin HEAD && git push origin v$npm_package_version",
+    "preversion": "keepachangelog display unreleased && keepachangelog confirm $npm_new_version --current-version $npm_old_version",
+    "version": "keepachangelog release $npm_new_version && npm --prefix ./apps/vscode-extension pkg set version=$npm_new_version && git add ./CHANGELOG.md ./apps/vscode-extension/package.json",
+    "postversion": "git push origin HEAD && git push origin v$npm_new_version",
     "build:extension": "nx build vscode-extension && nx build vscode-webview",
     "pack:extension": "cd ./dist/vscode-extension && vsce package --pre-release"
   },

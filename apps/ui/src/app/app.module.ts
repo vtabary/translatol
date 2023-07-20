@@ -1,24 +1,35 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ClarityModule } from '@clr/angular';
-import { ReactiveFormsModule } from '@angular/forms';
-
+import { XLIFF_WRITING_SERVICE } from '@translatol/shared-module';
 import { AppRoutingModule } from './app-routing.module';
+import { SharedModule } from './modules/shared/shared.module';
+import { TranslationsModule } from './modules/translations/module';
+import { FileService } from './modules/translations/services/file/file.service';
+import { AboutComponent } from './pages/about/about.component';
 import { MainLayoutComponent } from './pages/main-layout/main-layout.component';
 import { RootComponent } from './pages/root/root.component';
-import { AboutComponent } from './pages/about/about.component';
-import { SharedModule } from './modules/shared/shared.module';
-
-import '@cds/core/icon/register.js';
-import { ClarityIcons, helpIcon, languageIcon } from '@cds/core/icon';
-
-ClarityIcons.addIcons(helpIcon, languageIcon);
 
 @NgModule({
+  providers: [
+    {
+      provide: XLIFF_WRITING_SERVICE,
+      useClass: FileService,
+    },
+  ],
   declarations: [MainLayoutComponent, RootComponent, AboutComponent],
-  imports: [BrowserModule, AppRoutingModule, ClarityModule, BrowserAnimationsModule, ReactiveFormsModule, SharedModule],
-  providers: [],
+  imports: [
+    CommonModule,
+    AppRoutingModule,
+    ClarityModule,
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    SharedModule,
+    TranslationsModule,
+  ],
+
   bootstrap: [RootComponent],
 })
 export class AppModule {}

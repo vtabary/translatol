@@ -1,13 +1,13 @@
 import {
   Component,
+  EventEmitter,
   Input,
   OnChanges,
-  SimpleChanges,
   Output,
-  EventEmitter,
+  SimpleChange,
 } from '@angular/core';
-import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
-import type { IXliffFile } from '@vtabary/xliff2js';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { IXliffFile } from '@vtabary/xliff2js';
 import { ElectronService } from '../../../shared/public-api';
 
 @Component({
@@ -17,7 +17,7 @@ import { ElectronService } from '../../../shared/public-api';
 })
 export class TranslationLanguageComponent implements OnChanges {
   @Input()
-  public file: IXliffFile;
+  public file?: IXliffFile;
 
   @Output()
   public submitted = new EventEmitter<void>();
@@ -33,8 +33,8 @@ export class TranslationLanguageComponent implements OnChanges {
     });
   }
 
-  public ngOnChanges(changes: SimpleChanges) {
-    if (!changes['file']) {
+  public ngOnChanges(changes: { file?: SimpleChange }) {
+    if (!changes.file) {
       return;
     }
 
@@ -54,7 +54,10 @@ export class TranslationLanguageComponent implements OnChanges {
   }
 
   public submit() {
-    this.file.$['target-language'] = this.group.controls['target'].value;
+    if (this.file) {
+      this.file.$['target-language'] = this.group.controls['target'].value;
+    }
+
     this.group.markAsPristine();
     this.submitted.emit();
   }

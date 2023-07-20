@@ -1,17 +1,20 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { ClarityModule } from '@clr/angular';
-import { NotificationComponent } from './components/notification/notification.component';
+import {
+  NOTIFICATION_SERVICE,
+  TranslatolSharedModule,
+} from '@translatol/shared-module';
 import { BtoaPipe } from './pipes/btoa/btoa.pipe';
-import { EndOfStringPipe } from './pipes/end-of-string/end-of-string.pipe';
-import { CopyToClipboardComponent } from './components/copy-to-clipboard/copy-to-clipboard.component';
-
-import { ClarityIcons, copyToClipboardIcon } from '@cds/core/icon';
-ClarityIcons.addIcons(copyToClipboardIcon);
+import { NotificationComponent } from './components/notification/notification.component';
+import { NotificationService } from './services/notification/notification.service';
 
 @NgModule({
-  declarations: [NotificationComponent, CopyToClipboardComponent, BtoaPipe, EndOfStringPipe],
-  imports: [CommonModule, ClarityModule],
-  exports: [NotificationComponent, CopyToClipboardComponent, BtoaPipe, EndOfStringPipe],
+  declarations: [BtoaPipe, NotificationComponent],
+  imports: [CommonModule, ClarityModule, TranslatolSharedModule],
+  exports: [BtoaPipe, NotificationComponent],
+  providers: [
+    { provide: NOTIFICATION_SERVICE, useExisting: NotificationService },
+  ],
 })
 export class SharedModule {}

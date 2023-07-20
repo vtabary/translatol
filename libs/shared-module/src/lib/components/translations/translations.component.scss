@@ -1,0 +1,21 @@
+:host {
+  display: contents;
+}
+
+.content-container .sidenav {
+  border-left: 0.05rem solid #ccc;
+  border-right: none;
+  order: 1;
+  overflow-y: scroll;
+}
+
+.ui-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tooltip-content {
+  text-transform: lowercase;
+}

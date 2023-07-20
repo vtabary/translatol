@@ -1,0 +1,11 @@
+.ui-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 1.2rem;
+
+  h2 {
+    margin-top: 0;
+    margin-right: 10px;
+  }
+}

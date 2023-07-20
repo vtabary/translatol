@@ -1,0 +1,18 @@
+<vscode-text-field
+  type="text"
+  placeholder="Filter translations"
+  [formControl]="searchControl"
+  ngDefaultControl
+>
+  <span slot="start" class="codicon codicon-search"></span>
+  <vscode-button
+    class="clear-button"
+    [class.hidden]="!searchControl.value"
+    slot="end"
+    appearance="icon"
+    aria-label="Clear search"
+    (click)="searchControl.reset()"
+  >
+    <span class="codicon codicon-close"></span>
+  </vscode-button>
+</vscode-text-field>

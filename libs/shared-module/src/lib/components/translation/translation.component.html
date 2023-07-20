@@ -1,0 +1,70 @@
+<div
+  class="clr-row"
+  *ngIf="source"
+>
+  <div class="clr-col-12">
+    <div class="card">
+      <div class="card-header">
+        <translatol-copy-to-clipboard [toCopy]="translation?.$?.id"></translatol-copy-to-clipboard>
+        <span class="source-id">{{ translation?.$?.id }}</span>
+
+        <div class="p7">
+          <div
+            class="pnotes"
+            *ngFor="let note of notes"
+            i18n-title="@@translation.notes-information"
+            title="Note to translator"
+          >
+            <span class="note-header"><span class="codicon codicon-info"></span> {{ note.$.from }}:</span>
+            <span class="note-text">{{ note.children[0] }}</span>
+          </div>
+        </div>
+      </div>
+
+      <form
+        clrForm
+        *ngIf="group"
+        [formGroup]="group"
+        clrLayout="vertical"
+      >
+        <div class="card-block">
+          <div class="card-text">
+            <ng-container *ngFor="let value of source.children; let i = index">
+              <translatol-translation-item
+                [source]="value"
+                [target]="target?.children?.[i]"
+                [targetLanguage]="targetLanguage"
+                id="target-{{ i }}"
+              ></translatol-translation-item>
+            </ng-container>
+          </div>
+        </div>
+        <div class="card-footer vscode-buttons-group">
+          <vscode-button
+            appearance="primary"
+            type="submit"
+            [disabled]="!group.dirty"
+            (click)="save()"
+            >Save</vscode-button
+          >
+          <vscode-button
+            appearance="secondary"
+            type="button"
+            [disabled]="isPlural"
+            (click)="copySource()"
+            >Copy source</vscode-button
+          >
+          <vscode-button
+            appearance="secondary"
+            type="button"
+            [disabled]="!group.dirty"
+            (click)="resetForm()"
+            i18n-title="@@translation.restore"
+            title="Restore latest saved value"
+            >Restore</vscode-button
+          >
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

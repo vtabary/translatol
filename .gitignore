@@ -25,7 +25,8 @@ node_modules
 !.vscode/extensions.json
 
 # misc
-/.sass-cache
+/.angular/cache
+/.scss-cache
 /connect.lock
 /coverage
 /libpeerconnection.log

@@ -11,26 +11,17 @@ import { ElectronService, HistoryService } from '../../../shared/public-api';
 })
 export class FolderTranslationsComponent {
   public filePaths$: Observable<string[]>;
-  public folderPath: string;
+  public folderPath?: string;
 
-  constructor(
-    electronService: ElectronService,
-    activatedRoute: ActivatedRoute,
-    historyService: HistoryService
-  ) {
+  constructor(electronService: ElectronService, activatedRoute: ActivatedRoute, historyService: HistoryService) {
     this.filePaths$ = activatedRoute.params.pipe(
-      filter((params) => !!params['folder']),
-      map((params) => {
+      filter(params => !!params['folder']),
+      map(params => {
         this.folderPath = atob(params['folder']);
         historyService.add({ path: this.folderPath, type: 'folder' });
         return this.folderPath;
       }),
-      switchMap(
-        (folderPath) =>
-          electronService.remote.require('fast-glob')(['**/*.xlf'], {
-            cwd: folderPath,
-          }) as Promise<string[]>
-      ),
+      switchMap(folderPath => electronService.remote.require('fast-glob')(['**/*.xlf'], { cwd: folderPath }) as Promise<string[]>),
       catchError(() => of([])),
       startWith([])
     );

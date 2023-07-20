@@ -1,0 +1,29 @@
+<translatol-translation-item-simple
+  *ngIf="isXliffString(source); else pluralTemplate"
+  [id]="id"
+  [source]="source"
+  [target]="$any(target)"
+  [targetLanguage]="targetLanguage"
+></translatol-translation-item-simple>
+
+<ng-template #pluralTemplate>
+  <translatol-translation-plural
+    *ngIf="isXliffPlural(source); else interpolationTemplate"
+    [id]="id"
+    [source]="source"
+    [target]="target"
+    [targetLanguage]="targetLanguage"
+  ></translatol-translation-plural>
+</ng-template>
+
+<ng-template #interpolationTemplate
+  ><translatol-translation-interpolation
+    *ngIf="isXliffInterpolation(source); else unknownSourceTemplate"
+    [interpolation]="source"
+  ></translatol-translation-interpolation
+></ng-template>
+
+<ng-template #unknownSourceTemplate>
+  Impossible to translate this source
+</ng-template>
+

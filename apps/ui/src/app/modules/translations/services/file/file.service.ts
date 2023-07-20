@@ -1,13 +1,15 @@
+import { Injectable } from '@angular/core';
+import { IXliff, XliffBuilder, XliffParser } from '@vtabary/xliff2js';
+import type fs from 'node:fs';
 import { Observable, of, throwError } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { Injectable } from '@angular/core';
-import { XliffBuilder, IXliff, XliffParser } from '@vtabary/xliff2js';
+import { XLIFFWritingInterface } from '@translatol/shared-module';
 import { ElectronService } from '../../../shared/public-api';
 
 @Injectable({
   providedIn: 'root',
 })
-export class FileService {
+export class FileService implements XLIFFWritingInterface {
   constructor(private electron: ElectronService) {}
 
   public open(filePath: string): Observable<string> {
@@ -35,7 +37,7 @@ export class FileService {
     return this.open(filePath).pipe(
       switchMap((data) => {
         const parser = new XliffParser();
-        return of(parser.parse(data));
+        return of(parser.parse<IXliff>(data));
       })
     );
   }
@@ -63,7 +65,7 @@ export class FileService {
     return this.save(filePath, xml);
   }
 
-  private fs(): any {
+  private fs(): typeof fs {
     return this.electron.remote.require('fs');
   }
 }

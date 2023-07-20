@@ -1,16 +1,8 @@
 <div class="clr-row">
   <div class="clr-col-12">
     <div class="card">
-      <div class="card-header" i18n="@@translation-language.target-language">
-        Target Language
-      </div>
-      <form
-        clrForm
-        *ngIf="group && file"
-        [formGroup]="group"
-        clrLayout="vertical"
-        (submit)="submit()"
-      >
+      <div class="card-header" i18n="translation-language.target-language">Target Language</div>
+      <form clrForm *ngIf="group && file" [formGroup]="group" clrLayout="vertical" (submit)="submit()">
         <div class="card-block">
           <div class="card-text">
             <clr-select-container [formGroup]="group">
@@ -21,23 +13,14 @@
               </select>
 
               <clr-control-helper
-                >Specified by
-                <button
-                  type="button"
-                  class="btn btn-sm btn-link"
-                  (click)="goToRFC()"
-                >
-                  RFC4646
-                </button></clr-control-helper
+                >Specified by <button type="button" class="btn btn-sm btn-link" (click)="goToRFC()">RFC4646</button></clr-control-helper
               >
             </clr-select-container>
           </div>
         </div>
       </form>
       <div class="card-footer">
-        <button class="btn btn-primary" type="submit" [disabled]="!group.dirty">
-          Submit
-        </button>
+        <button class="btn btn-primary" type="submit" [disabled]="!group.dirty">Submit</button>
       </div>
     </div>
   </div>

@@ -10,24 +10,24 @@ import { ElectronService } from '../../../shared/public-api';
 export class OpenerComponent {
   public dragover = false;
 
-  @HostListener('dragover', ['$event']) onDragOver(evt) {
+  @HostListener('dragover', ['$event']) onDragOver(evt: DragEvent) {
     evt.preventDefault();
     evt.stopPropagation();
     this.dragover = true;
   }
 
-  @HostListener('dragleave', ['$event']) public onDragLeave(evt) {
+  @HostListener('dragleave', ['$event']) public onDragLeave(evt: DragEvent) {
     evt.preventDefault();
     evt.stopPropagation();
     this.dragover = false;
   }
 
-  @HostListener('drop', ['$event']) public ondrop(evt) {
+  @HostListener('drop', ['$event']) public ondrop(evt: DragEvent) {
     evt.preventDefault();
     evt.stopPropagation();
     this.dragover = false;
 
-    const files = evt.dataTransfer.files as File[];
+    const files = evt.dataTransfer?.files || [];
     if (files.length > 1) {
       console.log('Can not load multiple files');
     }
@@ -51,7 +51,7 @@ export class OpenerComponent {
         properties: ['openFile'],
         filters: [{ name: 'XLIFF', extensions: ['xlf'] }],
       })
-      .then((result) => {
+      .then(result => {
         if (result.canceled) {
           return;
         }

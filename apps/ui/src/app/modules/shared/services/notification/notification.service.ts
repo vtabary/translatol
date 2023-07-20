@@ -1,19 +1,15 @@
-import { Injectable, EventEmitter } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { NotificationServiceInterface } from '@translatol/shared-module';
 
 export enum INotificationType {
   INFO = 'info',
-  SUCCESS = 'success',
   WARNING = 'warning',
   ERROR = 'danger',
 }
 
 export interface IMessage {
   message: string;
-  actions?: {
-    action?: () => void;
-    label?: string;
-  }[];
 }
 
 export interface INotification extends IMessage {
@@ -23,30 +19,28 @@ export interface INotification extends IMessage {
 @Injectable({
   providedIn: 'root',
 })
-export class NotificationService {
-  public notify = new EventEmitter<INotification>();
+export class NotificationService implements NotificationServiceInterface {
+  private notify$ = new BehaviorSubject<INotification | null>(null);
 
-  public info(notification: IMessage): Observable<void> {
-    return this.send(Object.assign({ type: INotificationType.INFO }, notification));
+  public showInformation(message: string): void {
+    this.send({ type: INotificationType.INFO, message });
+  }
+  public showWarning(message: string): void {
+    this.send({ type: INotificationType.WARNING, message });
+  }
+  public showError(message: string): void {
+    this.send({ type: INotificationType.ERROR, message });
   }
 
-  public success(notification: IMessage): Observable<void> {
-    return this.send(Object.assign({ type: INotificationType.SUCCESS }, notification));
+  public obs(): Observable<INotification | null> {
+    return this.notify$.asObservable();
   }
 
-  public warn(notification: IMessage): Observable<void> {
-    return this.send(Object.assign({ type: INotificationType.WARNING }, notification));
+  public delete(): void {
+    this.notify$.next(null);
   }
 
-  public error(notification: IMessage): Observable<void> {
-    return this.send(Object.assign({ type: INotificationType.ERROR }, notification));
-  }
-
-  private send(notification: INotification): Observable<void> {
-    return new Observable(obs => {
-      this.notify.emit(notification);
-      obs.next();
-      obs.complete();
-    });
+  private send(notification: INotification): void {
+    this.notify$.next(notification);
   }
 }

@@ -1,0 +1,24 @@
+.alert-item-wrapper {
+  align-items: center;
+  display: flex;
+}
+
+.alert-icon-wrapper {
+  align-items: center;
+  display: flex;
+  height: 100%;
+}
+
+.alert-item {
+  align-items: center;
+}
+
+.alert-text {
+  align-items: center;
+  display: flex;
+}
+
+.copy-button > ::ng-deep button {
+  min-width: 0;
+  padding-inline: 4px;
+}

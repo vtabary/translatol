@@ -1,11 +1,14 @@
+import {
+  Component,
+  Input,
+  OnChanges,
+  SimpleChange,
+  SimpleChanges,
+} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import {
-  ITreeNode,
-  TreeBuilderService,
-} from '../../services/tree-builder/tree-builder.service';
+import { ITreeNode, TreeBuilderService } from '@translatol/shared-module';
 
 @Component({
   selector: 'app-file-list',
@@ -28,8 +31,8 @@ export class FileListComponent implements OnChanges {
     );
   }
 
-  public ngOnChanges(changes: SimpleChanges): void {
-    if (!changes['filePaths']) {
+  public ngOnChanges(changes: { filePaths?: SimpleChange }): void {
+    if (!changes.filePaths) {
       return;
     }
 

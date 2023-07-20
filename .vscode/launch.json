@@ -1,0 +1,16 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run Extension In Dev Mode",
+      "type": "extensionHost",
+      "request": "launch",
+      "runtimeExecutable": "${execPath}",
+      "args": ["--extensionDevelopmentPath=${workspaceFolder}/dist/apps/vscode-extension", "--disable-extensions", "${workspaceFolder}/samples"],
+      "trace": false,
+      "internalConsoleOptions": "openOnFirstSessionStart",
+      "outFiles": ["${workspaceFolder}/dist/**/*.*"],
+      "preLaunchTask": "${defaultBuildTask}"
+    }
+  ]
+}

@@ -23,7 +23,7 @@
     "version": "keepachangelog release $npm_new_version && npm --prefix ./apps/vscode-extension pkg set version=$npm_new_version && git add ./CHANGELOG.md ./apps/vscode-extension/package.json",
     "postversion": "git push origin HEAD && git push origin v$npm_new_version",
     "build:extension": "nx build vscode-extension && nx build vscode-webview",
-    "pack:extension": "cd ./dist/vscode-extension && vsce package --pre-release"
+    "pack:extension": "cd ./dist/apps/vscode-extension && vsce package --pre-release"
   },
   "engines": {
     "node": ">=14.15"

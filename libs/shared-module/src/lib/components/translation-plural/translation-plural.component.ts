@@ -1,4 +1,10 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  SimpleChange,
+  SimpleChanges,
+} from '@angular/core';
 import { IXliffInterpolation, IXliffPlural } from '@vtabary/xliff2js';
 
 @Component({
@@ -24,8 +30,11 @@ export class TranslationPluralComponent implements OnChanges {
   /**
    * @internal
    */
-  public ngOnChanges(changes: SimpleChanges) {
-    if (changes['plural']) {
+  public ngOnChanges(changes: {
+    source?: SimpleChange;
+    target?: SimpleChange;
+  }) {
+    if (changes.source) {
       this.pluralCountersKey = Object.keys(this.source?.counters ?? {});
     }
   }

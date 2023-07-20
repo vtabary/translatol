@@ -1,4 +1,10 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  SimpleChange,
+  SimpleChanges,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -25,8 +31,8 @@ export class FileListComponent implements OnChanges {
     );
   }
 
-  public ngOnChanges(changes: SimpleChanges): void {
-    if (!changes['filePaths']) {
+  public ngOnChanges(changes: { filePaths?: SimpleChange }): void {
+    if (!changes.filePaths) {
       return;
     }
 

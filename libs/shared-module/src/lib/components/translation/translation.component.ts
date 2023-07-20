@@ -4,7 +4,7 @@ import {
   Input,
   OnChanges,
   Output,
-  SimpleChanges,
+  SimpleChange,
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import {
@@ -64,8 +64,12 @@ export class TranslationComponent implements OnChanges {
   /**
    * @internal
    */
-  public ngOnChanges(changes: SimpleChanges): void {
-    if (!changes['translation']) {
+  public ngOnChanges(changes: {
+    translation: SimpleChange;
+    sourceLanguage: SimpleChange;
+    targetLanguage: SimpleChange;
+  }): void {
+    if (!changes.translation) {
       return;
     }
 

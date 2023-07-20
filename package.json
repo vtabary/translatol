@@ -99,7 +99,7 @@
     "@electron/remote": "^2.0.9",
     "@nrwl/angular": "^16.0.1",
     "@vscode/webview-ui-toolkit": "^1.2.2",
-    "@vtabary/xliff2js": "~0.5.2",
+    "@vtabary/xliff2js": "~0.6.0",
     "axios": "^1.0.0",
     "lodash": "^4.17.21",
     "rxjs": "~7.8.0",

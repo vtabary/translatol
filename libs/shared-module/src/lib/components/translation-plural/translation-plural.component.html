@@ -1,6 +1,6 @@
 <div class="plural-container">
   <div class="plural" *ngFor="let key of pluralCountersKey">
-    <p>{{ key }}</p>
+    <label>{{ key }}</label>
     <div class="plural-item" *ngIf="source?.counters?.[key] as pluralCounter">
       <translatol-translation-plural-item
         *ngFor="let item of pluralCounter; let i = index"

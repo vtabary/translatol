@@ -3428,10 +3428,10 @@
     "@microsoft/fast-foundation" "^2.38.0"
     "@microsoft/fast-react-wrapper" "^0.1.18"
 
-"@vtabary/xliff2js@~0.5.2":
-  version "0.5.2"
-  resolved "https://artefacts.si.perfect-memory.com/repository/npm-all/@vtabary/xliff2js/-/xliff2js-0.5.2.tgz#f436cc06fa4b2fdfdba942d598a0a8fc30ed538d"
-  integrity sha512-Lca9Wp0BKUSpJaw+PJmPKJvfAv75aH3LclrfA5RpCsx/ymJVyVHWR2TT5h0Ub6QICvPRm8MQdEoQPXawgmECog==
+"@vtabary/xliff2js@~0.6.0":
+  version "0.6.0"
+  resolved "https://artefacts.si.perfect-memory.com/repository/npm-all/@vtabary/xliff2js/-/xliff2js-0.6.0.tgz#337146387fe3d22e82ddc3afb5f8ee02bce9bfdd"
+  integrity sha512-nWDZLt/Mo0yJAywCQjxC1V1IMjnzd5nXZ39UA+tzuyM9A+0voGuI/O5j8suJEokvLFt4oU84cLqt52ff+XUS6g==
   dependencies:
     "@formatjs/icu-messageformat-parser" "^2.3.1"
     fast-xml-parser "^4.2.2"

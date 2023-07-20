@@ -4,7 +4,7 @@ import {
   Input,
   OnChanges,
   Output,
-  SimpleChanges,
+  SimpleChange,
 } from '@angular/core';
 
 @Component({
@@ -25,16 +25,21 @@ export class ModalComponent implements OnChanges {
   public buttonLabel = 'Confirm';
 
   @Output()
-  public close = new EventEmitter<boolean>();
+  public closeModal = new EventEmitter<boolean>();
 
-  public ngOnChanges(changes: SimpleChanges) {
-    if (changes['isOpen'] && changes['isOpen'].currentValue) {
-      this.isOpen = changes['isOpen'].currentValue;
+  public ngOnChanges(changes: {
+    isOpen?: SimpleChange;
+    title?: SimpleChange;
+    message?: SimpleChange;
+    buttonLabel?: SimpleChange;
+  }) {
+    if (changes.isOpen?.currentValue) {
+      this.isOpen = changes.isOpen.currentValue;
     }
   }
 
   public onClose(value: boolean): void {
-    this.close.emit(value);
+    this.closeModal.emit(value);
     this.isOpen = false;
   }
 }

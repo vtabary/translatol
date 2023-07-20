@@ -4,15 +4,20 @@
 }
 
 .plural {
-  display: flex;
-  flex-direction: row;
+  line-height: 1.1;
   margin-top: 5px;
   padding-bottom: 15px;
   border-bottom-width: var(--clr-card-border-width, 0.05rem);
   border-bottom-style: solid;
   border-bottom-color: var(--clr-card-border-color, hsl(198, 0%, 87%));
 
-  p {
+  display: grid;
+  grid-template-columns: repeat(2, 30px 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 30px;
+  grid-row-gap: 6px;
+
+  label {
     margin-top: 0;
     min-width: 50px;
   }

@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChange } from '@angular/core';
 import { IXliffTransUnit } from '@vtabary/xliff2js';
 import {
   ITreeNode,
@@ -26,22 +26,29 @@ export class TranslationNavigationComponent implements OnChanges {
 
   constructor(private treeBuilder: TreeBuilderService) {}
 
-  public ngOnChanges(changes: SimpleChanges): void {
-    if (changes['toTranslate']) {
+  /**
+   * @internal
+   */
+  public ngOnChanges(changes: {
+    toTranslate: SimpleChange;
+    translated: SimpleChange;
+    duplicated: SimpleChange;
+  }): void {
+    if (changes.toTranslate) {
       this.toTranslateTree = this.treeBuilder.build(
         this.toTranslate.map((item) => item.$.id),
         '.'
       );
     }
 
-    if (changes['translated']) {
+    if (changes.translated) {
       this.translatedTree = this.treeBuilder.build(
         this.translated.map((item) => item.$.id),
         '.'
       );
     }
 
-    if (changes['duplicated']) {
+    if (changes.duplicated) {
       this.duplicatedTree = this.treeBuilder.build(
         this.duplicated.map((item) => item.$.id),
         '.'
